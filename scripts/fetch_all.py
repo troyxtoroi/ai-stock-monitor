@@ -30,14 +30,20 @@ def calc_indicators(hist):
     ma20 = close.rolling(20).mean().iloc[-1]
 
     delta = close.diff()
-    gain = delta.clip(lower=0).ewm(alpha=1/14, min_periods=14).mean()
-    loss = (-delta.clip(upper=0)).ewm(alpha=1/14, min_periods=14).mean()
-    rsi = 100 - (100 / (1 + gain / loss))
+    gain  = delta.clip(lower=0).ewm(alpha=1/14, min_periods=14).mean()
+    loss  = (-delta.clip(upper=0)).ewm(alpha=1/14, min_periods=14).mean()
+    rsi   = 100 - (100 / (1 + gain / loss))
 
     ema12  = close.ewm(span=12).mean()
     ema26  = close.ewm(span=26).mean()
     macd   = ema12 - ema26
     signal = macd.ewm(span=9).mean()
+
+    # 布林通道（20, 2σ）
+    bb_mid   = close.rolling(20).mean()
+    bb_std   = close.rolling(20).std()
+    bb_upper = (bb_mid + 2 * bb_std).iloc[-1]
+    bb_lower = (bb_mid - 2 * bb_std).iloc[-1]
 
     return {
         "MA5":         round(float(ma5), 2),
@@ -47,74 +53,92 @@ def calc_indicators(hist):
         "MACD":        round(float(macd.iloc[-1]), 4),
         "MACD_signal": round(float(signal.iloc[-1]), 4),
         "MACD_hist":   round(float((macd - signal).iloc[-1]), 4),
+        "BB_upper":    round(float(bb_upper), 2),
+        "BB_lower":    round(float(bb_lower), 2),
+        "BB_mid":      round(float(bb_mid.iloc[-1]), 2),
     }
 
 
 def rule_signal(price, indicators):
-    """根據技術指標計算買賣訊號（不需要 AI）"""
+    """根據技術指標判斷：高點/低點 + 賣出/抱緊/觀望"""
     if not indicators or price is None:
-        return {"signal": "觀望", "trend": "盤整", "strength": 0, "reason": "資料不足"}
+        return {"signal": "觀望", "position": "不明", "trend": "盤整", "strength": 0, "reason": "資料不足"}
 
-    rsi  = indicators.get("RSI14", 50)
-    hist = indicators.get("MACD_hist", 0)
-    ma5  = indicators.get("MA5")
-    ma10 = indicators.get("MA10")
-    ma20 = indicators.get("MA20")
+    rsi      = indicators.get("RSI14", 50)
+    hist     = indicators.get("MACD_hist", 0)
+    ma5      = indicators.get("MA5")
+    ma20     = indicators.get("MA20")
+    bb_upper = indicators.get("BB_upper")
+    bb_lower = indicators.get("BB_lower")
 
-    score = 0  # 正數偏買，負數偏賣
+    # ── 高點 / 低點 判斷 ──────────────────────────────
+    above_bb = bb_upper and price >= bb_upper
+    below_bb = bb_lower and price <= bb_lower
 
-    # RSI 判斷
-    if rsi < 30:   score += 3   # 嚴重超賣，強烈買入
-    elif rsi < 40: score += 2
-    elif rsi < 50: score += 1
-    elif rsi > 70: score -= 3   # 嚴重超買，強烈賣出
-    elif rsi > 60: score -= 2
-    elif rsi > 55: score -= 1
+    if rsi >= 75 or above_bb:
+        position = "高點"
+    elif rsi <= 28 or below_bb:
+        position = "低點"
+    elif rsi >= 60 and ma20 and price > ma20 * 1.05:
+        position = "偏高"
+    elif rsi <= 40 and ma20 and price < ma20 * 0.95:
+        position = "偏低"
+    else:
+        position = "中間"
 
-    # MACD 判斷
-    if hist > 0:   score += 2   # MACD 金叉區
-    elif hist < 0: score -= 2   # MACD 死叉區
-
-    # 均線多空排列
-    if ma5 and ma10 and ma20:
-        if price > ma5 > ma10 > ma20:   score += 2   # 強多頭排列
-        elif price < ma5 < ma10 < ma20: score -= 2   # 強空頭排列
-        if price > ma20: score += 1
-        else:            score -= 1
-
-    # 趨勢判斷
+    # ── 趨勢 ─────────────────────────────────────────
     if ma5 and ma20:
-        if ma5 > ma20 * 1.01:  trend = "上升"
-        elif ma5 < ma20 * 0.99: trend = "下降"
-        else:                   trend = "盤整"
+        if ma5 > ma20 * 1.015:   trend = "上升"
+        elif ma5 < ma20 * 0.985: trend = "下降"
+        else:                     trend = "盤整"
     else:
         trend = "盤整"
 
-    # 訊號與說明
-    reasons = []
-    if rsi < 30:   reasons.append(f"RSI={rsi} 超賣")
-    elif rsi > 70: reasons.append(f"RSI={rsi} 超買")
-    else:          reasons.append(f"RSI={rsi}")
+    # ── 評分 ─────────────────────────────────────────
+    score = 0
+    if rsi < 30:   score += 3
+    elif rsi < 45: score += 1
+    elif rsi > 70: score -= 3
+    elif rsi > 58: score -= 1
 
-    if hist > 0:   reasons.append("MACD 金叉")
-    elif hist < 0: reasons.append("MACD 死叉")
+    if hist > 0:   score += 2
+    elif hist < 0: score -= 2
 
     if ma20:
-        if price > ma20: reasons.append(f"站上MA20({ma20})")
-        else:            reasons.append(f"跌破MA20({ma20})")
+        if price > ma20: score += 1
+        else:            score -= 1
 
-    reason_str = "，".join(reasons)
+    if above_bb: score -= 2
+    if below_bb: score += 2
 
-    if score >= 4:
-        return {"signal": "強力買入", "trend": trend, "strength": score, "reason": reason_str}
-    elif score >= 2:
-        return {"signal": "買入", "trend": trend, "strength": score, "reason": reason_str}
-    elif score <= -4:
-        return {"signal": "強力賣出", "trend": trend, "strength": score, "reason": reason_str}
-    elif score <= -2:
-        return {"signal": "賣出", "trend": trend, "strength": score, "reason": reason_str}
+    # ── 行動建議：三選一 ─────────────────────────────
+    if position in ("高點", "偏高") and score <= 0:
+        action = "賣出"
+    elif position in ("低點", "偏低") and score >= 2:
+        action = "抱緊"
+    elif score >= 3:
+        action = "抱緊"
+    elif score <= -3:
+        action = "賣出"
     else:
-        return {"signal": "觀望", "trend": trend, "strength": score, "reason": reason_str}
+        action = "觀望"
+
+    # ── 說明文字 ─────────────────────────────────────
+    parts = [f"RSI {rsi}"]
+    if above_bb:  parts.append("突破布林上軌（超買）")
+    elif below_bb: parts.append("跌破布林下軌（超賣）")
+    if hist > 0:   parts.append("MACD 金叉")
+    elif hist < 0: parts.append("MACD 死叉")
+    if ma20:
+        parts.append(f"{'站上' if price > ma20 else '跌破'} MA20({ma20})")
+
+    return {
+        "signal":   action,
+        "position": position,
+        "trend":    trend,
+        "strength": score,
+        "reason":   "，".join(parts),
+    }
 
 
 def fetch_quote(symbol):
@@ -170,9 +194,10 @@ def fetch_stocks(watchlist):
                 "change_pct":  chg_pct,
                 "volume":      volume,
                 "indicators":  indicators,
-                "signal":      sig["signal"],
-                "trend":       sig["trend"],
-                "strength":    sig["strength"],
+                "signal":        sig["signal"],
+                "position":      sig["position"],
+                "trend":         sig["trend"],
+                "strength":      sig["strength"],
                 "signal_reason": sig["reason"],
                 "updated":     now_tw().strftime("%Y-%m-%d %H:%M:%S"),
             })

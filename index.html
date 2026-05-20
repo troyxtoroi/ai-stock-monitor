@@ -35,20 +35,26 @@
       border-radius:12px; padding:14px; height:100%;
       cursor:pointer; transition:transform .15s, border-color .15s; }
     .sk:hover { transform:translateY(-2px); border-color:var(--blue); }
-    .sk.strong-buy  { border-left-color:#ff4d4d; }
-    .sk.buy         { border-left-color:#f85149; }
-    .sk.hold        { border-left-color:#444c56; }
-    .sk.sell        { border-left-color:#3fb950; }
-    .sk.strong-sell { border-left-color:#00c940; }
+    .sk.sell  { border-left-color:#ff4d4d; }
+    .sk.hold  { border-left-color:#3fb950; }
+    .sk.watch { border-left-color:#e3b341; }
 
-    /* 訊號標籤 */
-    .sig { font-size:.78rem; font-weight:700; padding:3px 10px;
-      border-radius:20px; letter-spacing:.5px; white-space:nowrap; }
-    .sig-strong-buy  { background:#5c0000; border:2px solid #ff4d4d; color:#ffb3b3; }
-    .sig-buy         { background:#3d0000; border:1px solid var(--up);  color:#ff9492; }
-    .sig-hold        { background:#1c2128; border:1px solid #444c56;    color:#768390; }
-    .sig-sell        { background:#0d2818; border:1px solid var(--down); color:#56d364; }
-    .sig-strong-sell { background:#002810; border:2px solid #3fb950;    color:#9effa6; }
+    /* 訊號標籤 - 三種行動 */
+    .sig { font-size:.85rem; font-weight:800; padding:5px 14px;
+      border-radius:8px; letter-spacing:.5px; white-space:nowrap;
+      display:flex; align-items:center; gap:5px; }
+    .sig-sell  { background:#4a0000; border:2px solid #ff4d4d; color:#ff9492; box-shadow:0 0 8px rgba(255,77,77,.3); }
+    .sig-hold  { background:#003320; border:2px solid #3fb950; color:#7dff9f; box-shadow:0 0 8px rgba(63,185,80,.3); }
+    .sig-watch { background:#2a2200; border:2px solid #e3b341; color:#f0d080; box-shadow:0 0 8px rgba(227,179,65,.3); }
+
+    /* 位置標籤 */
+    .pos-badge { font-size:.7rem; font-weight:600; padding:2px 8px; border-radius:12px; }
+    .pos-高點 { background:#3d0000; color:#ff9492; }
+    .pos-偏高 { background:#2d1500; color:#ffa07a; }
+    .pos-中間 { background:#1c2128; color:#768390; }
+    .pos-偏低 { background:#002230; color:#7adcff; }
+    .pos-低點 { background:#001f3d; color:#58a6ff; }
+    .pos-不明 { background:#1c2128; color:#555f6d; }
 
     /* RSI 條 */
     .rsi-wrap { background:#2d333b; border-radius:4px; height:5px; margin:6px 0; overflow:hidden; }
@@ -165,21 +171,32 @@ function rsiColor(r) {
 
 function sigConfig(signal) {
   const m = {
-    '強力買入':{ cls:'strong-buy',  icon:'🔥 強力買入', border:'#ff4d4d' },
-    '買入':    { cls:'buy',         icon:'▲ 買入',      border:'#f85149' },
-    '觀望':    { cls:'hold',        icon:'— 觀望',      border:'#444c56' },
-    '賣出':    { cls:'sell',        icon:'▼ 賣出',      border:'#3fb950' },
-    '強力賣出':{ cls:'strong-sell', icon:'❄️ 強力賣出', border:'#3fb950' },
+    '賣出': { cls:'sell',  icon:'💰', label:'賣出',  border:'#ff4d4d', desc:'現在是高點，考慮獲利了結' },
+    '抱緊': { cls:'hold',  icon:'💪', label:'抱緊',  border:'#3fb950', desc:'趨勢良好，繼續持有' },
+    '觀望': { cls:'watch', icon:'👀', label:'觀望',  border:'#e3b341', desc:'訊號不明確，等待時機' },
   };
   return m[signal] || m['觀望'];
+}
+
+function posLabel(pos) {
+  const m = {
+    '高點':'🔴 高點', '偏高':'🟠 偏高', '中間':'⚪ 中間', '偏低':'🔵 偏低', '低點':'🔵 低點', '不明':'— 不明'
+  };
+  return m[pos] || pos;
 }
 
 function stockCard(s, aiMap) {
   const ind = s.indicators || {};
   const ai  = aiMap[s.symbol] || null;
+
+  // 行動訊號
   const sig = s.signal ?? '觀望';
   const sc  = sigConfig(sig);
-  const pct = s.change_pct ?? 0;
+
+  // 位置
+  const pos = s.position ?? '不明';
+
+  const pct    = s.change_pct ?? 0;
   const chgCls = pct > 0 ? 'up' : pct < 0 ? 'down' : 'muted';
   const trend  = s.trend ?? '盤整';
   const tIcon  = trend === '上升' ? '📈' : trend === '下降' ? '📉' : '➡️';
@@ -191,22 +208,41 @@ function stockCard(s, aiMap) {
   return `
     <div class="col-xl-3 col-lg-4 col-md-6 col-6 mb-3">
       <div class="sk ${sc.cls}" onclick="openChart('${s.symbol}','${s.name}',${s.price??0})">
+
+        <!-- 股票名稱 -->
         <div class="d-flex justify-content-between align-items-start mb-2">
           <div>
             <div style="font-weight:700;font-size:.95rem">${s.name}</div>
             <div class="muted" style="font-size:.7rem">${s.symbol} · 點擊看K線</div>
           </div>
-          <span class="sig sig-${sc.cls}">${sc.icon}</span>
+          <!-- 行動建議：大圖示 -->
+          <div class="text-center">
+            <div style="font-size:1.6rem;line-height:1">${sc.icon}</div>
+            <div class="sig sig-${sc.cls}" style="margin-top:4px;justify-content:center">${sc.label}</div>
+          </div>
         </div>
+
+        <!-- 位置標示 -->
+        <div class="mb-2">
+          <span class="pos-badge pos-${pos}">${posLabel(pos)}</span>
+          <span class="muted" style="font-size:.72rem;margin-left:6px">${tIcon} ${trend}</span>
+        </div>
+
+        <!-- 股價 -->
         <div class="d-flex align-items-baseline gap-2 mb-1">
-          <span style="font-size:1.25rem;font-weight:700">${s.price?.toLocaleString() ?? '-'}</span>
+          <span style="font-size:1.2rem;font-weight:700">${s.price?.toLocaleString() ?? '-'}</span>
           <span class="${chgCls}" style="font-size:.85rem">${sign(pct)}${pct}%</span>
         </div>
-        <div class="muted" style="font-size:.73rem;margin-bottom:3px">
-          ${tIcon} ${trend} &nbsp;·&nbsp; RSI ${rsi} &nbsp;·&nbsp; MA20 ${ind.MA20 ?? '-'}
-        </div>
+
+        <!-- RSI 條 -->
+        <div class="muted" style="font-size:.7rem;margin-bottom:2px">RSI ${rsi} &nbsp;·&nbsp; MA20 ${ind.MA20??'-'}</div>
         <div class="rsi-wrap"><div class="rsi-fill" style="width:${rsiW}%;background:${rsiColor(rsi)}"></div></div>
-        <div class="ai-note">${reason}${risk ? `<br><span style="opacity:.6">⚠ ${risk}</span>` : ''}</div>
+
+        <!-- 分析說明 -->
+        <div class="ai-note">
+          <span style="opacity:.7">${sc.desc}</span><br>
+          ${reason}${risk ? `<br><span style="opacity:.55">⚠ ${risk}</span>` : ''}
+        </div>
       </div>
     </div>`;
 }
