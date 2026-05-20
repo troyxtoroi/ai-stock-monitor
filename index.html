@@ -489,12 +489,12 @@ async function renderChart(symbol, period) {
     candle.setData(data.candles);
 
     [
-      { key:'ma5',  color:'#ff9d00', title:'MA5'  },
-      { key:'ma10', color:'#ffff00', title:'MA10' },
-      { key:'ma20', color:'#58a6ff', title:'MA20' },
-      { key:'ma60', color:'#bc8cff', title:'MA60' },
-    ].forEach(({ key, color, title }) => {
-      if (data[key]?.length) _mainChart.addLineSeries({ color, lineWidth:1, title }).setData(data[key]);
+      { key:'ma5',  color:'#ff9d00', title:'MA5',  lineWidth:2 },
+      { key:'ma10', color:'#ffff00', title:'MA10', lineWidth:2 },
+      { key:'ma20', color:'#58a6ff', title:'MA20', lineWidth:2.5 },
+      { key:'ma60', color:'#bc8cff', title:'MA60', lineWidth:2.5 },
+    ].forEach(({ key, color, title, lineWidth }) => {
+      if (data[key]?.length) _mainChart.addLineSeries({ color, lineWidth, title }).setData(data[key]);
     });
 
     if (data.bb_upper?.length) {
