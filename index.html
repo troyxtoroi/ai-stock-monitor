@@ -22,7 +22,7 @@
 
     /* 大盤 */
     .idx-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 20px; }
-    .idx-price { font-size:1.6rem; font-weight:700; }
+    .idx-price { font-size:2rem; font-weight:800; letter-spacing:-.5px; }
 
     /* 分類 */
     .cat-title { background:var(--bar); border:1px solid var(--border);
@@ -236,8 +236,8 @@ function stockCard(s, aiMap) {
 
         <!-- 股價 -->
         <div class="d-flex align-items-baseline gap-2 mb-1">
-          <span style="font-size:1.2rem;font-weight:700">${s.price?.toLocaleString() ?? '-'}</span>
-          <span class="${chgCls}" style="font-size:.85rem">${sign(pct)}${pct}%</span>
+          <span class="${chgCls}" style="font-size:1.7rem;font-weight:800;letter-spacing:-.5px">${s.price?.toLocaleString() ?? '-'}</span>
+          <span class="${chgCls}" style="font-size:1rem;font-weight:700">${sign(pct)}${pct}%</span>
         </div>
 
         <!-- RSI 條 -->
@@ -263,7 +263,7 @@ async function loadIndices() {
         <div class="idx-card">
           <div class="muted mb-1" style="font-size:.76rem">${idx.name}</div>
           <div class="idx-price ${c}">${idx.price?.toLocaleString()??'-'}</div>
-          <div class="${c}" style="font-size:.84rem">${sign(idx.change)}${idx.change??'-'}（${sign(idx.change_pct)}${idx.change_pct??'-'}%）</div>
+          <div class="${c}" style="font-size:1rem;font-weight:700">${sign(idx.change)}${idx.change??'-'}（${sign(idx.change_pct)}${idx.change_pct??'-'}%）</div>
           <div class="muted" style="font-size:.7rem;margin-top:4px">${(idx.updated||'').slice(11,16)} 更新</div>
         </div></div>`;
     }).join('');
