@@ -613,8 +613,9 @@ const EXCHANGE_MAP = {
   '2409.TW':'tse','3481.TW':'tse','1802.TW':'tse','2327.TW':'tse','3231.TW':'tse',
   '2408.TW':'otc','2344.TW':'otc','2337.TW':'otc','6770.TW':'otc',
   '2492.TW':'otc','3026.TW':'otc','6285.TW':'otc','2314.TW':'otc',
-  '3491.TW':'otc','5388.TW':'otc','3081.TW':'otc','3548.TW':'otc',
-  '4908.TW':'otc','6443.TW':'otc','8112.TW':'otc','6669.TW':'otc',
+  '5388.TW':'otc','6443.TW':'otc','8112.TW':'otc','6669.TW':'otc',
+  // 上櫃（.TWO）
+  '3491.TWO':'otc','3081.TWO':'otc','3234.TWO':'otc','4908.TWO':'otc',
 };
 const INDEX_TWSE = { '^TWII':'tse_t00.tw', '^TWOII':'otc_o00.tw' };
 
@@ -630,11 +631,10 @@ function isTWMarketOpen() {
 async function fetchTWSELive(symbols) {
   // 組合查詢字串，每支股票同時查上市/上櫃前綴，API 自動過濾無效的
   const query = symbols.map(sym => {
-    const ex = EXCHANGE_MAP[sym];
-    if (ex) return `${ex}_${sym.replace('.TW','').toLowerCase()}.tw`;
-    // 未知的兩個都試
-    const c = sym.replace('.TW','').toLowerCase();
-    return `tse_${c}.tw|otc_${c}.tw`;
+    const ex   = EXCHANGE_MAP[sym];
+    const code = sym.replace(/\.TWO?$/, '').toLowerCase();
+    if (ex) return `${ex}_${code}.tw`;
+    return `tse_${code}.tw|otc_${code}.tw`;
   }).join('|');
 
   const idxQuery = Object.values(INDEX_TWSE).join('|');
@@ -653,7 +653,9 @@ async function fetchTWSELive(symbols) {
     if (isNaN(price) || isNaN(prev)) return;
 
     // 找對應的 symbol key
-    let key = item.c + '.TW';
+    // 找 EXCHANGE_MAP 裡對應的完整 symbol（含 .TW 或 .TWO）
+    let key = Object.keys(EXCHANGE_MAP).find(s => s.replace(/\.TWO?$/, '') === item.c)
+              || (item.c + '.TW');
     if (item.c === 't00') key = '^TWII';
     if (item.c === 'o00') key = '^TWOII';
 

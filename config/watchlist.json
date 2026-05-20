@@ -41,19 +41,19 @@
       "id": "leo",
       "name": "低軌衛星",
       "stocks": [
-        {"symbol": "6285.TW", "name": "啟碁"},
-        {"symbol": "2314.TW", "name": "台揚"},
-        {"symbol": "3491.TW", "name": "昇達科"},
-        {"symbol": "5388.TW", "name": "中磊"}
+        {"symbol": "6285.TW",  "name": "啟碁"},
+        {"symbol": "2314.TW",  "name": "台揚"},
+        {"symbol": "3491.TWO", "name": "昇達科"},
+        {"symbol": "5388.TW",  "name": "中磊"}
       ]
     },
     {
       "id": "photonics",
       "name": "矽光子",
       "stocks": [
-        {"symbol": "3081.TW", "name": "聯亞"},
-        {"symbol": "3548.TW", "name": "光環"},
-        {"symbol": "4908.TW", "name": "前鼎"}
+        {"symbol": "3081.TWO", "name": "聯亞"},
+        {"symbol": "3234.TWO", "name": "光環"},
+        {"symbol": "4908.TWO", "name": "前鼎"}
       ]
     },
     {
