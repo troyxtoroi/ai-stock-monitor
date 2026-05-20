@@ -119,7 +119,9 @@
     <span style="font-size:1.05rem;font-weight:700">📈 AI看盤小幫手</span>
     <span class="muted" style="font-size:.78rem;margin-left:10px">點擊個股查看K線圖</span>
   </div>
-  <div style="display:flex;align-items:center;gap:12px">
+  <div style="display:flex;align-items:center;gap:10px">
+    <span id="live-badge" style="display:none;font-size:.72rem;background:#003320;color:#4dbb6e;border:1px solid #1e3a1e;border-radius:6px;padding:2px 10px;font-weight:700">🔴 即時</span>
+    <span id="closed-badge" style="display:none;font-size:.72rem;background:#1c2128;color:#768390;border:1px solid #30363d;border-radius:6px;padding:2px 10px">⚪ 收盤</span>
     <span class="muted" style="font-size:.8rem" id="last-update">載入中...</span>
     <button class="btn btn-sm btn-outline-secondary" onclick="loadAll()">↻ 刷新</button>
   </div>
@@ -335,8 +337,8 @@ function stockCard(s, aiMap) {
 
         <!-- 股價（大字，紅漲綠跌） -->
         <div class="d-flex align-items-baseline gap-2 mb-1">
-          <span class="${chgCls}" style="font-size:1.7rem;font-weight:800;letter-spacing:-.5px">${s.price?.toLocaleString() ?? '-'}</span>
-          <span class="${chgCls}" style="font-size:1rem;font-weight:700">${sign(pct)}${pct}%</span>
+          <span class="${chgCls}" style="font-size:1.7rem;font-weight:800;letter-spacing:-.5px" data-price="${s.symbol}">${s.price?.toLocaleString() ?? '-'}</span>
+          <span class="${chgCls}" style="font-size:1rem;font-weight:700" data-chg="${s.symbol}">${sign(pct)}${pct}%</span>
         </div>
 
         <!-- RSI 條 -->
@@ -367,8 +369,8 @@ async function loadIndices() {
       return `<div class="col-xl-2 col-md-4 col-6">
         <div class="idx-card">
           <div class="idx-name">${idx.name}</div>
-          <div class="idx-price ${c}">${idx.price?.toLocaleString()??'-'}</div>
-          <div class="idx-chg ${c}">${sign(idx.change)}${idx.change??'-'}（${sign(idx.change_pct)}${idx.change_pct??'-'}%）</div>
+          <div class="idx-price ${c}" data-price="${idx.symbol}">${idx.price?.toLocaleString()??'-'}</div>
+          <div class="idx-chg ${c}" data-chg="${idx.symbol}">${sign(idx.change)}${idx.change??'-'}（${sign(idx.change_pct)}${idx.change_pct??'-'}%）</div>
           <div class="idx-time">${(idx.updated||'').slice(11,16)} 更新</div>
         </div></div>`;
     }).join('');
@@ -430,6 +432,124 @@ async function loadAll() {
   qs('last-update').textContent = '更新中...';
   await Promise.all([loadIndices(), loadStocks(), loadNews()]);
   qs('last-update').textContent = '更新：' + new Date().toLocaleTimeString('zh-TW', { hour12:false });
+
+  // 取得所有股票代號後啟動即時連動
+  try {
+    const stocks = await fetchJSON('data/stocks/latest.json');
+    const symbols = stocks.map(s => s.symbol).filter(Boolean);
+    startLiveUpdates(symbols);
+  } catch {}
+}
+
+/* ── 即時報價（TWSE MIS API）────────────────────────────────────────── */
+
+// 台股代號 → TWSE 市場前綴（tse=上市, otc=上櫃）
+const EXCHANGE_MAP = {
+  '2330.TW':'tse','2317.TW':'tse','2382.TW':'tse','2454.TW':'tse',
+  '2409.TW':'tse','3481.TW':'tse','1802.TW':'tse','2327.TW':'tse','3231.TW':'tse',
+  '2408.TW':'otc','2344.TW':'otc','2337.TW':'otc','6770.TW':'otc',
+  '2492.TW':'otc','3026.TW':'otc','6285.TW':'otc','2314.TW':'otc',
+  '3491.TW':'otc','5388.TW':'otc','3081.TW':'otc','3548.TW':'otc',
+  '4908.TW':'otc','6443.TW':'otc','8112.TW':'otc','6669.TW':'otc',
+};
+const INDEX_TWSE = { '^TWII':'tse_t00.tw', '^TWOII':'otc_o00.tw' };
+
+function isTWMarketOpen() {
+  const now = new Date();
+  const tw  = new Date(now.toLocaleString('en-US', { timeZone:'Asia/Taipei' }));
+  const day = tw.getDay();
+  if (day === 0 || day === 6) return false;
+  const mins = tw.getHours() * 60 + tw.getMinutes();
+  return mins >= 9 * 60 && mins < 13 * 60 + 31;
+}
+
+async function fetchTWSELive(symbols) {
+  // 組合查詢字串，每支股票同時查上市/上櫃前綴，API 自動過濾無效的
+  const query = symbols.map(sym => {
+    const ex = EXCHANGE_MAP[sym];
+    if (ex) return `${ex}_${sym.replace('.TW','').toLowerCase()}.tw`;
+    // 未知的兩個都試
+    const c = sym.replace('.TW','').toLowerCase();
+    return `tse_${c}.tw|otc_${c}.tw`;
+  }).join('|');
+
+  const idxQuery = Object.values(INDEX_TWSE).join('|');
+  const url = `https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=${query}|${idxQuery}&json=1&delay=0`;
+
+  const resp = await fetch(url, { cache:'no-store' });
+  const data = await resp.json();
+  const result = {};
+
+  (data.msgArray || []).forEach(item => {
+    const rawPrice = item.z?.trim();
+    const rawPrev  = item.y?.trim();
+    if (!rawPrice || rawPrice === '-') return;
+    const price = parseFloat(rawPrice);
+    const prev  = parseFloat(rawPrev);
+    if (isNaN(price) || isNaN(prev)) return;
+
+    // 找對應的 symbol key
+    let key = item.c + '.TW';
+    if (item.c === 't00') key = '^TWII';
+    if (item.c === 'o00') key = '^TWOII';
+
+    result[key] = {
+      price:      Math.round(price * 100) / 100,
+      change:     Math.round((price - prev) * 100) / 100,
+      change_pct: Math.round((price - prev) / prev * 10000) / 100,
+    };
+  });
+
+  return result;
+}
+
+function applyLivePrices(liveData) {
+  Object.entries(liveData).forEach(([symbol, d]) => {
+    const priceEl = document.querySelector(`[data-price="${symbol}"]`);
+    const chgEl   = document.querySelector(`[data-chg="${symbol}"]`);
+    if (!priceEl || d.price == null) return;
+    const cls = d.change > 0 ? 'up' : d.change < 0 ? 'down' : 'muted';
+    priceEl.className = priceEl.className.replace(/\b(up|down|muted)\b/, cls);
+    priceEl.textContent = d.price.toLocaleString();
+    if (chgEl) {
+      chgEl.className = chgEl.className.replace(/\b(up|down|muted)\b/, cls);
+      // 大盤用「±N（±N%）」，個股用「±N%」
+      const isIdx = symbol.startsWith('^');
+      chgEl.textContent = isIdx
+        ? `${d.change > 0 ? '+' : ''}${d.change}（${d.change_pct > 0 ? '+' : ''}${d.change_pct}%）`
+        : `${d.change_pct > 0 ? '+' : ''}${d.change_pct}%`;
+    }
+  });
+}
+
+let _liveTimer = null;
+
+async function startLiveUpdates(symbols) {
+  if (_liveTimer) clearInterval(_liveTimer);
+  if (!isTWMarketOpen()) {
+    qs('live-badge').style.display   = 'none';
+    qs('closed-badge').style.display = 'inline-block';
+    return;
+  }
+  qs('closed-badge').style.display = 'none';
+  qs('live-badge').style.display   = 'inline-block';
+
+  const tick = async () => {
+    if (!isTWMarketOpen()) {
+      clearInterval(_liveTimer);
+      qs('live-badge').style.display   = 'none';
+      qs('closed-badge').style.display = 'inline-block';
+      return;
+    }
+    try {
+      const live = await fetchTWSELive(symbols);
+      applyLivePrices(live);
+      qs('last-update').textContent = '即時 ' + new Date().toLocaleTimeString('zh-TW', { hour12:false });
+    } catch (e) { console.warn('即時報價失敗', e); }
+  };
+
+  await tick();
+  _liveTimer = setInterval(tick, 30000); // 每 30 秒
 }
 
 /* ── K 線圖 ─────────────────────────────────────────────────────────── */
