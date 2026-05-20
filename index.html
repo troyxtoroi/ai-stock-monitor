@@ -7,89 +7,113 @@
   <title>AI看盤小幫手</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body { background: #0d1117; color: #c9d1d9; font-family: 'Segoe UI', sans-serif; }
-    .card { background: #161b22; border: 1px solid #30363d; }
-    .card-header { background: #21262d; border-bottom: 1px solid #30363d; font-weight: 600; }
-    .table { color: #c9d1d9; }
-    .table td, .table th { border-color: #30363d; vertical-align: middle; }
-    .table tbody tr:hover { background: #21262d; }
-    .up   { color: #ff4d4d; font-weight: 600; }
-    .down { color: #3fb950; font-weight: 600; }
-    .muted { color: #6e7681; }
-    .index-card { border-top: 3px solid #58a6ff; }
-    .index-price { font-size: 1.6rem; font-weight: 700; }
-    .news-item { border-bottom: 1px solid #30363d; padding: 10px 0; }
-    .news-item:last-child { border-bottom: none; }
-    .news-link { color: #58a6ff; text-decoration: none; }
-    .news-link:hover { text-decoration: underline; }
-    .status-bar { background: #21262d; border-radius: 8px; padding: 8px 16px; font-size: 0.85rem; }
-    .rsi-high { color: #ff4d4d; }
-    .rsi-low  { color: #3fb950; }
-    .signal-buy  { background: #7f1d1d; color: #fca5a5; border: 1px solid #dc2626; }
-    .signal-sell { background: #14532d; color: #86efac; border: 1px solid #16a34a; }
-    .signal-hold { background: #1c1f26; color: #94a3b8; border: 1px solid #475569; }
-    .ai-card { border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
-    .conf-高 { opacity: 1; }
-    .conf-中 { opacity: 0.8; }
-    .conf-低 { opacity: 0.6; }
+    :root {
+      --bg: #0d1117;
+      --card: #161b22;
+      --border: #30363d;
+      --bar: #21262d;
+      --text: #e6edf3;
+      --muted: #7d8590;
+      --blue: #58a6ff;
+      --up: #f85149;
+      --down: #3fb950;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
+
+    /* 頂部 */
+    .topbar { background: var(--bar); border-bottom: 1px solid var(--border);
+      padding: 12px 20px; position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center; }
+
+    /* 大盤 */
+    .idx-card { background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 20px; }
+    .idx-price { font-size: 1.6rem; font-weight: 700; }
+
+    /* 分類標題 */
+    .cat-title { background: var(--bar); border: 1px solid var(--border);
+      border-radius: 12px 12px 0 0; padding: 12px 18px; font-weight: 600; font-size: 0.95rem; }
+    .cat-body { border: 1px solid var(--border); border-top: none;
+      border-radius: 0 0 12px 12px; padding: 14px; margin-bottom: 22px; }
+
+    /* 個股卡片 */
+    .sk { background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 14px; height: 100%; transition: transform .15s, border-color .15s; }
+    .sk:hover { transform: translateY(-2px); border-color: var(--blue); }
+    .sk.buy  { border-left: 4px solid var(--up); }
+    .sk.sell { border-left: 4px solid var(--down); }
+    .sk.hold { border-left: 4px solid #444c56; }
+
+    /* 訊號標籤 */
+    .sig { font-size: 0.8rem; font-weight: 700; padding: 4px 11px;
+      border-radius: 20px; letter-spacing: .5px; white-space: nowrap; }
+    .sig-buy  { background: #3d0000; border: 1px solid var(--up);   color: #ff9492; }
+    .sig-sell { background: #0d2818; border: 1px solid var(--down);  color: #56d364; }
+    .sig-hold { background: #1c2128; border: 1px solid #444c56;       color: #768390; }
+
+    /* RSI 條 */
+    .rsi-wrap { background: #2d333b; border-radius: 4px; height: 5px; margin: 6px 0; overflow: hidden; }
+    .rsi-fill { height: 100%; border-radius: 4px; }
+
+    /* AI 說明 */
+    .ai-note { font-size: 0.76rem; color: #adbac7; line-height: 1.5; margin-top: 9px;
+      border-top: 1px solid var(--border); padding-top: 9px; }
+
+    /* 新聞 */
+    .news-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 12px; }
+    .news-row  { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    .news-row:last-child { border-bottom: none; }
+    .news-a { color: var(--blue); text-decoration: none; font-size: 0.86rem; }
+    .news-a:hover { text-decoration: underline; }
+
+    .up    { color: var(--up); }
+    .down  { color: var(--down); }
+    .muted { color: var(--muted); }
+    .sec   { font-size: .75rem; font-weight: 600; color: var(--muted);
+             text-transform: uppercase; letter-spacing: 1.5px; margin: 22px 0 10px; }
   </style>
 </head>
 <body>
-<div class="container-fluid py-4 px-4">
 
-  <!-- 標題列 -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-      <h4 class="mb-0 fw-bold">📈 AI看盤小幫手</h4>
-      <div class="muted" style="font-size:0.8rem">台股即時資料 · 自動更新</div>
-    </div>
-    <div class="d-flex align-items-center gap-3">
-      <div class="status-bar"><span id="last-update" class="muted">載入中...</span></div>
-      <button class="btn btn-sm btn-outline-light" onclick="loadAll()">↻ 重新整理</button>
-    </div>
+<!-- 頂部導覽 -->
+<div class="topbar">
+  <div>
+    <span style="font-size:1.05rem;font-weight:700">📈 AI看盤小幫手</span>
+    <span class="muted" style="font-size:.78rem;margin-left:10px">台股即時追蹤</span>
   </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span class="muted" style="font-size:.8rem" id="last-update">載入中...</span>
+    <button class="btn btn-sm btn-outline-secondary" onclick="loadAll()">↻ 刷新</button>
+  </div>
+</div>
 
-  <!-- 大盤指數 -->
-  <h6 class="muted mb-3 text-uppercase" style="letter-spacing:1px">大盤指數</h6>
-  <div class="row mb-4" id="indices-container"></div>
+<div class="container-fluid py-3 px-3">
 
-  <!-- 個股行情 + 技術指標（依分類） -->
+  <!-- 大盤 -->
+  <div class="sec">大盤指數</div>
+  <div class="row g-3 mb-1" id="indices-container"></div>
+
+  <!-- 個股 -->
+  <div class="sec">個股看盤</div>
   <div id="stocks-by-category"></div>
 
-  <!-- AI 分析訊號 -->
-  <div class="card mb-4">
-    <div class="card-header d-flex justify-content-between">
-      <span>🤖 AI 買賣訊號分析</span>
-      <span class="muted fw-normal" style="font-size:0.8rem">由 Claude AI 根據技術指標自動判斷</span>
-    </div>
-    <div class="card-body" id="ai-container"><div class="muted">載入中...</div></div>
+  <!-- 新聞 -->
+  <div class="sec">市場新聞</div>
+  <div class="news-wrap" id="news-container">
+    <div class="news-row muted">載入中...</div>
   </div>
-
-  <!-- 市場新聞 -->
-  <div class="card">
-    <div class="card-header">市場新聞</div>
-    <div class="card-body" id="news-container"><div class="muted">載入中...</div></div>
-  </div>
+  <div style="height:32px"></div>
 
 </div>
 
 <script>
-function qs(id) { return document.getElementById(id); }
-function sign(v) { return v > 0 ? '+' : ''; }
-function cls(v)  { return v > 0 ? 'up' : v < 0 ? 'down' : 'muted'; }
-function rsiCls(r) { return r >= 70 ? 'rsi-high' : r <= 30 ? 'rsi-low' : ''; }
+const CAT_ICON = {
+  focus:'⭐', memory:'💾', passive:'🔩',
+  leo:'🛰️', photonics:'💡', panel:'🖥️', ai:'🤖',
+};
 
-function signalBadges(s) {
-  const ind = s.indicators || {};
-  const badges = [];
-  if (ind.RSI14 >= 70) badges.push('<span class="badge" style="background:#b91c1c">超買</span>');
-  if (ind.RSI14 <= 30) badges.push('<span class="badge" style="background:#166534">超賣</span>');
-  if (ind.MACD_hist > 0) badges.push('<span class="badge" style="background:#1d4ed8">MACD↑</span>');
-  if (ind.MACD_hist < 0) badges.push('<span class="badge bg-secondary">MACD↓</span>');
-  if (s.price && ind.MA20 && s.price > ind.MA20)
-    badges.push('<span class="badge" style="background:#92400e">站MA20</span>');
-  return badges.length ? badges.join(' ') : '<span class="muted">-</span>';
-}
+const qs = id => document.getElementById(id);
+const sign = v => v > 0 ? '+' : '';
 
 async function fetchJSON(path) {
   const res = await fetch(path + '?t=' + Date.now());
@@ -97,85 +121,85 @@ async function fetchJSON(path) {
   return res.json();
 }
 
-async function loadIndices() {
-  try {
-    const data = await fetchJSON('data/index/latest.json');
-    qs('indices-container').innerHTML = data.map(idx => `
-      <div class="col-xl-2 col-md-4 col-6 mb-3">
-        <div class="card index-card h-100 p-3">
-          <div class="muted small mb-1">${idx.name}</div>
-          <div class="index-price ${cls(idx.change)}">${idx.price?.toLocaleString() ?? '-'}</div>
-          <div class="${cls(idx.change)}">${sign(idx.change)}${idx.change ?? '-'}（${sign(idx.change_pct)}${idx.change_pct ?? '-'}%）</div>
-          <div class="muted" style="font-size:0.75rem;margin-top:6px">${(idx.updated||'').slice(11,16)}</div>
-        </div>
-      </div>`).join('');
-  } catch(e) {
-    qs('indices-container').innerHTML = '<div class="col muted">資料載入失敗，請稍後再試</div>';
-  }
+function rsiColor(r) {
+  if (r >= 70) return '#f85149';
+  if (r <= 30) return '#3fb950';
+  return '#58a6ff';
 }
 
-function aiSignalHTML(ai) {
-  if (!ai) return '<span class="muted" style="font-size:0.8rem">分析中</span>';
-  const cfg = {
-    '買入': { bg: '#ff4d4d', text: '#fff', icon: '▲ 買入' },
-    '賣出': { bg: '#3fb950', text: '#fff', icon: '▼ 賣出' },
-    '觀望': { bg: '#444c56', text: '#adbac7', icon: '— 觀望' },
-  };
-  const c = cfg[ai.signal] || cfg['觀望'];
-  const trendIcon = ai.trend === '上升' ? '📈' : ai.trend === '下降' ? '📉' : '➡️';
-  const confColor = ai.confidence === '高' ? '#f0b429' : ai.confidence === '中' ? '#adbac7' : '#6e7681';
+function stockCard(s, aiMap) {
+  const ai  = aiMap[s.symbol] || null;
+  const ind = s.indicators   || {};
+
+  const sigCls  = ai?.signal === '買入' ? 'buy' : ai?.signal === '賣出' ? 'sell' : 'hold';
+  const badgeCls = `sig-${sigCls}`;
+  const sigLabel = ai?.signal ?? '分析中';
+  const sigIcon  = ai?.signal === '買入' ? '▲' : ai?.signal === '賣出' ? '▼' : '—';
+
+  const pct    = s.change_pct ?? 0;
+  const chgCls = pct > 0 ? 'up' : pct < 0 ? 'down' : 'muted';
+
+  const trend = ai?.trend ?? '盤整';
+  const tIcon = trend === '上升' ? '📈' : trend === '下降' ? '📉' : '➡️';
+
+  const rsi = ind.RSI14 ?? 50;
+  const rsiW = Math.min(100, Math.max(0, rsi));
+  const rsiC = rsiColor(rsi);
+
+  const reason = ai?.reason ?? '';
+  const risk   = ai?.risk   ?? '';
+  const conf   = ai?.confidence ? `信心 ${ai.confidence}` : '';
+
   return `
-    <div style="display:flex;flex-direction:column;gap:4px">
-      <span style="background:${c.bg};color:${c.text};font-weight:700;font-size:0.95rem;
-        padding:3px 10px;border-radius:6px;text-align:center;letter-spacing:1px">${c.icon}</span>
-      <span style="font-size:0.75rem;color:${confColor};text-align:center">${trendIcon} ${ai.trend ?? ''} · 信心${ai.confidence ?? ''}</span>
+    <div class="col-xl-3 col-lg-4 col-md-6 col-6 mb-3">
+      <div class="sk ${sigCls}">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <div>
+            <div style="font-weight:700;font-size:.95rem">${s.name}</div>
+            <div class="muted" style="font-size:.7rem">${s.symbol}</div>
+          </div>
+          <span class="sig ${badgeCls}">${sigIcon} ${sigLabel}</span>
+        </div>
+
+        <div class="d-flex align-items-baseline gap-2 mb-1">
+          <span style="font-size:1.25rem;font-weight:700">${s.price?.toLocaleString() ?? '-'}</span>
+          <span class="${chgCls}" style="font-size:.85rem">${sign(pct)}${pct}%</span>
+        </div>
+
+        <div class="muted" style="font-size:.73rem;margin-bottom:3px">
+          ${tIcon} ${trend} &nbsp;·&nbsp; RSI ${rsi} &nbsp;·&nbsp; MA20 ${ind.MA20 ?? '-'} &nbsp;·&nbsp; ${conf}
+        </div>
+
+        <div class="rsi-wrap">
+          <div class="rsi-fill" style="width:${rsiW}%;background:${rsiC}"></div>
+        </div>
+
+        ${reason ? `<div class="ai-note">${reason}${risk ? `<br><span style="opacity:.6">⚠ ${risk}</span>` : ''}</div>` : ''}
+      </div>
     </div>`;
 }
 
-function stockTableHTML(stocks, aiMap) {
-  const thead = `
-    <thead><tr class="muted" style="font-size:0.82rem">
-      <th>股票</th>
-      <th class="text-center" style="min-width:90px">AI 建議</th>
-      <th class="text-end">股價</th>
-      <th class="text-end">漲跌%</th>
-      <th class="text-end">MA5</th>
-      <th class="text-end">MA20</th>
-      <th class="text-end">RSI14</th>
-      <th class="text-end">MACD方向</th>
-    </tr></thead>`;
-  const rows = stocks.map(s => {
-    const ind = s.indicators || {};
-    const ai  = aiMap[s.symbol];
-    const macdDir = ind.MACD_hist > 0 ? '<span class="up">▲</span>' :
-                    ind.MACD_hist < 0 ? '<span class="down">▼</span>' : '-';
-    const reasonTip = ai ? `title="${ai.reason}&#10;⚠ ${ai.risk}"` : '';
-    return `<tr ${reasonTip} style="cursor:${ai ? 'help' : 'default'}">
-      <td>
-        <div class="fw-semibold">${s.name}</div>
-        <div class="muted" style="font-size:0.75rem">${s.symbol}</div>
-      </td>
-      <td class="text-center">${aiSignalHTML(ai)}</td>
-      <td class="text-end fw-bold">${s.price ?? '-'}</td>
-      <td class="text-end ${cls(s.change_pct)}">${sign(s.change_pct)}${s.change_pct ?? '-'}%</td>
-      <td class="text-end muted" style="font-size:0.82rem">${ind.MA5 ?? '-'}</td>
-      <td class="text-end muted" style="font-size:0.82rem">${ind.MA20 ?? '-'}</td>
-      <td class="text-end ${rsiCls(ind.RSI14)}" style="font-size:0.82rem">${ind.RSI14 ?? '-'}</td>
-      <td class="text-end">${macdDir}</td>
-    </tr>`;
-  }).join('');
-  return `<table class="table table-hover mb-0">${thead}<tbody>${rows}</tbody></table>`;
+async function loadIndices() {
+  try {
+    const data = await fetchJSON('data/index/latest.json');
+    qs('indices-container').innerHTML = data.map(idx => {
+      const c = (idx.change ?? 0) > 0 ? 'up' : (idx.change ?? 0) < 0 ? 'down' : 'muted';
+      return `
+        <div class="col-xl-2 col-md-4 col-6">
+          <div class="idx-card">
+            <div class="muted mb-1" style="font-size:.76rem">${idx.name}</div>
+            <div class="idx-price ${c}">${idx.price?.toLocaleString() ?? '-'}</div>
+            <div class="${c}" style="font-size:.84rem">
+              ${sign(idx.change)}${idx.change ?? '-'}（${sign(idx.change_pct)}${idx.change_pct ?? '-'}%）
+            </div>
+            <div class="muted" style="font-size:.7rem;margin-top:4px">${(idx.updated||'').slice(11,16)} 更新</div>
+          </div>
+        </div>`;
+    }).join('');
+  } catch {
+    qs('indices-container').innerHTML = '<div class="col muted">大盤資料載入失敗</div>';
+  }
 }
-
-const CAT_ICON = {
-  focus:    '⭐',
-  memory:   '💾',
-  passive:  '🔩',
-  leo:      '🛰️',
-  photonics:'💡',
-  panel:    '🖥️',
-  ai:       '🤖',
-};
 
 async function loadStocks() {
   try {
@@ -184,36 +208,28 @@ async function loadStocks() {
       fetchJSON('data/ai_signals.json').catch(() => []),
     ]);
 
-    // build AI signal lookup by symbol
     const aiMap = {};
     aiRaw.forEach(a => { aiMap[a.symbol] = a; });
 
-    // group stocks by category
-    const cats = {};
-    const catOrder = [];
+    const cats = {}, order = [];
     stocks.forEach(s => {
-      const cid   = s.category_id || 'other';
-      const cname = s.category    || '其他';
-      if (!cats[cid]) { cats[cid] = { name: cname, stocks: [] }; catOrder.push(cid); }
+      const cid = s.category_id || 'other', cn = s.category || '其他';
+      if (!cats[cid]) { cats[cid] = { name: cn, stocks: [] }; order.push(cid); }
       cats[cid].stocks.push(s);
     });
 
-    qs('stocks-by-category').innerHTML = catOrder.map(cid => {
-      const cat  = cats[cid];
-      const icon = CAT_ICON[cid] || '📊';
+    qs('stocks-by-category').innerHTML = order.map(cid => {
+      const cat = cats[cid], icon = CAT_ICON[cid] || '📊';
       return `
-        <div class="card mb-3">
-          <div class="card-header d-flex justify-content-between">
-            <span>${icon} ${cat.name}</span>
-            <span class="muted fw-normal" style="font-size:0.78rem">滑鼠移到列上可看分析理由</span>
-          </div>
-          <div class="card-body p-0">
-            <div class="table-responsive">${stockTableHTML(cat.stocks, aiMap)}</div>
-          </div>
+        <div class="cat-title">${icon} ${cat.name}
+          <span class="muted" style="font-weight:400;font-size:.78rem">（${cat.stocks.length} 檔）</span>
+        </div>
+        <div class="cat-body">
+          <div class="row g-2">${cat.stocks.map(s => stockCard(s, aiMap)).join('')}</div>
         </div>`;
     }).join('');
-  } catch(e) {
-    qs('stocks-by-category').innerHTML = '<div class="muted p-3">資料載入失敗，請稍後再試</div>';
+  } catch {
+    qs('stocks-by-category').innerHTML = '<div class="muted p-3">個股資料載入失敗</div>';
   }
 }
 
@@ -221,56 +237,21 @@ async function loadNews() {
   try {
     const data = await fetchJSON('data/news/latest.json');
     const c = qs('news-container');
-    if (!data.length) { c.innerHTML = '<div class="muted">暫無新聞</div>'; return; }
-    c.innerHTML = data.slice(0, 15).map(n => `
-      <div class="news-item">
-        <a href="${n.link}" target="_blank" class="news-link">${n.title}</a>
-        <div class="muted" style="font-size:0.78rem;margin-top:3px">${n.source} · ${n.time}</div>
+    if (!data.length) { c.innerHTML = '<div class="news-row muted">暫無新聞</div>'; return; }
+    c.innerHTML = data.slice(0, 12).map(n => `
+      <div class="news-row">
+        <a href="${n.link}" target="_blank" class="news-a">${n.title}</a>
+        <div class="muted" style="font-size:.71rem;margin-top:3px">${n.source} · ${n.time}</div>
       </div>`).join('');
-  } catch(e) {
-    qs('news-container').innerHTML = '<div class="muted">新聞載入失敗</div>';
-  }
-}
-
-async function loadAI() {
-  try {
-    const data = await fetchJSON('data/ai_signals.json');
-    const c = qs('ai-container');
-    if (!data.length) { c.innerHTML = '<div class="muted">尚無 AI 分析資料，請設定 ANTHROPIC_API_KEY 後重新執行</div>'; return; }
-
-    const sigStyle = {
-      '買入': 'background:#7f1d1d;border:1px solid #dc2626;color:#fca5a5',
-      '賣出': 'background:#14532d;border:1px solid #16a34a;color:#86efac',
-      '觀望': 'background:#1c1f26;border:1px solid #475569;color:#94a3b8',
-    };
-    const trendIcon = { '上升': '📈', '下降': '📉', '盤整': '➡️' };
-
-    c.innerHTML = '<div class="row">' + data.map(s => {
-      const st = sigStyle[s.signal] || sigStyle['觀望'];
-      const ti = trendIcon[s.trend] || '➡️';
-      return `
-        <div class="col-xl-3 col-md-4 col-sm-6 mb-3">
-          <div style="${st};border-radius:10px;padding:14px 16px">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <strong style="font-size:1rem">${s.name ?? s.symbol}</strong>
-              <span style="font-size:1.1rem;font-weight:800;letter-spacing:1px">${s.signal}</span>
-            </div>
-            <div style="font-size:0.75rem;margin-bottom:8px;opacity:0.75">${ti} 趨勢${s.trend ?? ''} · 信心${s.confidence ?? ''}</div>
-            <div style="font-size:0.82rem;line-height:1.5;margin-bottom:8px">${s.reason ?? ''}</div>
-            <div style="font-size:0.75rem;opacity:0.65">⚠ ${s.risk ?? ''}</div>
-            <div style="font-size:0.72rem;opacity:0.5;margin-top:8px">${(s.updated||'').slice(0,16)}</div>
-          </div>
-        </div>`;
-    }).join('') + '</div>';
-  } catch(e) {
-    qs('ai-container').innerHTML = '<div class="muted">AI 分析資料尚未生成，請等候下次自動更新</div>';
+  } catch {
+    qs('news-container').innerHTML = '<div class="news-row muted">新聞載入失敗</div>';
   }
 }
 
 async function loadAll() {
   qs('last-update').textContent = '更新中...';
-  await Promise.all([loadIndices(), loadStocks(), loadAI(), loadNews()]);
-  qs('last-update').textContent = '最後更新：' + new Date().toLocaleString('zh-TW', { hour12: false });
+  await Promise.all([loadIndices(), loadStocks(), loadNews()]);
+  qs('last-update').textContent = '更新：' + new Date().toLocaleTimeString('zh-TW', { hour12: false });
 }
 
 loadAll();
