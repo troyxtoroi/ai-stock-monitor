@@ -50,6 +50,73 @@ def calc_indicators(hist):
     }
 
 
+def rule_signal(price, indicators):
+    """根據技術指標計算買賣訊號（不需要 AI）"""
+    if not indicators or price is None:
+        return {"signal": "觀望", "trend": "盤整", "strength": 0, "reason": "資料不足"}
+
+    rsi  = indicators.get("RSI14", 50)
+    hist = indicators.get("MACD_hist", 0)
+    ma5  = indicators.get("MA5")
+    ma10 = indicators.get("MA10")
+    ma20 = indicators.get("MA20")
+
+    score = 0  # 正數偏買，負數偏賣
+
+    # RSI 判斷
+    if rsi < 30:   score += 3   # 嚴重超賣，強烈買入
+    elif rsi < 40: score += 2
+    elif rsi < 50: score += 1
+    elif rsi > 70: score -= 3   # 嚴重超買，強烈賣出
+    elif rsi > 60: score -= 2
+    elif rsi > 55: score -= 1
+
+    # MACD 判斷
+    if hist > 0:   score += 2   # MACD 金叉區
+    elif hist < 0: score -= 2   # MACD 死叉區
+
+    # 均線多空排列
+    if ma5 and ma10 and ma20:
+        if price > ma5 > ma10 > ma20:   score += 2   # 強多頭排列
+        elif price < ma5 < ma10 < ma20: score -= 2   # 強空頭排列
+        if price > ma20: score += 1
+        else:            score -= 1
+
+    # 趨勢判斷
+    if ma5 and ma20:
+        if ma5 > ma20 * 1.01:  trend = "上升"
+        elif ma5 < ma20 * 0.99: trend = "下降"
+        else:                   trend = "盤整"
+    else:
+        trend = "盤整"
+
+    # 訊號與說明
+    reasons = []
+    if rsi < 30:   reasons.append(f"RSI={rsi} 超賣")
+    elif rsi > 70: reasons.append(f"RSI={rsi} 超買")
+    else:          reasons.append(f"RSI={rsi}")
+
+    if hist > 0:   reasons.append("MACD 金叉")
+    elif hist < 0: reasons.append("MACD 死叉")
+
+    if ma20:
+        if price > ma20: reasons.append(f"站上MA20({ma20})")
+        else:            reasons.append(f"跌破MA20({ma20})")
+
+    reason_str = "，".join(reasons)
+
+    if score >= 4:
+        return {"signal": "強力買入", "trend": trend, "strength": score, "reason": reason_str}
+    elif score >= 2:
+        return {"signal": "買入", "trend": trend, "strength": score, "reason": reason_str}
+    elif score <= -4:
+        return {"signal": "強力賣出", "trend": trend, "strength": score, "reason": reason_str}
+    elif score <= -2:
+        return {"signal": "賣出", "trend": trend, "strength": score, "reason": reason_str}
+    else:
+        return {"signal": "觀望", "trend": trend, "strength": score, "reason": reason_str}
+
+
 def fetch_quote(symbol):
     try:
         fi = yf.Ticker(symbol).fast_info
@@ -91,6 +158,7 @@ def fetch_stocks(watchlist):
             except Exception:
                 indicators, volume = {}, None
 
+            sig = rule_signal(price, indicators)
             results.append({
                 "symbol":      item["symbol"],
                 "name":        item["name"],
@@ -102,6 +170,10 @@ def fetch_stocks(watchlist):
                 "change_pct":  chg_pct,
                 "volume":      volume,
                 "indicators":  indicators,
+                "signal":      sig["signal"],
+                "trend":       sig["trend"],
+                "strength":    sig["strength"],
+                "signal_reason": sig["reason"],
                 "updated":     now_tw().strftime("%Y-%m-%d %H:%M:%S"),
             })
             print(f"  [{cat['name']}] {item['name']}: {price} ({chg_pct}%) RSI={indicators.get('RSI14','?')}")

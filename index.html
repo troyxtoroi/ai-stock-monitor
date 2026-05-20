@@ -47,9 +47,11 @@
     /* 訊號標籤 */
     .sig { font-size: 0.8rem; font-weight: 700; padding: 4px 11px;
       border-radius: 20px; letter-spacing: .5px; white-space: nowrap; }
-    .sig-buy  { background: #3d0000; border: 1px solid var(--up);   color: #ff9492; }
-    .sig-sell { background: #0d2818; border: 1px solid var(--down);  color: #56d364; }
-    .sig-hold { background: #1c2128; border: 1px solid #444c56;       color: #768390; }
+    .sig-strong-buy  { background: #5c0000; border: 2px solid #ff4d4d; color: #ffb3b3; }
+    .sig-buy         { background: #3d0000; border: 1px solid var(--up);  color: #ff9492; }
+    .sig-hold        { background: #1c2128; border: 1px solid #444c56;    color: #768390; }
+    .sig-sell        { background: #0d2818; border: 1px solid var(--down); color: #56d364; }
+    .sig-strong-sell { background: #002810; border: 2px solid #3fb950;    color: #9effa6; }
 
     /* RSI 條 */
     .rsi-wrap { background: #2d333b; border-radius: 4px; height: 5px; margin: 6px 0; overflow: hidden; }
@@ -127,38 +129,48 @@ function rsiColor(r) {
   return '#58a6ff';
 }
 
-function stockCard(s, aiMap) {
-  const ai  = aiMap[s.symbol] || null;
-  const ind = s.indicators   || {};
+function sigConfig(signal) {
+  const m = {
+    '強力買入': { cls:'strong-buy',  icon:'🔥 強力買入', border:'#ff4d4d' },
+    '買入':     { cls:'buy',         icon:'▲ 買入',      border:'#f85149' },
+    '觀望':     { cls:'hold',        icon:'— 觀望',      border:'#444c56' },
+    '賣出':     { cls:'sell',        icon:'▼ 賣出',      border:'#3fb950' },
+    '強力賣出': { cls:'strong-sell', icon:'❄️ 強力賣出', border:'#3fb950' },
+  };
+  return m[signal] || m['觀望'];
+}
 
-  const sigCls  = ai?.signal === '買入' ? 'buy' : ai?.signal === '賣出' ? 'sell' : 'hold';
-  const badgeCls = `sig-${sigCls}`;
-  const sigLabel = ai?.signal ?? '分析中';
-  const sigIcon  = ai?.signal === '買入' ? '▲' : ai?.signal === '賣出' ? '▼' : '—';
+function stockCard(s, aiMap) {
+  const ind = s.indicators || {};
+  const ai  = aiMap[s.symbol] || null;
+
+  // 優先用 rule-based signal（永遠有），AI reason 當補充
+  const signal = s.signal ?? '觀望';
+  const sc     = sigConfig(signal);
 
   const pct    = s.change_pct ?? 0;
   const chgCls = pct > 0 ? 'up' : pct < 0 ? 'down' : 'muted';
 
-  const trend = ai?.trend ?? '盤整';
+  const trend = s.trend ?? '盤整';
   const tIcon = trend === '上升' ? '📈' : trend === '下降' ? '📉' : '➡️';
 
-  const rsi = ind.RSI14 ?? 50;
+  const rsi  = ind.RSI14 ?? 50;
   const rsiW = Math.min(100, Math.max(0, rsi));
   const rsiC = rsiColor(rsi);
 
-  const reason = ai?.reason ?? '';
-  const risk   = ai?.risk   ?? '';
-  const conf   = ai?.confidence ? `信心 ${ai.confidence}` : '';
+  // 顯示 rule-based 理由，或 AI 理由（如有）
+  const reason = ai?.reason || s.signal_reason || '';
+  const risk   = ai?.risk   || '';
 
   return `
     <div class="col-xl-3 col-lg-4 col-md-6 col-6 mb-3">
-      <div class="sk ${sigCls}">
+      <div class="sk ${sc.cls}" style="border-left-color:${sc.border}">
         <div class="d-flex justify-content-between align-items-start mb-2">
           <div>
             <div style="font-weight:700;font-size:.95rem">${s.name}</div>
             <div class="muted" style="font-size:.7rem">${s.symbol}</div>
           </div>
-          <span class="sig ${badgeCls}">${sigIcon} ${sigLabel}</span>
+          <span class="sig sig-${sc.cls}">${sc.icon}</span>
         </div>
 
         <div class="d-flex align-items-baseline gap-2 mb-1">
@@ -167,14 +179,17 @@ function stockCard(s, aiMap) {
         </div>
 
         <div class="muted" style="font-size:.73rem;margin-bottom:3px">
-          ${tIcon} ${trend} &nbsp;·&nbsp; RSI ${rsi} &nbsp;·&nbsp; MA20 ${ind.MA20 ?? '-'} &nbsp;·&nbsp; ${conf}
+          ${tIcon} ${trend} &nbsp;·&nbsp; RSI ${rsi} &nbsp;·&nbsp; MA20 ${ind.MA20 ?? '-'}
         </div>
 
         <div class="rsi-wrap">
           <div class="rsi-fill" style="width:${rsiW}%;background:${rsiC}"></div>
         </div>
 
-        ${reason ? `<div class="ai-note">${reason}${risk ? `<br><span style="opacity:.6">⚠ ${risk}</span>` : ''}</div>` : ''}
+        <div class="ai-note">
+          ${reason}
+          ${risk ? `<br><span style="opacity:.6">⚠ ${risk}</span>` : ''}
+        </div>
       </div>
     </div>`;
 }
@@ -205,7 +220,7 @@ async function loadStocks() {
   try {
     const [stocks, aiRaw] = await Promise.all([
       fetchJSON('data/stocks/latest.json'),
-      fetchJSON('data/ai_signals.json').catch(() => []),
+      fetchJSON('data/ai_signals.json').catch(() => []),  // AI 補充說明，無則略過
     ]);
 
     const aiMap = {};
