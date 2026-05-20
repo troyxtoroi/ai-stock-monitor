@@ -110,6 +110,22 @@
     .sec { font-size:.75rem; font-weight:600; color:var(--muted);
            text-transform:uppercase; letter-spacing:1.5px; margin:22px 0 10px; }
 
+    /* ── 個股消息 ──────────────────────────────────────────────────── */
+    .stock-news { margin-top:8px; border-top:1px solid #21262d; padding-top:8px; }
+    .news-row-item { display:flex; gap:5px; align-items:flex-start; margin-bottom:5px; }
+    .news-row-item:last-child { margin-bottom:0; }
+    .tag-bull { flex-shrink:0; font-size:.62rem; font-weight:800; padding:1px 6px;
+      border-radius:4px; background:#003320; color:#4dbb6e; border:1px solid #1e3a1e; }
+    .tag-bear { flex-shrink:0; font-size:.62rem; font-weight:800; padding:1px 6px;
+      border-radius:4px; background:#4a0000; color:#ff9492; border:1px solid #7f1f1f; }
+    .tag-neut { flex-shrink:0; font-size:.62rem; font-weight:800; padding:1px 6px;
+      border-radius:4px; background:#1c2128; color:#768390; border:1px solid #30363d; }
+    .news-title-sm { font-size:.71rem; color:#adbac7; line-height:1.4;
+      overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+      text-decoration:none; }
+    .news-title-sm:hover { color:#58a6ff; }
+    .news-src-sm { font-size:.62rem; color:#555f6d; margin-top:1px; }
+
     /* ── 底部跑馬燈 ────────────────────────────────────────────────── */
     .ticker-bar {
       position:fixed; bottom:0; left:0; right:0; height:38px;
@@ -324,7 +340,22 @@ function aiBlock(ai) {
 }
 
 /* ── 個股卡片 ─────────────────────────────────────────────────────── */
-function stockCard(s, aiMap) {
+function newsBlock(items) {
+  if (!items || !items.length) return '';
+  const tagCls = { '利多':'tag-bull', '利空':'tag-bear', '中性':'tag-neut' };
+  return `<div class="stock-news">` +
+    items.slice(0, 2).map(n => `
+      <div class="news-row-item">
+        <span class="${tagCls[n.sentiment]||'tag-neut'}">${n.sentiment}</span>
+        <div>
+          <a href="${n.link}" target="_blank" class="news-title-sm" onclick="event.stopPropagation()">${n.title}</a>
+          <div class="news-src-sm">${n.source} · ${n.time}</div>
+        </div>
+      </div>`).join('') +
+  `</div>`;
+}
+
+function stockCard(s, aiMap, newsMap) {
   // 無資料股票
   if (s.price === null || s.price === undefined) {
     return `
@@ -337,8 +368,9 @@ function stockCard(s, aiMap) {
       </div>`;
   }
 
-  const ind = s.indicators || {};
-  const ai  = aiMap[s.symbol] || null;
+  const ind     = s.indicators || {};
+  const ai      = aiMap[s.symbol]   || null;
+  const newsItems = (newsMap || {})[s.symbol] || [];
 
   // 優先用後端 signal，否則前端計算
   const computed = s.signal
@@ -401,6 +433,9 @@ function stockCard(s, aiMap) {
 
         <!-- AI 建議 -->
         ${aiBlock(ai)}
+
+        <!-- 個股消息 -->
+        ${newsBlock(newsItems)}
       </div>
     </div>`;
 }
@@ -424,9 +459,10 @@ async function loadIndices() {
 
 async function loadStocks() {
   try {
-    const [stocks, aiRaw] = await Promise.all([
+    const [stocks, aiRaw, newsRaw] = await Promise.all([
       fetchJSON('data/stocks/latest.json'),
       fetchJSON('data/ai_signals.json').catch(() => []),
+      fetchJSON('data/news/stocks_news.json').catch(() => ({})),
     ]);
     const aiMap = {};
     aiRaw.forEach(a => { aiMap[a.symbol] = a; });
@@ -447,7 +483,7 @@ async function loadStocks() {
           <span class="muted" style="font-weight:400;font-size:.78rem">（${cat.stocks.length} 檔）</span>
         </div>
         <div class="cat-body">
-          <div class="row g-2">${cat.stocks.map(s => stockCard(s, aiMap)).join('')}</div>
+          <div class="row g-2">${cat.stocks.map(s => stockCard(s, aiMap, newsRaw)).join('')}</div>
         </div>`;
     }).join('');
 

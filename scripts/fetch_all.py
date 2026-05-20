@@ -8,6 +8,19 @@ import anthropic
 
 TW_TZ = pytz.timezone('Asia/Taipei')
 
+BULL_KW = {'profit','gain','beat','exceed','growth','strong','record','win','upgrade',
+           'bullish','surge','jump','increase','rise','positive','recovery','expand',
+           'success','boost','rally','contract','order','optimistic','partnership','award'}
+BEAR_KW = {'loss','decline','miss','fall','weak','lawsuit','cut','downgrade','bearish',
+           'drop','concern','warning','risk','slump','decrease','negative','fail',
+           'suspend','halt','fine','penalty','investigation','cautious','retreat','layoff'}
+
+def tag_sentiment(title):
+    t = title.lower()
+    b = sum(1 for k in BULL_KW if k in t)
+    s = sum(1 for k in BEAR_KW if k in t)
+    return "利多" if b > s else "利空" if s > b else "中性"
+
 
 def now_tw():
     return datetime.now(TW_TZ)
@@ -206,29 +219,39 @@ def fetch_stocks(watchlist):
 
 
 def fetch_news(watchlist):
-    all_news = []
     all_stocks = [s for cat in watchlist["categories"] for s in cat["stocks"]]
-    symbols = [s["symbol"] for s in all_stocks[:5]]
-    seen = set()
-    for symbol in symbols:
+    stocks_news = {}   # symbol -> [news_item, ...]
+    all_news    = []
+    seen        = set()
+
+    for stock in all_stocks:
+        symbol   = stock["symbol"]
+        per_stock = []
         try:
             items = yf.Ticker(symbol).news or []
-            for n in items[:5]:
+            for n in items[:3]:
                 title = n.get("title", "")
-                if title in seen:
+                if not title:
                     continue
-                seen.add(title)
                 ts = n.get("providerPublishTime", 0)
-                all_news.append({
-                    "title":    title,
-                    "link":     n.get("link", ""),
-                    "source":   n.get("publisher", ""),
-                    "time":     datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M") if ts else "",
-                    "related":  symbol,
-                })
+                item = {
+                    "title":     title,
+                    "link":      n.get("link", ""),
+                    "source":    n.get("publisher", ""),
+                    "time":      datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M") if ts else "",
+                    "related":   symbol,
+                    "sentiment": tag_sentiment(title),
+                }
+                per_stock.append(item)
+                if title not in seen:
+                    seen.add(title)
+                    all_news.append(item)
         except Exception as e:
             print(f"  news error ({symbol}): {e}")
-    return all_news
+        stocks_news[symbol] = per_stock
+        print(f"    新聞：{symbol} {len(per_stock)} 則")
+
+    return all_news, stocks_news
 
 
 def _parse_json_safe(text):
@@ -329,14 +352,15 @@ def main():
     stocks = fetch_stocks(watchlist)
 
     print("\n[市場新聞]")
-    news = fetch_news(watchlist)
+    news, stocks_news = fetch_news(watchlist)
     print(f"  共 {len(news)} 則新聞")
 
     save_json(indices, "data/index/latest.json")
     save_json(indices, f"data/index/{date_str}.json")
     save_json(stocks,  "data/stocks/latest.json")
     save_json(stocks,  f"data/stocks/{date_str}.json")
-    save_json(news,    "data/news/latest.json")
+    save_json(news,        "data/news/latest.json")
+    save_json(stocks_news, "data/news/stocks_news.json")
 
     print("\n[AI 分析訊號]")
     ai_signals = ai_analyze(stocks, indices)
