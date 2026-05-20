@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI看盤小幫手</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: #0d1117; color: #c9d1d9; font-family: 'Segoe UI', sans-serif; }
+    .card { background: #161b22; border: 1px solid #30363d; }
+    .card-header { background: #21262d; border-bottom: 1px solid #30363d; font-weight: 600; }
+    .table { color: #c9d1d9; }
+    .table td, .table th { border-color: #30363d; vertical-align: middle; }
+    .table tbody tr:hover { background: #21262d; }
+    .up   { color: #ff4d4d; font-weight: 600; }
+    .down { color: #3fb950; font-weight: 600; }
+    .muted { color: #6e7681; }
+    .index-card { border-top: 3px solid #58a6ff; }
+    .index-price { font-size: 1.6rem; font-weight: 700; }
+    .news-item { border-bottom: 1px solid #30363d; padding: 10px 0; }
+    .news-item:last-child { border-bottom: none; }
+    .news-link { color: #58a6ff; text-decoration: none; }
+    .news-link:hover { text-decoration: underline; }
+    .status-bar { background: #21262d; border-radius: 8px; padding: 8px 16px; font-size: 0.85rem; }
+    .rsi-high { color: #ff4d4d; }
+    .rsi-low  { color: #3fb950; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+    .dot-green { background: #3fb950; }
+    .dot-red   { background: #ff4d4d; }
+    .dot-yellow{ background: #e3b341; }
+  </style>
+</head>
+<body>
+<div class="container-fluid py-4 px-4">
+
+  <!-- 標題列 -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h4 class="mb-0 fw-bold">📈 AI看盤小幫手</h4>
+      <div class="muted" style="font-size:0.8rem">台股即時資料 · 自動更新</div>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <div class="status-bar">
+        <span id="last-update" class="muted">載入中...</span>
+      </div>
+      <button class="btn btn-sm btn-outline-light" onclick="loadAll()">↻ 重新整理</button>
+    </div>
+  </div>
+
+  <!-- 大盤指數 -->
+  <h6 class="muted mb-3 text-uppercase" style="letter-spacing:1px">大盤指數</h6>
+  <div class="row mb-4" id="indices-container"></div>
+
+  <!-- 個股行情 + 技術指標 -->
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between">
+      <span>個股行情與技術指標</span>
+      <span class="muted fw-normal" style="font-size:0.8rem">RSI&gt;70超買 · RSI&lt;30超賣</span>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead>
+            <tr class="muted" style="font-size:0.85rem">
+              <th>股票</th>
+              <th class="text-end">股價</th>
+              <th class="text-end">漲跌</th>
+              <th class="text-end">漲幅%</th>
+              <th class="text-end">MA5</th>
+              <th class="text-end">MA20</th>
+              <th class="text-end">RSI14</th>
+              <th class="text-center">MACD方向</th>
+              <th class="text-center">訊號</th>
+            </tr>
+          </thead>
+          <tbody id="stocks-tbody">
+            <tr><td colspan="9" class="text-center muted py-4">載入中...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 市場新聞 -->
+  <div class="card">
+    <div class="card-header">市場新聞</div>
+    <div class="card-body" id="news-container">
+      <div class="muted">載入中...</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const RAW = 'https://raw.githubusercontent.com/troyxtoroi/ai-stock-monitor/main/data/';
+
+function qs(id) { return document.getElementById(id); }
+
+function sign(v) { return v > 0 ? '+' : ''; }
+function cls(v)  { return v > 0 ? 'up' : v < 0 ? 'down' : 'muted'; }
+
+function rsiClass(r) {
+  if (!r) return '';
+  if (r >= 70) return 'rsi-high';
+  if (r <= 30) return 'rsi-low';
+  return '';
+}
+
+function signalBadges(s) {
+  const ind = s.indicators || {};
+  const badges = [];
+
+  if (ind.RSI14 >= 70) badges.push('<span class="badge" style="background:#b91c1c">超買</span>');
+  if (ind.RSI14 <= 30) badges.push('<span class="badge" style="background:#166534">超賣</span>');
+  if (ind.MACD_hist > 0) badges.push('<span class="badge" style="background:#1d4ed8">MACD↑</span>');
+  if (ind.MACD_hist < 0) badges.push('<span class="badge bg-secondary">MACD↓</span>');
+  if (s.price && ind.MA20 && s.price > ind.MA20)
+    badges.push('<span class="badge" style="background:#92400e">MA20↑</span>');
+
+  return badges.length ? badges.join(' ') : '<span class="muted">-</span>';
+}
+
+async function fetchJSON(path) {
+  const res = await fetch(RAW + path + '?t=' + Date.now());
+  if (!res.ok) throw new Error(res.status);
+  return res.json();
+}
+
+async function loadIndices() {
+  try {
+    const data = await fetchJSON('index/latest.json');
+    const c = qs('indices-container');
+    c.innerHTML = data.map(idx => `
+      <div class="col-xl-2 col-md-4 col-6 mb-3">
+        <div class="card index-card h-100 p-3">
+          <div class="muted small mb-1">${idx.name}</div>
+          <div class="index-price ${cls(idx.change)}">${idx.price?.toLocaleString() ?? '-'}</div>
+          <div class="${cls(idx.change)}">${sign(idx.change)}${idx.change ?? '-'}（${sign(idx.change_pct)}${idx.change_pct ?? '-'}%）</div>
+          <div class="muted" style="font-size:0.75rem;margin-top:6px">${(idx.updated||'').slice(11,16)}</div>
+        </div>
+      </div>`).join('');
+  } catch(e) {
+    qs('indices-container').innerHTML = '<div class="col muted">資料載入失敗</div>';
+  }
+}
+
+async function loadStocks() {
+  try {
+    const data = await fetchJSON('stocks/latest.json');
+    const tbody = qs('stocks-tbody');
+    tbody.innerHTML = data.map(s => {
+      const ind = s.indicators || {};
+      const macdDir = ind.MACD_hist > 0 ? '<span class="up">▲</span>' :
+                      ind.MACD_hist < 0 ? '<span class="down">▼</span>' : '-';
+      return `
+        <tr>
+          <td>
+            <div class="fw-semibold">${s.name}</div>
+            <div class="muted" style="font-size:0.78rem">${s.symbol}</div>
+          </td>
+          <td class="text-end fw-bold">${s.price ?? '-'}</td>
+          <td class="text-end ${cls(s.change)}">${sign(s.change)}${s.change ?? '-'}</td>
+          <td class="text-end ${cls(s.change_pct)}">${sign(s.change_pct)}${s.change_pct ?? '-'}%</td>
+          <td class="text-end muted">${ind.MA5 ?? '-'}</td>
+          <td class="text-end muted">${ind.MA20 ?? '-'}</td>
+          <td class="text-end ${rsiClass(ind.RSI14)}">${ind.RSI14 ?? '-'}</td>
+          <td class="text-center">${macdDir}</td>
+          <td class="text-center">${signalBadges(s)}</td>
+        </tr>`;
+    }).join('');
+  } catch(e) {
+    qs('stocks-tbody').innerHTML = '<tr><td colspan="9" class="text-center muted py-4">資料載入失敗</td></tr>';
+  }
+}
+
+async function loadNews() {
+  try {
+    const data = await fetchJSON('news/latest.json');
+    const c = qs('news-container');
+    if (!data.length) { c.innerHTML = '<div class="muted">暫無新聞</div>'; return; }
+    c.innerHTML = data.slice(0, 15).map(n => `
+      <div class="news-item">
+        <a href="${n.link}" target="_blank" class="news-link">${n.title}</a>
+        <div class="muted" style="font-size:0.78rem;margin-top:3px">${n.source} · ${n.time}</div>
+      </div>`).join('');
+  } catch(e) {
+    qs('news-container').innerHTML = '<div class="muted">新聞載入失敗</div>';
+  }
+}
+
+async function loadAll() {
+  qs('last-update').textContent = '更新中...';
+  await Promise.all([loadIndices(), loadStocks(), loadNews()]);
+  const now = new Date().toLocaleString('zh-TW', { hour12: false });
+  qs('last-update').textContent = `最後更新：${now}`;
+}
+
+loadAll();
+setInterval(loadAll, 5 * 60 * 1000); // 每5分鐘自動重新整理
+</script>
+</body>
+</html>
