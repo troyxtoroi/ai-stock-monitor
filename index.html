@@ -109,6 +109,41 @@
     .up { color:var(--up); } .down { color:var(--down); } .muted { color:var(--muted); }
     .sec { font-size:.75rem; font-weight:600; color:var(--muted);
            text-transform:uppercase; letter-spacing:1.5px; margin:22px 0 10px; }
+
+    /* ── 底部跑馬燈 ────────────────────────────────────────────────── */
+    .ticker-bar {
+      position:fixed; bottom:0; left:0; right:0; height:38px;
+      background:#0a0e13; border-top:1px solid #30363d;
+      overflow:hidden; z-index:500; display:flex; align-items:center;
+    }
+    .ticker-label {
+      flex-shrink:0; padding:0 12px; font-size:.7rem; font-weight:700;
+      color:#58a6ff; letter-spacing:1px; border-right:1px solid #30363d;
+      height:100%; display:flex; align-items:center; background:#0a0e13;
+    }
+    .ticker-viewport { flex:1; overflow:hidden; height:100%; }
+    .ticker-track {
+      display:inline-flex; align-items:center; height:100%;
+      white-space:nowrap; will-change:transform;
+    }
+    .ticker-item {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:0 20px; font-size:.82rem; border-right:1px solid #21262d;
+      cursor:pointer;
+    }
+    .ticker-item:hover { background:#161b22; }
+    .ticker-name  { color:#adbac7; font-size:.75rem; }
+    .ticker-price { font-weight:700; font-size:.9rem; }
+    .ticker-chg   { font-size:.75rem; }
+
+    /* 價格跳動閃光 */
+    @keyframes flash-up   { 0%{background:rgba(248,81,73,.35)}  100%{background:transparent} }
+    @keyframes flash-down { 0%{background:rgba(63,185,80,.35)}  100%{background:transparent} }
+    .flash-up   { animation:flash-up   .6s ease-out; border-radius:4px; }
+    .flash-down { animation:flash-down .6s ease-out; border-radius:4px; }
+
+    /* 主內容底部留空給跑馬燈 */
+    body { padding-bottom:42px; }
   </style>
 </head>
 <body>
@@ -139,6 +174,16 @@
     <div class="news-row muted">載入中...</div>
   </div>
   <div style="height:32px"></div>
+</div>
+
+<!-- 底部跑馬燈 -->
+<div class="ticker-bar" id="ticker-bar">
+  <div class="ticker-label">📊 行情</div>
+  <div class="ticker-viewport" id="ticker-viewport">
+    <div class="ticker-track" id="ticker-track">
+      <span style="color:#555f6d;font-size:.8rem;padding:0 20px">資料載入中...</span>
+    </div>
+  </div>
 </div>
 
 <!-- K 線圖 Modal -->
@@ -433,12 +478,77 @@ async function loadAll() {
   await Promise.all([loadIndices(), loadStocks(), loadNews()]);
   qs('last-update').textContent = '更新：' + new Date().toLocaleTimeString('zh-TW', { hour12:false });
 
-  // 取得所有股票代號後啟動即時連動
+  // 啟動即時連動與跑馬燈
   try {
     const stocks = await fetchJSON('data/stocks/latest.json');
-    const symbols = stocks.map(s => s.symbol).filter(Boolean);
-    startLiveUpdates(symbols);
-  } catch {}
+    startLiveUpdates(stocks);
+  } catch (e) {
+    setBadge(false);
+  }
+}
+
+/* ── 跑馬燈 ──────────────────────────────────────────────────────────── */
+let _tickerData   = [];   // [{symbol, name, price, change_pct}]
+let _tickerAnim   = null; // rAF handle
+let _tickerOffset = 0;    // 目前捲動 px
+let _tickerSpeed  = 0.5;  // px/frame
+
+function buildTickerHTML(items) {
+  const html = items.map(d => {
+    const cls = d.change_pct > 0 ? 'up' : d.change_pct < 0 ? 'down' : 'muted';
+    const arrow = d.change_pct > 0 ? '▲' : d.change_pct < 0 ? '▼' : '─';
+    const s = sign(d.change_pct);
+    return `<span class="ticker-item" onclick="openChart('${d.symbol}','${d.name}',${d.price??0})">
+      <span class="ticker-name">${d.name}</span>
+      <span class="ticker-price ${cls}" data-tprice="${d.symbol}">${d.price?.toLocaleString()??'-'}</span>
+      <span class="ticker-chg ${cls}" data-tchg="${d.symbol}">${arrow}${s}${Math.abs(d.change_pct)}%</span>
+    </span>`;
+  }).join('');
+  return html + html; // 複製一份實現無縫循環
+}
+
+function startTicker(items) {
+  _tickerData = items;
+  const track = qs('ticker-track');
+  const vp    = qs('ticker-viewport');
+  track.innerHTML = buildTickerHTML(items);
+
+  if (_tickerAnim) cancelAnimationFrame(_tickerAnim);
+  _tickerOffset = 0;
+
+  function step() {
+    _tickerOffset += _tickerSpeed;
+    const half = track.scrollWidth / 2;
+    if (_tickerOffset >= half) _tickerOffset = 0;
+    track.style.transform = `translateX(-${_tickerOffset}px)`;
+    _tickerAnim = requestAnimationFrame(step);
+  }
+  _tickerAnim = requestAnimationFrame(step);
+}
+
+function updateTickerPrices(liveData) {
+  Object.entries(liveData).forEach(([sym, d]) => {
+    const pe = document.querySelector(`[data-tprice="${sym}"]`);
+    const ce = document.querySelector(`[data-tchg="${sym}"]`);
+    if (!pe) return;
+    const cls = d.change > 0 ? 'up' : d.change < 0 ? 'down' : 'muted';
+    const oldPrice = pe.textContent;
+    const newPrice = d.price?.toLocaleString();
+    if (oldPrice !== newPrice) {
+      // 更新所有同 symbol 的 ticker 元素（複製了兩份）
+      document.querySelectorAll(`[data-tprice="${sym}"]`).forEach(el => {
+        el.textContent = newPrice;
+        el.className = `ticker-price ${cls}`;
+        el.classList.add(d.change > 0 ? 'flash-up' : 'flash-down');
+        setTimeout(() => el.classList.remove('flash-up','flash-down'), 700);
+      });
+      document.querySelectorAll(`[data-tchg="${sym}"]`).forEach(el => {
+        const arrow = d.change > 0 ? '▲' : d.change < 0 ? '▼' : '─';
+        el.textContent = `${arrow}${d.change_pct > 0?'+':''}${d.change_pct}%`;
+        el.className = `ticker-chg ${cls}`;
+      });
+    }
+  });
 }
 
 /* ── 即時報價（TWSE MIS API）────────────────────────────────────────── */
@@ -509,47 +619,72 @@ function applyLivePrices(liveData) {
     const chgEl   = document.querySelector(`[data-chg="${symbol}"]`);
     if (!priceEl || d.price == null) return;
     const cls = d.change > 0 ? 'up' : d.change < 0 ? 'down' : 'muted';
-    priceEl.className = priceEl.className.replace(/\b(up|down|muted)\b/, cls);
-    priceEl.textContent = d.price.toLocaleString();
+
+    // 價格變動時加閃光效果
+    const oldPrice = priceEl.textContent;
+    const newPrice = d.price.toLocaleString();
+    if (oldPrice !== newPrice && oldPrice !== '-') {
+      priceEl.classList.add(d.change > 0 ? 'flash-up' : 'flash-down');
+      setTimeout(() => priceEl.classList.remove('flash-up','flash-down'), 700);
+    }
+
+    priceEl.className = priceEl.className.replace(/\b(up|down|muted)\b/g, cls);
+    priceEl.textContent = newPrice;
+
     if (chgEl) {
-      chgEl.className = chgEl.className.replace(/\b(up|down|muted)\b/, cls);
-      // 大盤用「±N（±N%）」，個股用「±N%」
+      chgEl.className = chgEl.className.replace(/\b(up|down|muted)\b/g, cls);
       const isIdx = symbol.startsWith('^');
       chgEl.textContent = isIdx
-        ? `${d.change > 0 ? '+' : ''}${d.change}（${d.change_pct > 0 ? '+' : ''}${d.change_pct}%）`
-        : `${d.change_pct > 0 ? '+' : ''}${d.change_pct}%`;
+        ? `${d.change > 0?'+':''}${d.change}（${d.change_pct > 0?'+':''}${d.change_pct}%）`
+        : `${d.change_pct > 0?'+':''}${d.change_pct}%`;
     }
   });
+  // 同步跑馬燈
+  updateTickerPrices(liveData);
 }
 
 let _liveTimer = null;
 
-async function startLiveUpdates(symbols) {
+function setBadge(isLive) {
+  qs('live-badge').style.display   = isLive ? 'inline-block' : 'none';
+  qs('closed-badge').style.display = isLive ? 'none' : 'inline-block';
+}
+
+async function startLiveUpdates(stocks) {
   if (_liveTimer) clearInterval(_liveTimer);
+
+  // 立刻啟動跑馬燈（用快照資料）
+  const tickerItems = stocks
+    .filter(s => s.price != null)
+    .map(s => ({ symbol:s.symbol, name:s.name, price:s.price, change_pct:s.change_pct??0 }));
+  if (tickerItems.length) startTicker(tickerItems);
+
+  const symbols = stocks.map(s => s.symbol).filter(Boolean);
+
   if (!isTWMarketOpen()) {
-    qs('live-badge').style.display   = 'none';
-    qs('closed-badge').style.display = 'inline-block';
+    setBadge(false);
     return;
   }
-  qs('closed-badge').style.display = 'none';
-  qs('live-badge').style.display   = 'inline-block';
+
+  setBadge(true);
 
   const tick = async () => {
     if (!isTWMarketOpen()) {
       clearInterval(_liveTimer);
-      qs('live-badge').style.display   = 'none';
-      qs('closed-badge').style.display = 'inline-block';
+      setBadge(false);
       return;
     }
     try {
       const live = await fetchTWSELive(symbols);
-      applyLivePrices(live);
-      qs('last-update').textContent = '即時 ' + new Date().toLocaleTimeString('zh-TW', { hour12:false });
+      if (Object.keys(live).length > 0) {
+        applyLivePrices(live);
+        qs('last-update').textContent = '即時 ' + new Date().toLocaleTimeString('zh-TW', { hour12:false });
+      }
     } catch (e) { console.warn('即時報價失敗', e); }
   };
 
   await tick();
-  _liveTimer = setInterval(tick, 30000); // 每 30 秒
+  _liveTimer = setInterval(tick, 30000);
 }
 
 /* ── K 線圖 ─────────────────────────────────────────────────────────── */
