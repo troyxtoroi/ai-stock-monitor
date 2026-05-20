@@ -231,61 +231,79 @@ def fetch_news(watchlist):
     return all_news
 
 
+def _parse_json_safe(text):
+    """從 Claude 回傳文字中提取 JSON，容錯 markdown code block 包裝。"""
+    import re
+    text = text.strip()
+    # 移除 ```json ... ``` 包裝
+    text = re.sub(r'^```(?:json)?\s*', '', text)
+    text = re.sub(r'\s*```$', '', text)
+    text = text.strip()
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        # 嘗試直接抓 [...] 陣列
+        m = re.search(r'\[.*\]', text, re.DOTALL)
+        if m:
+            return json.loads(m.group())
+        raise
+
+
 def ai_analyze(stocks, indices):
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if not api_key:
         print("  跳過 AI 分析（未設定 ANTHROPIC_API_KEY）")
         return []
 
+    # 只分析有資料的股票
+    valid = [s for s in stocks if s.get("price") is not None and s.get("indicators")]
+    if not valid:
+        print("  跳過 AI 分析（無有效股票資料）")
+        return []
+
     client = anthropic.Anthropic(api_key=api_key)
 
     index_summary = " | ".join(
         f"{i['name']} {i['price']}（{'+' if (i['change_pct'] or 0) > 0 else ''}{i['change_pct']}%）"
-        for i in indices
+        for i in indices if i.get("price") is not None
     )
 
     stocks_text = "\n".join(
         f"{s['name']}({s['symbol']}): 股價{s['price']} 漲跌{s['change_pct']}% "
-        f"MA5={s['indicators'].get('MA5','?')} MA10={s['indicators'].get('MA10','?')} MA20={s['indicators'].get('MA20','?')} "
         f"RSI={s['indicators'].get('RSI14','?')} "
-        f"MACD={s['indicators'].get('MACD','?')} MACD_signal={s['indicators'].get('MACD_signal','?')} MACD_hist={s['indicators'].get('MACD_hist','?')}"
-        for s in stocks
+        f"MA5={s['indicators'].get('MA5','?')} MA20={s['indicators'].get('MA20','?')} "
+        f"MACD_hist={s['indicators'].get('MACD_hist','?')}"
+        for s in valid
     )
+
+    prompt = f"""大盤：{index_summary}
+
+各股指標：
+{stocks_text}
+
+請輸出 JSON 陣列，每支股票一筆，格式如下（只輸出 JSON，不要任何說明）：
+[{{"symbol":"代號","name":"名稱","trend":"上升|下降|盤整","signal":"買入|賣出|觀望","confidence":"高|中|低","reason":"60字內說明","risk":"30字內風險"}}]"""
 
     try:
         resp = client.messages.create(
             model="claude-haiku-4-5-20251001",
-            max_tokens=2048,
+            max_tokens=4096,
             system=[{
                 "type": "text",
                 "text": (
-                    "你是專業台股技術分析師，擅長根據技術指標給出明確的買賣操作建議。\n"
-                    "分析規則：\n"
-                    "1. 趨勢判斷：股價>MA5>MA10>MA20 為強勢上升；股價<MA5<MA10<MA20 為強勢下降；其餘為盤整\n"
-                    "2. RSI>70 超買（偏賣）；RSI<30 超賣（偏買）；50~70 偏多；30~50 偏空\n"
-                    "3. MACD_hist>0 且擴大 為買入訊號；MACD_hist<0 且擴大 為賣出訊號\n"
-                    "4. 綜合三項指標給出明確操作建議\n"
-                    "輸出嚴格遵守JSON格式，不加任何說明文字。"
+                    "你是台股技術分析師。只輸出 JSON 陣列，絕對不加任何說明文字、不用 markdown。\n"
+                    "RSI>70超買偏賣，RSI<30超賣偏買；MACD_hist>0金叉偏多，<0死叉偏空；"
+                    "股價>MA20站上均線，<MA20跌破均線。"
                 ),
                 "cache_control": {"type": "ephemeral"},
             }],
-            messages=[{"role": "user", "content": f"""大盤狀況：{index_summary}
-
-各股技術指標：
-{stocks_text}
-
-請針對每支股票輸出明確操作建議，JSON陣列格式：
-[{{
-  "symbol": "股票代號",
-  "name": "股票名稱",
-  "trend": "上升|下降|盤整",
-  "signal": "買入|賣出|觀望",
-  "confidence": "高|中|低",
-  "reason": "具體說明為何買入或賣出（60字內，要有數據依據）",
-  "risk": "主要風險提示（30字內）"
-}}]"""}],
+            messages=[{"role": "user", "content": prompt}],
         )
-        results = json.loads(resp.content[0].text)
+        raw = resp.content[0].text
+        print(f"  Claude 回傳（前100字）：{raw[:100]}")
+        results = _parse_json_safe(raw)
+        if not isinstance(results, list):
+            raise ValueError(f"回傳不是陣列：{type(results)}")
         ts = now_tw().strftime("%Y-%m-%d %H:%M:%S")
         for r in results:
             r["updated"] = ts
