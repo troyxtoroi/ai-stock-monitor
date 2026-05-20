@@ -4,6 +4,7 @@ from datetime import datetime
 import pytz
 import yfinance as yf
 import pandas as pd
+import anthropic
 
 TW_TZ = pytz.timezone('Asia/Taipei')
 
@@ -129,6 +130,59 @@ def fetch_news(watchlist):
     return all_news
 
 
+def ai_analyze(stocks, indices):
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        print("  跳過 AI 分析（未設定 ANTHROPIC_API_KEY）")
+        return []
+
+    client = anthropic.Anthropic(api_key=api_key)
+
+    index_summary = " | ".join(
+        f"{i['name']} {i['price']}（{'+' if (i['change_pct'] or 0) > 0 else ''}{i['change_pct']}%）"
+        for i in indices
+    )
+
+    stocks_text = "\n".join(
+        f"{s['name']}({s['symbol']}): 股價{s['price']} 漲跌{s['change_pct']}% "
+        f"MA5={s['indicators'].get('MA5','?')} MA20={s['indicators'].get('MA20','?')} "
+        f"RSI={s['indicators'].get('RSI14','?')} MACD_hist={s['indicators'].get('MACD_hist','?')}"
+        for s in stocks
+    )
+
+    try:
+        resp = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=1024,
+            system=[{
+                "type": "text",
+                "text": (
+                    "你是台股技術分析專家。根據技術指標給出精準的買賣建議。"
+                    "分析需綜合考量：RSI超買超賣、MACD金叉死叉、均線多空排列、大盤強弱。"
+                    "輸出嚴格遵守JSON格式，不加任何說明文字。"
+                ),
+                "cache_control": {"type": "ephemeral"},
+            }],
+            messages=[{"role": "user", "content": f"""大盤：{index_summary}
+
+個股技術指標：
+{stocks_text}
+
+請輸出JSON陣列，每支股票一個物件：
+[{{"symbol":"代號","signal":"買進|賣出|觀望","confidence":"高|中|低","reason":"技術分析說明50字內","risk":"風險提示30字內"}}]"""}],
+        )
+        results = json.loads(resp.content[0].text)
+        # attach updated time
+        ts = now_tw().strftime("%Y-%m-%d %H:%M:%S")
+        for r in results:
+            r["updated"] = ts
+        print(f"  AI 分析完成，共 {len(results)} 支")
+        return results
+    except Exception as e:
+        print(f"  AI 分析失敗：{e}")
+        return []
+
+
 def main():
     with open("config/watchlist.json", "r", encoding="utf-8") as f:
         watchlist = json.load(f)
@@ -152,6 +206,11 @@ def main():
     save_json(stocks,  "data/stocks/latest.json")
     save_json(stocks,  f"data/stocks/{date_str}.json")
     save_json(news,    "data/news/latest.json")
+
+    print("\n[AI 分析訊號]")
+    ai_signals = ai_analyze(stocks, indices)
+    if ai_signals:
+        save_json(ai_signals, "data/ai_signals.json")
 
     summary = {
         "updated":      now.strftime("%Y-%m-%d %H:%M:%S"),

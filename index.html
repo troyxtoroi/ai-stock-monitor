@@ -24,6 +24,13 @@
     .status-bar { background: #21262d; border-radius: 8px; padding: 8px 16px; font-size: 0.85rem; }
     .rsi-high { color: #ff4d4d; }
     .rsi-low  { color: #3fb950; }
+    .signal-buy  { background: #7f1d1d; color: #fca5a5; border: 1px solid #dc2626; }
+    .signal-sell { background: #14532d; color: #86efac; border: 1px solid #16a34a; }
+    .signal-hold { background: #1c1f26; color: #94a3b8; border: 1px solid #475569; }
+    .ai-card { border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+    .conf-高 { opacity: 1; }
+    .conf-中 { opacity: 0.8; }
+    .conf-低 { opacity: 0.6; }
   </style>
 </head>
 <body>
@@ -73,6 +80,15 @@
         </table>
       </div>
     </div>
+  </div>
+
+  <!-- AI 分析訊號 -->
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between">
+      <span>🤖 AI 買賣訊號分析</span>
+      <span class="muted fw-normal" style="font-size:0.8rem">由 Claude AI 根據技術指標自動判斷</span>
+    </div>
+    <div class="card-body" id="ai-container"><div class="muted">載入中...</div></div>
   </div>
 
   <!-- 市場新聞 -->
@@ -164,9 +180,38 @@ async function loadNews() {
   }
 }
 
+async function loadAI() {
+  try {
+    const data = await fetchJSON('data/ai_signals.json');
+    const c = qs('ai-container');
+    if (!data.length) { c.innerHTML = '<div class="muted">尚無 AI 分析資料</div>'; return; }
+
+    const signalMap = { '買進': 'buy', '賣出': 'sell', '觀望': 'hold' };
+    const confLabel = { '高': '信心高', '中': '信心中', '低': '信心低' };
+
+    c.innerHTML = '<div class="row">' + data.map(s => {
+      const cls = signalMap[s.signal] || 'hold';
+      return `
+        <div class="col-xl-3 col-md-4 col-sm-6 mb-2">
+          <div class="ai-card signal-${cls} conf-${s.confidence}">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <strong>${s.name ?? s.symbol}</strong>
+              <span class="badge" style="font-size:0.9rem">${s.signal}</span>
+            </div>
+            <div style="font-size:0.82rem;margin-bottom:6px">${s.reason}</div>
+            <div style="font-size:0.75rem;opacity:0.7">⚠ ${s.risk}</div>
+            <div class="muted" style="font-size:0.72rem;margin-top:6px">${confLabel[s.confidence] ?? ''} · ${(s.updated||'').slice(11,16)}</div>
+          </div>
+        </div>`;
+    }).join('') + '</div>';
+  } catch(e) {
+    qs('ai-container').innerHTML = '<div class="muted">AI 分析資料尚未生成，請等候下次自動更新</div>';
+  }
+}
+
 async function loadAll() {
   qs('last-update').textContent = '更新中...';
-  await Promise.all([loadIndices(), loadStocks(), loadNews()]);
+  await Promise.all([loadIndices(), loadStocks(), loadAI(), loadNews()]);
   qs('last-update').textContent = '最後更新：' + new Date().toLocaleString('zh-TW', { hour12: false });
 }
 
