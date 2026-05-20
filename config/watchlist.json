@@ -17,7 +17,8 @@
       "stocks": [
         {"symbol": "2408.TW", "name": "南亞科"},
         {"symbol": "2344.TW", "name": "華邦電"},
-        {"symbol": "2337.TW", "name": "旺宏"}
+        {"symbol": "2337.TW", "name": "旺宏"},
+        {"symbol": "6770.TW", "name": "力積電"}
       ]
     },
     {
