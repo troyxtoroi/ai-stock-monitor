@@ -111,13 +111,12 @@
            text-transform:uppercase; letter-spacing:1.5px; margin:22px 0 10px; }
 
     /* ── 持股標記 ──────────────────────────────────────────────────── */
-    .holding-bar { background:linear-gradient(90deg,#0d2a1a,#0a1f30);
-      border:1px solid #1e4a2e; border-radius:8px; padding:6px 10px;
-      margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; }
-    .holding-tag { font-size:.7rem; font-weight:800; color:#4dbb6e; letter-spacing:.5px; }
-    .holding-val { font-size:.78rem; font-weight:700; color:#e6edf3; }
-    .holding-shares { font-size:.68rem; color:#768390; }
-    .sk.is-holding { box-shadow:0 0 0 1px #1e4a2e, 0 0 12px rgba(77,187,110,.12); }
+    .holding-bar { background:linear-gradient(90deg,#1a1400,#120e00);
+      border:1px solid #7a5c00; border-radius:8px; padding:5px 12px;
+      margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+    .holding-tag { font-size:.68rem; font-weight:700; color:#c9a227; letter-spacing:1px; }
+    .sk.is-holding { border-left-color:#c9a227 !important;
+      box-shadow:0 0 0 1px rgba(201,162,39,.2), 0 0 14px rgba(201,162,39,.08); }
 
     /* ── 個股消息 ──────────────────────────────────────────────────── */
     .stock-news { margin-top:8px; border-top:1px solid #21262d; padding-top:8px; }
@@ -407,11 +406,8 @@ function stockCard(s, aiMap, newsMap, holdings) {
 
         ${shares ? `
         <div class="holding-bar">
-          <span class="holding-tag">🏦 持股中</span>
-          <div class="text-end">
-            <div class="holding-val">NT$ ${mktVal.toLocaleString()}</div>
-            <div class="holding-shares">${shares.toLocaleString()} 股</div>
-          </div>
+          <span style="font-size:.7rem;color:#7a5c00">◆</span>
+          <span class="holding-tag">持股中</span>
         </div>` : ''}
 
         <!-- 股票名稱 + 訊號 -->
