@@ -50,6 +50,17 @@
       ]
     },
     {
+      "id": "panel",
+      "name": "面板／太陽能",
+      "stocks": [
+        {"symbol": "2409.TW", "name": "友達"},
+        {"symbol": "3481.TW", "name": "群創"},
+        {"symbol": "1802.TW", "name": "台玻"},
+        {"symbol": "6443.TW", "name": "元晶"},
+        {"symbol": "8112.TW", "name": "至上"}
+      ]
+    },
+    {
       "id": "ai",
       "name": "其他AI相關",
       "stocks": [
