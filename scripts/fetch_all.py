@@ -149,34 +149,46 @@ def ai_analyze(stocks, indices):
 
     stocks_text = "\n".join(
         f"{s['name']}({s['symbol']}): 股價{s['price']} 漲跌{s['change_pct']}% "
-        f"MA5={s['indicators'].get('MA5','?')} MA20={s['indicators'].get('MA20','?')} "
-        f"RSI={s['indicators'].get('RSI14','?')} MACD_hist={s['indicators'].get('MACD_hist','?')}"
+        f"MA5={s['indicators'].get('MA5','?')} MA10={s['indicators'].get('MA10','?')} MA20={s['indicators'].get('MA20','?')} "
+        f"RSI={s['indicators'].get('RSI14','?')} "
+        f"MACD={s['indicators'].get('MACD','?')} MACD_signal={s['indicators'].get('MACD_signal','?')} MACD_hist={s['indicators'].get('MACD_hist','?')}"
         for s in stocks
     )
 
     try:
         resp = client.messages.create(
             model="claude-haiku-4-5-20251001",
-            max_tokens=1024,
+            max_tokens=2048,
             system=[{
                 "type": "text",
                 "text": (
-                    "你是台股技術分析專家。根據技術指標給出精準的買賣建議。"
-                    "分析需綜合考量：RSI超買超賣、MACD金叉死叉、均線多空排列、大盤強弱。"
+                    "你是專業台股技術分析師，擅長根據技術指標給出明確的買賣操作建議。\n"
+                    "分析規則：\n"
+                    "1. 趨勢判斷：股價>MA5>MA10>MA20 為強勢上升；股價<MA5<MA10<MA20 為強勢下降；其餘為盤整\n"
+                    "2. RSI>70 超買（偏賣）；RSI<30 超賣（偏買）；50~70 偏多；30~50 偏空\n"
+                    "3. MACD_hist>0 且擴大 為買入訊號；MACD_hist<0 且擴大 為賣出訊號\n"
+                    "4. 綜合三項指標給出明確操作建議\n"
                     "輸出嚴格遵守JSON格式，不加任何說明文字。"
                 ),
                 "cache_control": {"type": "ephemeral"},
             }],
-            messages=[{"role": "user", "content": f"""大盤：{index_summary}
+            messages=[{"role": "user", "content": f"""大盤狀況：{index_summary}
 
-個股技術指標：
+各股技術指標：
 {stocks_text}
 
-請輸出JSON陣列，每支股票一個物件：
-[{{"symbol":"代號","signal":"買進|賣出|觀望","confidence":"高|中|低","reason":"技術分析說明50字內","risk":"風險提示30字內"}}]"""}],
+請針對每支股票輸出明確操作建議，JSON陣列格式：
+[{{
+  "symbol": "股票代號",
+  "name": "股票名稱",
+  "trend": "上升|下降|盤整",
+  "signal": "買入|賣出|觀望",
+  "confidence": "高|中|低",
+  "reason": "具體說明為何買入或賣出（60字內，要有數據依據）",
+  "risk": "主要風險提示（30字內）"
+}}]"""}],
         )
         results = json.loads(resp.content[0].text)
-        # attach updated time
         ts = now_tw().strftime("%Y-%m-%d %H:%M:%S")
         for r in results:
             r["updated"] = ts
