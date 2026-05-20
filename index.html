@@ -22,7 +22,10 @@
 
     /* 大盤 */
     .idx-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 20px; }
+    .idx-name { font-size:.76rem; color:var(--muted); margin-bottom:4px; }
     .idx-price { font-size:2rem; font-weight:800; letter-spacing:-.5px; }
+    .idx-chg   { font-size:1rem; font-weight:700; margin-top:2px; }
+    .idx-time  { font-size:.7rem; color:var(--muted); margin-top:6px; }
 
     /* 分類 */
     .cat-title { background:var(--bar); border:1px solid var(--border);
@@ -40,19 +43,20 @@
     .sk.neutral   { border-left-color:#555f6d; }
     .sk.lean-buy  { border-left-color:#4fc3f7; }
     .sk.hold      { border-left-color:#3fb950; }
+    .sk.nodata    { border-left-color:#444c56; opacity:.6; cursor:default; }
 
-    /* 訊號標籤 - 五種行動 */
-    .sig { font-size:.82rem; font-weight:800; padding:4px 12px;
-      border-radius:8px; letter-spacing:.5px; white-space:nowrap;
-      display:flex; align-items:center; gap:5px; justify-content:center; }
-    .sig-sell      { background:#4a0000; border:2px solid #ff4d4d; color:#ff9492; box-shadow:0 0 8px rgba(255,77,77,.3); }
+    /* 訊號標籤 */
+    .sig { font-size:.78rem; font-weight:800; padding:3px 10px;
+      border-radius:8px; letter-spacing:.3px; white-space:nowrap;
+      display:inline-flex; align-items:center; gap:4px; }
+    .sig-sell      { background:#4a0000; border:2px solid #ff4d4d; color:#ff9492; box-shadow:0 0 8px rgba(255,77,77,.25); }
     .sig-lean-sell { background:#2d1000; border:1px solid #ff7f50; color:#ffb08a; }
     .sig-neutral   { background:#1c2128; border:1px solid #555f6d; color:#768390; }
     .sig-lean-buy  { background:#001e2d; border:1px solid #4fc3f7; color:#87dcfc; }
-    .sig-hold      { background:#003320; border:2px solid #3fb950; color:#7dff9f; box-shadow:0 0 8px rgba(63,185,80,.3); }
+    .sig-hold      { background:#003320; border:2px solid #3fb950; color:#7dff9f; box-shadow:0 0 8px rgba(63,185,80,.25); }
 
     /* 位置標籤 */
-    .pos-badge { font-size:.7rem; font-weight:600; padding:2px 8px; border-radius:12px; }
+    .pos-badge { font-size:.68rem; font-weight:600; padding:2px 8px; border-radius:12px; display:inline-block; }
     .pos-高點 { background:#3d0000; color:#ff9492; }
     .pos-偏高 { background:#2d1500; color:#ffa07a; }
     .pos-中間 { background:#1c2128; color:#768390; }
@@ -61,12 +65,25 @@
     .pos-不明 { background:#1c2128; color:#555f6d; }
 
     /* RSI 條 */
-    .rsi-wrap { background:#2d333b; border-radius:4px; height:5px; margin:6px 0; overflow:hidden; }
+    .rsi-wrap { background:#2d333b; border-radius:4px; height:5px; margin:4px 0 6px; overflow:hidden; }
     .rsi-fill { height:100%; border-radius:4px; }
 
-    /* AI 說明 */
-    .ai-note { font-size:.76rem; color:#adbac7; line-height:1.5; margin-top:9px;
-      border-top:1px solid var(--border); padding-top:9px; }
+    /* AI 建議區塊 */
+    .ai-block { background:#0d1f0d; border:1px solid #1e3a1e; border-radius:8px;
+      padding:8px 10px; margin-top:8px; font-size:.76rem; }
+    .ai-block-title { color:#4dbb6e; font-weight:700; font-size:.72rem;
+      letter-spacing:.8px; margin-bottom:5px; }
+    .ai-badge { font-size:.7rem; font-weight:700; padding:1px 8px; border-radius:10px; display:inline-block; }
+    .ai-buy     { background:#003320; color:#7dff9f; border:1px solid #3fb950; }
+    .ai-sell    { background:#4a0000; color:#ff9492; border:1px solid #ff4d4d; }
+    .ai-watch   { background:#1c2128; color:#adbac7; border:1px solid #555f6d; }
+    .ai-conf-高 { background:#003320; color:#7dff9f; }
+    .ai-conf-中 { background:#1c2128; color:#adbac7; }
+    .ai-conf-低 { background:#2d1000; color:#ffb08a; }
+
+    /* 規則說明 */
+    .rule-note { font-size:.73rem; color:#7d8590; margin-top:6px; line-height:1.5; }
+    .rule-note-title { font-size:.66rem; letter-spacing:.6px; color:#444c56; font-weight:600; }
 
     /* 新聞 */
     .news-wrap { background:var(--card); border:1px solid var(--border); border-radius:12px; }
@@ -80,8 +97,7 @@
       z-index:2000; flex-direction:column; }
     #chart-modal.open { display:flex; }
     .chart-topbar { background:var(--bar); border-bottom:1px solid var(--border);
-      padding:10px 16px; display:flex; justify-content:space-between; align-items:center;
-      flex-shrink:0; }
+      padding:10px 16px; display:flex; justify-content:space-between; align-items:center; flex-shrink:0; }
     .chart-legend { background:var(--card); border-bottom:1px solid var(--border);
       padding:5px 16px; font-size:.72rem; display:flex; gap:14px; flex-wrap:wrap;
       flex-shrink:0; color:var(--muted); }
@@ -101,7 +117,7 @@
 <div class="topbar">
   <div>
     <span style="font-size:1.05rem;font-weight:700">📈 AI看盤小幫手</span>
-    <span class="muted" style="font-size:.78rem;margin-left:10px">點擊個股可看K線圖</span>
+    <span class="muted" style="font-size:.78rem;margin-left:10px">點擊個股查看K線圖</span>
   </div>
   <div style="display:flex;align-items:center;gap:12px">
     <span class="muted" style="font-size:.8rem" id="last-update">載入中...</span>
@@ -113,7 +129,7 @@
   <div class="sec">大盤指數</div>
   <div class="row g-3 mb-1" id="indices-container"></div>
 
-  <div class="sec">個股看盤（點擊查看K線圖）</div>
+  <div class="sec">個股看盤</div>
   <div id="stocks-by-category"></div>
 
   <div class="sec">市場新聞</div>
@@ -136,7 +152,6 @@
       <button onclick="closeChart()" class="btn btn-sm btn-outline-danger ms-2">✕ 關閉</button>
     </div>
   </div>
-
   <div class="chart-legend">
     <span><span style="color:#ff9d00">━</span> MA5</span>
     <span><span style="color:#ffff00">━</span> MA10</span>
@@ -146,9 +161,7 @@
     <span><span style="color:#f0b429">▲</span> 黃金交叉</span>
     <span><span style="color:#7d8590">▼</span> 死亡交叉</span>
   </div>
-
   <div id="main-chart-wrap"></div>
-
   <div class="kd-label">
     <span class="muted">KD 指標</span>
     <span><span style="color:#58a6ff">━</span> K值</span>
@@ -160,8 +173,8 @@
 
 <script>
 const CAT_ICON = { focus:'⭐', memory:'💾', passive:'🔩', leo:'🛰️', photonics:'💡', panel:'🖥️', ai:'🤖' };
-const qs = id => document.getElementById(id);
-const sign = v => v > 0 ? '+' : '';
+const qs   = id => document.getElementById(id);
+const sign = v  => v > 0 ? '+' : '';
 
 async function fetchJSON(path) {
   const res = await fetch(path + '?t=' + Date.now());
@@ -169,102 +182,194 @@ async function fetchJSON(path) {
   return res.json();
 }
 
-function rsiColor(r) {
-  return r >= 70 ? '#f85149' : r <= 30 ? '#3fb950' : '#58a6ff';
+/* ── 客戶端訊號計算（當資料無 signal 欄位時備用）─────────────────── */
+function computeSignalJS(price, ind) {
+  if (!price || !ind || Object.keys(ind).length === 0)
+    return { signal:'中性觀望', position:'不明', trend:'盤整', strength:0, reason:'資料不足' };
+
+  const rsi     = ind.RSI14    ?? 50;
+  const hist    = ind.MACD_hist ?? 0;
+  const ma5     = ind.MA5;
+  const ma20    = ind.MA20;
+  const bbUpper = ind.BB_upper;
+  const bbLower = ind.BB_lower;
+
+  const aboveBB = bbUpper && price >= bbUpper;
+  const belowBB = bbLower && price <= bbLower;
+
+  let position;
+  if      (rsi >= 75 || aboveBB)                          position = '高點';
+  else if (rsi <= 28 || belowBB)                          position = '低點';
+  else if (rsi >= 60 && ma20 && price > ma20 * 1.05)      position = '偏高';
+  else if (rsi <= 40 && ma20 && price < ma20 * 0.95)      position = '偏低';
+  else                                                     position = '中間';
+
+  let trend = '盤整';
+  if (ma5 && ma20) {
+    if      (ma5 > ma20 * 1.015)  trend = '上升';
+    else if (ma5 < ma20 * 0.985)  trend = '下降';
+  }
+
+  let score = 0;
+  if      (rsi < 30)  score += 3;
+  else if (rsi < 45)  score += 1;
+  else if (rsi > 70)  score -= 3;
+  else if (rsi > 58)  score -= 1;
+  if      (hist > 0)  score += 2;
+  else if (hist < 0)  score -= 2;
+  if (ma20) score += price > ma20 ? 1 : -1;
+  if (aboveBB) score -= 2;
+  if (belowBB) score += 2;
+
+  let signal;
+  if      (position === '高點' || score <= -4)                     signal = '賣出';
+  else if (score <= -2 || (position === '偏高' && score < 0))      signal = '偏賣觀望';
+  else if (position === '低點' || score >= 4)                      signal = '抱緊';
+  else if (score >= 2 || (position === '偏低' && score > 0))       signal = '偏買觀望';
+  else                                                              signal = '中性觀望';
+
+  const parts = [`RSI ${rsi}`];
+  if (aboveBB)       parts.push('突破布林上軌（超買）');
+  else if (belowBB)  parts.push('跌破布林下軌（超賣）');
+  if (hist > 0)      parts.push('MACD 金叉');
+  else if (hist < 0) parts.push('MACD 死叉');
+  if (ma20)          parts.push(`${price > ma20 ? '站上' : '跌破'} MA20(${ma20})`);
+
+  return { signal, position, trend, strength: score, reason: parts.join('，') };
 }
 
+/* ── 訊號設定 ─────────────────────────────────────────────────────── */
 function sigConfig(signal) {
   const m = {
-    '賣出':     { cls:'sell',      icon:'💰', label:'賣出',     desc:'明確高點，建議獲利了結或停損' },
-    '偏賣觀望': { cls:'lean-sell', icon:'⚠️', label:'偏賣觀望', desc:'有賣壓出現，可準備減碼出場' },
-    '中性觀望': { cls:'neutral',   icon:'👀', label:'觀望',     desc:'方向不明，耐心等待訊號確認' },
-    '偏買觀望': { cls:'lean-buy',  icon:'📌', label:'偏買觀望', desc:'偏多訊號，可考慮分批試單' },
+    '賣出':     { cls:'sell',      icon:'💰', label:'賣出',      desc:'明確高點，建議獲利了結或停損' },
+    '偏賣觀望': { cls:'lean-sell', icon:'⚠️', label:'偏賣觀望',  desc:'有賣壓出現，可準備減碼出場' },
+    '中性觀望': { cls:'neutral',   icon:'👀', label:'觀望',      desc:'方向不明，耐心等待訊號確認' },
+    '偏買觀望': { cls:'lean-buy',  icon:'📌', label:'偏買觀望',  desc:'偏多訊號，可考慮分批試單' },
     '抱緊':     { cls:'hold',      icon:'💪', label:'抱緊/買進', desc:'明確低點或強勢，持有或進場' },
   };
   return m[signal] || m['中性觀望'];
 }
 
 function posLabel(pos) {
-  const m = {
-    '高點':'🔴 高點', '偏高':'🟠 偏高', '中間':'⚪ 中間', '偏低':'🔵 偏低', '低點':'🔵 低點', '不明':'— 不明'
-  };
+  const m = { '高點':'🔴 高點','偏高':'🟠 偏高','中間':'⚪ 中間','偏低':'🔵 偏低','低點':'🔵 低點','不明':'— 不明' };
   return m[pos] || pos;
 }
 
+function rsiColor(r) { return r >= 70 ? '#f85149' : r <= 30 ? '#3fb950' : '#58a6ff'; }
+
+/* ── AI 建議區塊 ─────────────────────────────────────────────────── */
+function aiBlock(ai) {
+  if (!ai) return '';
+  const sigMap = { '買入':'ai-buy', '賣出':'ai-sell', '觀望':'ai-watch' };
+  const sigCls = sigMap[ai.signal] || 'ai-watch';
+  const confCls = `ai-conf-${ai.confidence || '中'}`;
+  return `
+    <div class="ai-block">
+      <div class="ai-block-title">🤖 AI 建議</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">
+        <span class="ai-badge ${sigCls}">${ai.signal || '觀望'}</span>
+        <span class="ai-badge ${confCls}">信心度 ${ai.confidence || '中'}</span>
+        ${ai.trend ? `<span style="font-size:.68rem;color:var(--muted)">${ai.trend === '上升' ? '📈' : ai.trend === '下降' ? '📉' : '➡️'} ${ai.trend}</span>` : ''}
+      </div>
+      ${ai.reason ? `<div style="color:#adbac7;line-height:1.5">${ai.reason}</div>` : ''}
+      ${ai.risk   ? `<div style="color:#768390;margin-top:3px">⚠ ${ai.risk}</div>` : ''}
+    </div>`;
+}
+
+/* ── 個股卡片 ─────────────────────────────────────────────────────── */
 function stockCard(s, aiMap) {
+  // 無資料股票
+  if (s.price === null || s.price === undefined) {
+    return `
+      <div class="col-xl-3 col-lg-4 col-md-6 col-6 mb-3">
+        <div class="sk nodata">
+          <div style="font-weight:700;font-size:.95rem">${s.name}</div>
+          <div class="muted" style="font-size:.7rem">${s.symbol}</div>
+          <div style="margin-top:10px;font-size:.8rem;color:#444c56">資料暫無法取得</div>
+        </div>
+      </div>`;
+  }
+
   const ind = s.indicators || {};
   const ai  = aiMap[s.symbol] || null;
 
-  // 行動訊號
-  const sig = s.signal ?? '觀望';
-  const sc  = sigConfig(sig);
+  // 優先用後端 signal，否則前端計算
+  const computed = s.signal
+    ? { signal: s.signal, position: s.position, trend: s.trend, strength: s.strength, reason: s.signal_reason }
+    : computeSignalJS(s.price, ind);
 
-  // 位置
-  const pos = s.position ?? '不明';
+  const sc      = sigConfig(computed.signal);
+  const pos     = computed.position || '不明';
+  const trend   = computed.trend    || '盤整';
+  const tIcon   = trend === '上升' ? '📈' : trend === '下降' ? '📉' : '➡️';
 
-  const pct    = s.change_pct ?? 0;
-  const chgCls = pct > 0 ? 'up' : pct < 0 ? 'down' : 'muted';
-  const trend  = s.trend ?? '盤整';
-  const tIcon  = trend === '上升' ? '📈' : trend === '下降' ? '📉' : '➡️';
-  const rsi    = ind.RSI14 ?? 50;
-  const rsiW   = Math.min(100, Math.max(0, rsi));
-  const reason = ai?.reason || s.signal_reason || '';
-  const risk   = ai?.risk   || '';
+  const pct     = s.change_pct ?? 0;
+  const chgCls  = pct > 0 ? 'up' : pct < 0 ? 'down' : 'muted';
+
+  const rsi  = ind.RSI14 ?? '-';
+  const rsiW = typeof rsi === 'number' ? Math.min(100, Math.max(0, rsi)) : 50;
+
+  const ruleReason = computed.reason || '';
 
   return `
     <div class="col-xl-3 col-lg-4 col-md-6 col-6 mb-3">
       <div class="sk ${sc.cls}" onclick="openChart('${s.symbol}','${s.name}',${s.price??0})">
 
-        <!-- 股票名稱 -->
+        <!-- 股票名稱 + 訊號 -->
         <div class="d-flex justify-content-between align-items-start mb-2">
           <div>
             <div style="font-weight:700;font-size:.95rem">${s.name}</div>
-            <div class="muted" style="font-size:.7rem">${s.symbol} · 點擊看K線</div>
+            <div class="muted" style="font-size:.68rem">${s.symbol} · 點擊看K線</div>
           </div>
-          <!-- 行動建議：大圖示 -->
-          <div class="text-center">
-            <div style="font-size:1.6rem;line-height:1">${sc.icon}</div>
-            <div class="sig sig-${sc.cls}" style="margin-top:4px;justify-content:center">${sc.label}</div>
+          <div class="text-center" style="flex-shrink:0;margin-left:8px">
+            <div style="font-size:1.5rem;line-height:1">${sc.icon}</div>
+            <div class="sig sig-${sc.cls}" style="margin-top:3px">${sc.label}</div>
           </div>
         </div>
 
-        <!-- 位置標示 -->
+        <!-- 位置 + 趨勢 -->
         <div class="mb-2">
           <span class="pos-badge pos-${pos}">${posLabel(pos)}</span>
-          <span class="muted" style="font-size:.72rem;margin-left:6px">${tIcon} ${trend}</span>
+          <span class="muted" style="font-size:.7rem;margin-left:6px">${tIcon} ${trend}</span>
         </div>
 
-        <!-- 股價 -->
+        <!-- 股價（大字，紅漲綠跌） -->
         <div class="d-flex align-items-baseline gap-2 mb-1">
           <span class="${chgCls}" style="font-size:1.7rem;font-weight:800;letter-spacing:-.5px">${s.price?.toLocaleString() ?? '-'}</span>
           <span class="${chgCls}" style="font-size:1rem;font-weight:700">${sign(pct)}${pct}%</span>
         </div>
 
         <!-- RSI 條 -->
-        <div class="muted" style="font-size:.7rem;margin-bottom:2px">RSI ${rsi} &nbsp;·&nbsp; MA20 ${ind.MA20??'-'}</div>
+        <div class="muted" style="font-size:.7rem;margin-bottom:1px">
+          RSI ${rsi}&nbsp;·&nbsp;MA20 ${ind.MA20??'-'}&nbsp;·&nbsp;MACD ${ind.MACD_hist!=null?(ind.MACD_hist>0?'⬆':'⬇'):'-'}
+        </div>
         <div class="rsi-wrap"><div class="rsi-fill" style="width:${rsiW}%;background:${rsiColor(rsi)}"></div></div>
 
-        <!-- 分析說明 -->
-        <div class="ai-note">
-          <span style="opacity:.7">${sc.desc}</span><br>
-          ${reason}${risk ? `<br><span style="opacity:.55">⚠ ${risk}</span>` : ''}
-        </div>
+        <!-- 規則說明 -->
+        ${ruleReason ? `
+        <div class="rule-note">
+          <div class="rule-note-title">規則訊號</div>
+          ${sc.desc}${ruleReason ? ' · ' + ruleReason : ''}
+        </div>` : `<div class="rule-note"><span style="opacity:.6">${sc.desc}</span></div>`}
+
+        <!-- AI 建議 -->
+        ${aiBlock(ai)}
       </div>
     </div>`;
 }
 
-/* ====== 資料載入 ====== */
+/* ── 資料載入 ─────────────────────────────────────────────────────── */
 async function loadIndices() {
   try {
     const data = await fetchJSON('data/index/latest.json');
     qs('indices-container').innerHTML = data.map(idx => {
-      const c = (idx.change??0)>0?'up':(idx.change??0)<0?'down':'muted';
+      const c = (idx.change??0)>0 ? 'up' : (idx.change??0)<0 ? 'down' : 'muted';
       return `<div class="col-xl-2 col-md-4 col-6">
         <div class="idx-card">
-          <div class="muted mb-1" style="font-size:.76rem">${idx.name}</div>
+          <div class="idx-name">${idx.name}</div>
           <div class="idx-price ${c}">${idx.price?.toLocaleString()??'-'}</div>
-          <div class="${c}" style="font-size:1rem;font-weight:700">${sign(idx.change)}${idx.change??'-'}（${sign(idx.change_pct)}${idx.change_pct??'-'}%）</div>
-          <div class="muted" style="font-size:.7rem;margin-top:4px">${(idx.updated||'').slice(11,16)} 更新</div>
+          <div class="idx-chg ${c}">${sign(idx.change)}${idx.change??'-'}（${sign(idx.change_pct)}${idx.change_pct??'-'}%）</div>
+          <div class="idx-time">${(idx.updated||'').slice(11,16)} 更新</div>
         </div></div>`;
     }).join('');
   } catch { qs('indices-container').innerHTML='<div class="col muted">大盤資料載入失敗</div>'; }
@@ -274,24 +379,37 @@ async function loadStocks() {
   try {
     const [stocks, aiRaw] = await Promise.all([
       fetchJSON('data/stocks/latest.json'),
-      fetchJSON('data/ai_signals.json').catch(()=>[]),
+      fetchJSON('data/ai_signals.json').catch(() => []),
     ]);
     const aiMap = {};
     aiRaw.forEach(a => { aiMap[a.symbol] = a; });
+    const hasAI = aiRaw.length > 0;
 
-    const cats={}, order=[];
+    const cats = {}, order = [];
     stocks.forEach(s => {
-      const cid=s.category_id||'other', cn=s.category||'其他';
-      if(!cats[cid]){ cats[cid]={name:cn,stocks:[]}; order.push(cid); }
+      const cid = s.category_id || 'other', cn = s.category || '其他';
+      if (!cats[cid]) { cats[cid] = { name:cn, stocks:[] }; order.push(cid); }
       cats[cid].stocks.push(s);
     });
 
     qs('stocks-by-category').innerHTML = order.map(cid => {
-      const cat=cats[cid], icon=CAT_ICON[cid]||'📊';
-      return `<div class="cat-title">${icon} ${cat.name}
-          <span class="muted" style="font-weight:400;font-size:.78rem">（${cat.stocks.length} 檔）</span></div>
-        <div class="cat-body"><div class="row g-2">${cat.stocks.map(s=>stockCard(s,aiMap)).join('')}</div></div>`;
+      const cat = cats[cid], icon = CAT_ICON[cid] || '📊';
+      const aiTag = hasAI ? '<span style="font-size:.7rem;background:#003320;color:#4dbb6e;border:1px solid #1e3a1e;border-radius:8px;padding:1px 8px;margin-left:8px">🤖 AI</span>' : '';
+      return `
+        <div class="cat-title">${icon} ${cat.name}${aiTag}
+          <span class="muted" style="font-weight:400;font-size:.78rem">（${cat.stocks.length} 檔）</span>
+        </div>
+        <div class="cat-body">
+          <div class="row g-2">${cat.stocks.map(s => stockCard(s, aiMap)).join('')}</div>
+        </div>`;
     }).join('');
+
+    if (!hasAI) {
+      const note = document.createElement('div');
+      note.style.cssText = 'font-size:.75rem;color:#555f6d;margin:-10px 0 16px;padding:0 4px';
+      note.innerHTML = '🤖 AI 建議尚未產生（需設定 ANTHROPIC_API_KEY 並等待下次 Actions 執行）';
+      qs('stocks-by-category').prepend(note);
+    }
   } catch { qs('stocks-by-category').innerHTML='<div class="muted p-3">個股資料載入失敗</div>'; }
 }
 
@@ -299,8 +417,8 @@ async function loadNews() {
   try {
     const data = await fetchJSON('data/news/latest.json');
     const c = qs('news-container');
-    if(!data.length){ c.innerHTML='<div class="news-row muted">暫無新聞</div>'; return; }
-    c.innerHTML = data.slice(0,12).map(n=>`
+    if (!data.length) { c.innerHTML = '<div class="news-row muted">暫無新聞</div>'; return; }
+    c.innerHTML = data.slice(0,12).map(n => `
       <div class="news-row">
         <a href="${n.link}" target="_blank" class="news-a">${n.title}</a>
         <div class="muted" style="font-size:.71rem;margin-top:3px">${n.source} · ${n.time}</div>
@@ -311,10 +429,10 @@ async function loadNews() {
 async function loadAll() {
   qs('last-update').textContent = '更新中...';
   await Promise.all([loadIndices(), loadStocks(), loadNews()]);
-  qs('last-update').textContent = '更新：' + new Date().toLocaleTimeString('zh-TW',{hour12:false});
+  qs('last-update').textContent = '更新：' + new Date().toLocaleTimeString('zh-TW', { hour12:false });
 }
 
-/* ====== K 線圖 ====== */
+/* ── K 線圖 ─────────────────────────────────────────────────────────── */
 let _mainChart = null, _kdChart = null, _currentSym = null, _currentPeriod = 'daily';
 
 function openChart(symbol, name, price) {
@@ -341,11 +459,11 @@ function switchPeriod(period) {
 }
 
 const CHART_OPTS = {
-  layout: { background:{color:'#0d1117'}, textColor:'#e6edf3' },
-  grid:   { vertLines:{color:'#21262d'}, horzLines:{color:'#21262d'} },
+  layout:   { background:{ color:'#0d1117' }, textColor:'#e6edf3' },
+  grid:     { vertLines:{ color:'#21262d' }, horzLines:{ color:'#21262d' } },
   rightPriceScale: { borderColor:'#30363d' },
-  timeScale: { borderColor:'#30363d', timeVisible:true },
-  crosshair: { mode: 1 },
+  timeScale:       { borderColor:'#30363d', timeVisible:true },
+  crosshair: { mode:1 },
 };
 
 async function renderChart(symbol, period) {
@@ -353,61 +471,50 @@ async function renderChart(symbol, period) {
   const kdWrap   = qs('kd-chart-wrap');
   mainWrap.innerHTML = '<div style="color:#7d8590;padding:40px;text-align:center">K線圖載入中...</div>';
   kdWrap.innerHTML   = '';
-
-  if (_mainChart){ _mainChart.remove(); _mainChart=null; }
-  if (_kdChart)  { _kdChart.remove();   _kdChart=null;   }
+  if (_mainChart) { _mainChart.remove(); _mainChart = null; }
+  if (_kdChart)   { _kdChart.remove();   _kdChart   = null; }
 
   try {
     const data = await fetchJSON(`data/charts/${symbol}_${period}.json`);
 
-    /* 主圖 */
     _mainChart = LightweightCharts.createChart(mainWrap, {
       ...CHART_OPTS, width: mainWrap.clientWidth, height: mainWrap.clientHeight,
     });
 
-    // K 線
     const candle = _mainChart.addCandlestickSeries({
       upColor:'#f85149', downColor:'#3fb950',
       borderUpColor:'#f85149', borderDownColor:'#3fb950',
-      wickUpColor:'#f85149',   wickDownColor:'#3fb950',
+      wickUpColor:'#f85149', wickDownColor:'#3fb950',
     });
     candle.setData(data.candles);
 
-    // 均線
-    const maLines = [
+    [
       { key:'ma5',  color:'#ff9d00', title:'MA5'  },
       { key:'ma10', color:'#ffff00', title:'MA10' },
       { key:'ma20', color:'#58a6ff', title:'MA20' },
       { key:'ma60', color:'#bc8cff', title:'MA60' },
-    ];
-    maLines.forEach(({ key, color, title }) => {
-      if (data[key]?.length) {
-        _mainChart.addLineSeries({ color, lineWidth:1, title }).setData(data[key]);
-      }
+    ].forEach(({ key, color, title }) => {
+      if (data[key]?.length) _mainChart.addLineSeries({ color, lineWidth:1, title }).setData(data[key]);
     });
 
-    // 布林通道
     if (data.bb_upper?.length) {
       _mainChart.addLineSeries({ color:'#3a4555', lineWidth:1, lineStyle:2, title:'BB上' }).setData(data.bb_upper);
       _mainChart.addLineSeries({ color:'#3a4555', lineWidth:1, lineStyle:0, title:'BB中' }).setData(data.bb_mid);
       _mainChart.addLineSeries({ color:'#3a4555', lineWidth:1, lineStyle:2, title:'BB下' }).setData(data.bb_lower);
     }
 
-    // 黃金/死亡交叉標記
     if (data.crosses?.length) {
       candle.setMarkers(data.crosses.map(c => ({
-        time:     c.time,
+        time: c.time, size: 1,
         position: c.type==='golden' ? 'belowBar' : 'aboveBar',
         color:    c.type==='golden' ? '#f0b429'  : '#768390',
         shape:    c.type==='golden' ? 'arrowUp'  : 'arrowDown',
         text:     c.type==='golden' ? '黃金'     : '死亡',
-        size: 1,
       })));
     }
 
     _mainChart.timeScale().fitContent();
 
-    /* KD 圖 */
     _kdChart = LightweightCharts.createChart(kdWrap, {
       ...CHART_OPTS, width: kdWrap.clientWidth, height: kdWrap.clientHeight,
       rightPriceScale: { ...CHART_OPTS.rightPriceScale, scaleMargins:{ top:0.05, bottom:0.05 } },
@@ -416,28 +523,17 @@ async function renderChart(symbol, period) {
     if (data.kd_k?.length) _kdChart.addLineSeries({ color:'#58a6ff', lineWidth:1.5, title:'K' }).setData(data.kd_k);
     if (data.kd_d?.length) _kdChart.addLineSeries({ color:'#f0b429', lineWidth:1.5, title:'D' }).setData(data.kd_d);
 
-    // 參考線 80/20
-    const refLines = [
-      { value:80, color:'rgba(248,81,73,.4)' },
-      { value:20, color:'rgba(63,185,80,.4)' },
-    ];
-    refLines.forEach(({ value, color }) => {
+    [{ value:80, color:'rgba(248,81,73,.4)' }, { value:20, color:'rgba(63,185,80,.4)' }].forEach(({ value, color }) => {
       const s = _kdChart.addLineSeries({ color, lineWidth:1, lineStyle:2, priceLineVisible:false });
-      const pts = data.kd_k.map(p => ({ time:p.time, value }));
-      if (pts.length) s.setData(pts);
+      if (data.kd_k?.length) s.setData(data.kd_k.map(p => ({ time:p.time, value })));
     });
 
     _kdChart.timeScale().fitContent();
 
-    // 同步時間軸
-    _mainChart.timeScale().subscribeVisibleLogicalRangeChange(range => {
-      if (range) _kdChart.timeScale().setVisibleLogicalRange(range);
-    });
-    _kdChart.timeScale().subscribeVisibleLogicalRangeChange(range => {
-      if (range) _mainChart.timeScale().setVisibleLogicalRange(range);
-    });
+    _mainChart.timeScale().subscribeVisibleLogicalRangeChange(r => { if (r) _kdChart.timeScale().setVisibleLogicalRange(r); });
+    _kdChart.timeScale().subscribeVisibleLogicalRangeChange(r => { if (r) _mainChart.timeScale().setVisibleLogicalRange(r); });
 
-  } catch(e) {
+  } catch {
     mainWrap.innerHTML = `<div style="color:#7d8590;padding:40px;text-align:center">
       K線圖資料尚未生成<br>
       <span style="font-size:.8rem">請到 GitHub Actions 手動執行「每日更新K線圖資料」</span>
@@ -445,7 +541,6 @@ async function renderChart(symbol, period) {
   }
 }
 
-// 視窗縮放時重繪
 window.addEventListener('resize', () => {
   if (_mainChart) _mainChart.applyOptions({ width: qs('main-chart-wrap').clientWidth });
   if (_kdChart)   _kdChart.applyOptions({ width: qs('kd-chart-wrap').clientWidth });
