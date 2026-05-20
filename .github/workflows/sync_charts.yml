@@ -1,0 +1,36 @@
+name: 每日更新K線圖資料
+
+on:
+  schedule:
+    - cron: '5 6 * * 1-5'   # 14:05 TST 收盤後
+    - cron: '30 0 * * 1-5'  # 08:30 TST 開盤前
+  workflow_dispatch:
+
+jobs:
+  charts:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Fetch chart data
+        run: python scripts/fetch_charts.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/charts/
+          git diff --staged --quiet || git commit -m "auto: 更新K線圖資料 $(TZ='Asia/Taipei' date +'%Y-%m-%d %H:%M') TST"
+          git push

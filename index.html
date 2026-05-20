@@ -6,82 +6,92 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>AI看盤小幫手</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
   <style>
     :root {
-      --bg: #0d1117;
-      --card: #161b22;
-      --border: #30363d;
-      --bar: #21262d;
-      --text: #e6edf3;
-      --muted: #7d8590;
-      --blue: #58a6ff;
-      --up: #f85149;
-      --down: #3fb950;
+      --bg:#0d1117; --card:#161b22; --border:#30363d; --bar:#21262d;
+      --text:#e6edf3; --muted:#7d8590; --blue:#58a6ff;
+      --up:#f85149; --down:#3fb950;
     }
-    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background:var(--bg); color:var(--text); font-family:'Segoe UI',system-ui,sans-serif; }
 
     /* 頂部 */
-    .topbar { background: var(--bar); border-bottom: 1px solid var(--border);
-      padding: 12px 20px; position: sticky; top: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center; }
+    .topbar { background:var(--bar); border-bottom:1px solid var(--border);
+      padding:12px 20px; position:sticky; top:0; z-index:100;
+      display:flex; justify-content:space-between; align-items:center; }
 
     /* 大盤 */
-    .idx-card { background: var(--card); border: 1px solid var(--border);
-      border-radius: 12px; padding: 16px 20px; }
-    .idx-price { font-size: 1.6rem; font-weight: 700; }
+    .idx-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 20px; }
+    .idx-price { font-size:1.6rem; font-weight:700; }
 
-    /* 分類標題 */
-    .cat-title { background: var(--bar); border: 1px solid var(--border);
-      border-radius: 12px 12px 0 0; padding: 12px 18px; font-weight: 600; font-size: 0.95rem; }
-    .cat-body { border: 1px solid var(--border); border-top: none;
-      border-radius: 0 0 12px 12px; padding: 14px; margin-bottom: 22px; }
+    /* 分類 */
+    .cat-title { background:var(--bar); border:1px solid var(--border);
+      border-radius:12px 12px 0 0; padding:12px 18px; font-weight:600; font-size:.95rem; }
+    .cat-body  { border:1px solid var(--border); border-top:none;
+      border-radius:0 0 12px 12px; padding:14px; margin-bottom:22px; }
 
     /* 個股卡片 */
-    .sk { background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-      padding: 14px; height: 100%; transition: transform .15s, border-color .15s; }
-    .sk:hover { transform: translateY(-2px); border-color: var(--blue); }
-    .sk.buy  { border-left: 4px solid var(--up); }
-    .sk.sell { border-left: 4px solid var(--down); }
-    .sk.hold { border-left: 4px solid #444c56; }
+    .sk { background:var(--card); border:1px solid var(--border); border-left-width:4px;
+      border-radius:12px; padding:14px; height:100%;
+      cursor:pointer; transition:transform .15s, border-color .15s; }
+    .sk:hover { transform:translateY(-2px); border-color:var(--blue); }
+    .sk.strong-buy  { border-left-color:#ff4d4d; }
+    .sk.buy         { border-left-color:#f85149; }
+    .sk.hold        { border-left-color:#444c56; }
+    .sk.sell        { border-left-color:#3fb950; }
+    .sk.strong-sell { border-left-color:#00c940; }
 
     /* 訊號標籤 */
-    .sig { font-size: 0.8rem; font-weight: 700; padding: 4px 11px;
-      border-radius: 20px; letter-spacing: .5px; white-space: nowrap; }
-    .sig-strong-buy  { background: #5c0000; border: 2px solid #ff4d4d; color: #ffb3b3; }
-    .sig-buy         { background: #3d0000; border: 1px solid var(--up);  color: #ff9492; }
-    .sig-hold        { background: #1c2128; border: 1px solid #444c56;    color: #768390; }
-    .sig-sell        { background: #0d2818; border: 1px solid var(--down); color: #56d364; }
-    .sig-strong-sell { background: #002810; border: 2px solid #3fb950;    color: #9effa6; }
+    .sig { font-size:.78rem; font-weight:700; padding:3px 10px;
+      border-radius:20px; letter-spacing:.5px; white-space:nowrap; }
+    .sig-strong-buy  { background:#5c0000; border:2px solid #ff4d4d; color:#ffb3b3; }
+    .sig-buy         { background:#3d0000; border:1px solid var(--up);  color:#ff9492; }
+    .sig-hold        { background:#1c2128; border:1px solid #444c56;    color:#768390; }
+    .sig-sell        { background:#0d2818; border:1px solid var(--down); color:#56d364; }
+    .sig-strong-sell { background:#002810; border:2px solid #3fb950;    color:#9effa6; }
 
     /* RSI 條 */
-    .rsi-wrap { background: #2d333b; border-radius: 4px; height: 5px; margin: 6px 0; overflow: hidden; }
-    .rsi-fill { height: 100%; border-radius: 4px; }
+    .rsi-wrap { background:#2d333b; border-radius:4px; height:5px; margin:6px 0; overflow:hidden; }
+    .rsi-fill { height:100%; border-radius:4px; }
 
     /* AI 說明 */
-    .ai-note { font-size: 0.76rem; color: #adbac7; line-height: 1.5; margin-top: 9px;
-      border-top: 1px solid var(--border); padding-top: 9px; }
+    .ai-note { font-size:.76rem; color:#adbac7; line-height:1.5; margin-top:9px;
+      border-top:1px solid var(--border); padding-top:9px; }
 
     /* 新聞 */
-    .news-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 12px; }
-    .news-row  { padding: 12px 16px; border-bottom: 1px solid var(--border); }
-    .news-row:last-child { border-bottom: none; }
-    .news-a { color: var(--blue); text-decoration: none; font-size: 0.86rem; }
-    .news-a:hover { text-decoration: underline; }
+    .news-wrap { background:var(--card); border:1px solid var(--border); border-radius:12px; }
+    .news-row  { padding:12px 16px; border-bottom:1px solid var(--border); }
+    .news-row:last-child { border-bottom:none; }
+    .news-a { color:var(--blue); text-decoration:none; font-size:.86rem; }
+    .news-a:hover { text-decoration:underline; }
 
-    .up    { color: var(--up); }
-    .down  { color: var(--down); }
-    .muted { color: var(--muted); }
-    .sec   { font-size: .75rem; font-weight: 600; color: var(--muted);
-             text-transform: uppercase; letter-spacing: 1.5px; margin: 22px 0 10px; }
+    /* K 線圖 Modal */
+    #chart-modal { display:none; position:fixed; inset:0; background:var(--bg);
+      z-index:2000; flex-direction:column; }
+    #chart-modal.open { display:flex; }
+    .chart-topbar { background:var(--bar); border-bottom:1px solid var(--border);
+      padding:10px 16px; display:flex; justify-content:space-between; align-items:center;
+      flex-shrink:0; }
+    .chart-legend { background:var(--card); border-bottom:1px solid var(--border);
+      padding:5px 16px; font-size:.72rem; display:flex; gap:14px; flex-wrap:wrap;
+      flex-shrink:0; color:var(--muted); }
+    #main-chart-wrap { flex:1; min-height:0; }
+    .kd-label { background:var(--card); border-top:1px solid var(--border);
+      padding:4px 16px; font-size:.72rem; display:flex; gap:12px; flex-shrink:0; }
+    #kd-chart-wrap { height:110px; flex-shrink:0; }
+
+    .up { color:var(--up); } .down { color:var(--down); } .muted { color:var(--muted); }
+    .sec { font-size:.75rem; font-weight:600; color:var(--muted);
+           text-transform:uppercase; letter-spacing:1.5px; margin:22px 0 10px; }
   </style>
 </head>
 <body>
 
-<!-- 頂部導覽 -->
+<!-- 頂部 -->
 <div class="topbar">
   <div>
     <span style="font-size:1.05rem;font-weight:700">📈 AI看盤小幫手</span>
-    <span class="muted" style="font-size:.78rem;margin-left:10px">台股即時追蹤</span>
+    <span class="muted" style="font-size:.78rem;margin-left:10px">點擊個股可看K線圖</span>
   </div>
   <div style="display:flex;align-items:center;gap:12px">
     <span class="muted" style="font-size:.8rem" id="last-update">載入中...</span>
@@ -90,30 +100,56 @@
 </div>
 
 <div class="container-fluid py-3 px-3">
-
-  <!-- 大盤 -->
   <div class="sec">大盤指數</div>
   <div class="row g-3 mb-1" id="indices-container"></div>
 
-  <!-- 個股 -->
-  <div class="sec">個股看盤</div>
+  <div class="sec">個股看盤（點擊查看K線圖）</div>
   <div id="stocks-by-category"></div>
 
-  <!-- 新聞 -->
   <div class="sec">市場新聞</div>
   <div class="news-wrap" id="news-container">
     <div class="news-row muted">載入中...</div>
   </div>
   <div style="height:32px"></div>
+</div>
 
+<!-- K 線圖 Modal -->
+<div id="chart-modal">
+  <div class="chart-topbar">
+    <div>
+      <span style="font-weight:700;font-size:1.05rem" id="chart-title">-</span>
+      <span class="muted" style="font-size:.82rem;margin-left:10px" id="chart-price"></span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button id="btn-daily"  onclick="switchPeriod('daily')"  class="btn btn-sm btn-primary">日線</button>
+      <button id="btn-weekly" onclick="switchPeriod('weekly')" class="btn btn-sm btn-outline-secondary">週線</button>
+      <button onclick="closeChart()" class="btn btn-sm btn-outline-danger ms-2">✕ 關閉</button>
+    </div>
+  </div>
+
+  <div class="chart-legend">
+    <span><span style="color:#ff9d00">━</span> MA5</span>
+    <span><span style="color:#ffff00">━</span> MA10</span>
+    <span><span style="color:#58a6ff">━</span> MA20</span>
+    <span><span style="color:#bc8cff">━</span> MA60</span>
+    <span><span style="color:#555f6d">╌╌</span> 布林通道</span>
+    <span><span style="color:#f0b429">▲</span> 黃金交叉</span>
+    <span><span style="color:#7d8590">▼</span> 死亡交叉</span>
+  </div>
+
+  <div id="main-chart-wrap"></div>
+
+  <div class="kd-label">
+    <span class="muted">KD 指標</span>
+    <span><span style="color:#58a6ff">━</span> K值</span>
+    <span><span style="color:#f0b429">━</span> D值</span>
+    <span class="muted">超買 &gt;80 ／ 超賣 &lt;20</span>
+  </div>
+  <div id="kd-chart-wrap"></div>
 </div>
 
 <script>
-const CAT_ICON = {
-  focus:'⭐', memory:'💾', passive:'🔩',
-  leo:'🛰️', photonics:'💡', panel:'🖥️', ai:'🤖',
-};
-
+const CAT_ICON = { focus:'⭐', memory:'💾', passive:'🔩', leo:'🛰️', photonics:'💡', panel:'🖥️', ai:'🤖' };
 const qs = id => document.getElementById(id);
 const sign = v => v > 0 ? '+' : '';
 
@@ -124,18 +160,16 @@ async function fetchJSON(path) {
 }
 
 function rsiColor(r) {
-  if (r >= 70) return '#f85149';
-  if (r <= 30) return '#3fb950';
-  return '#58a6ff';
+  return r >= 70 ? '#f85149' : r <= 30 ? '#3fb950' : '#58a6ff';
 }
 
 function sigConfig(signal) {
   const m = {
-    '強力買入': { cls:'strong-buy',  icon:'🔥 強力買入', border:'#ff4d4d' },
-    '買入':     { cls:'buy',         icon:'▲ 買入',      border:'#f85149' },
-    '觀望':     { cls:'hold',        icon:'— 觀望',      border:'#444c56' },
-    '賣出':     { cls:'sell',        icon:'▼ 賣出',      border:'#3fb950' },
-    '強力賣出': { cls:'strong-sell', icon:'❄️ 強力賣出', border:'#3fb950' },
+    '強力買入':{ cls:'strong-buy',  icon:'🔥 強力買入', border:'#ff4d4d' },
+    '買入':    { cls:'buy',         icon:'▲ 買入',      border:'#f85149' },
+    '觀望':    { cls:'hold',        icon:'— 觀望',      border:'#444c56' },
+    '賣出':    { cls:'sell',        icon:'▼ 賣出',      border:'#3fb950' },
+    '強力賣出':{ cls:'strong-sell', icon:'❄️ 強力賣出', border:'#3fb950' },
   };
   return m[signal] || m['觀望'];
 }
@@ -143,131 +177,237 @@ function sigConfig(signal) {
 function stockCard(s, aiMap) {
   const ind = s.indicators || {};
   const ai  = aiMap[s.symbol] || null;
-
-  // 優先用 rule-based signal（永遠有），AI reason 當補充
-  const signal = s.signal ?? '觀望';
-  const sc     = sigConfig(signal);
-
-  const pct    = s.change_pct ?? 0;
+  const sig = s.signal ?? '觀望';
+  const sc  = sigConfig(sig);
+  const pct = s.change_pct ?? 0;
   const chgCls = pct > 0 ? 'up' : pct < 0 ? 'down' : 'muted';
-
-  const trend = s.trend ?? '盤整';
-  const tIcon = trend === '上升' ? '📈' : trend === '下降' ? '📉' : '➡️';
-
-  const rsi  = ind.RSI14 ?? 50;
-  const rsiW = Math.min(100, Math.max(0, rsi));
-  const rsiC = rsiColor(rsi);
-
-  // 顯示 rule-based 理由，或 AI 理由（如有）
+  const trend  = s.trend ?? '盤整';
+  const tIcon  = trend === '上升' ? '📈' : trend === '下降' ? '📉' : '➡️';
+  const rsi    = ind.RSI14 ?? 50;
+  const rsiW   = Math.min(100, Math.max(0, rsi));
   const reason = ai?.reason || s.signal_reason || '';
   const risk   = ai?.risk   || '';
 
   return `
     <div class="col-xl-3 col-lg-4 col-md-6 col-6 mb-3">
-      <div class="sk ${sc.cls}" style="border-left-color:${sc.border}">
+      <div class="sk ${sc.cls}" onclick="openChart('${s.symbol}','${s.name}',${s.price??0})">
         <div class="d-flex justify-content-between align-items-start mb-2">
           <div>
             <div style="font-weight:700;font-size:.95rem">${s.name}</div>
-            <div class="muted" style="font-size:.7rem">${s.symbol}</div>
+            <div class="muted" style="font-size:.7rem">${s.symbol} · 點擊看K線</div>
           </div>
           <span class="sig sig-${sc.cls}">${sc.icon}</span>
         </div>
-
         <div class="d-flex align-items-baseline gap-2 mb-1">
           <span style="font-size:1.25rem;font-weight:700">${s.price?.toLocaleString() ?? '-'}</span>
           <span class="${chgCls}" style="font-size:.85rem">${sign(pct)}${pct}%</span>
         </div>
-
         <div class="muted" style="font-size:.73rem;margin-bottom:3px">
           ${tIcon} ${trend} &nbsp;·&nbsp; RSI ${rsi} &nbsp;·&nbsp; MA20 ${ind.MA20 ?? '-'}
         </div>
-
-        <div class="rsi-wrap">
-          <div class="rsi-fill" style="width:${rsiW}%;background:${rsiC}"></div>
-        </div>
-
-        <div class="ai-note">
-          ${reason}
-          ${risk ? `<br><span style="opacity:.6">⚠ ${risk}</span>` : ''}
-        </div>
+        <div class="rsi-wrap"><div class="rsi-fill" style="width:${rsiW}%;background:${rsiColor(rsi)}"></div></div>
+        <div class="ai-note">${reason}${risk ? `<br><span style="opacity:.6">⚠ ${risk}</span>` : ''}</div>
       </div>
     </div>`;
 }
 
+/* ====== 資料載入 ====== */
 async function loadIndices() {
   try {
     const data = await fetchJSON('data/index/latest.json');
     qs('indices-container').innerHTML = data.map(idx => {
-      const c = (idx.change ?? 0) > 0 ? 'up' : (idx.change ?? 0) < 0 ? 'down' : 'muted';
-      return `
-        <div class="col-xl-2 col-md-4 col-6">
-          <div class="idx-card">
-            <div class="muted mb-1" style="font-size:.76rem">${idx.name}</div>
-            <div class="idx-price ${c}">${idx.price?.toLocaleString() ?? '-'}</div>
-            <div class="${c}" style="font-size:.84rem">
-              ${sign(idx.change)}${idx.change ?? '-'}（${sign(idx.change_pct)}${idx.change_pct ?? '-'}%）
-            </div>
-            <div class="muted" style="font-size:.7rem;margin-top:4px">${(idx.updated||'').slice(11,16)} 更新</div>
-          </div>
-        </div>`;
+      const c = (idx.change??0)>0?'up':(idx.change??0)<0?'down':'muted';
+      return `<div class="col-xl-2 col-md-4 col-6">
+        <div class="idx-card">
+          <div class="muted mb-1" style="font-size:.76rem">${idx.name}</div>
+          <div class="idx-price ${c}">${idx.price?.toLocaleString()??'-'}</div>
+          <div class="${c}" style="font-size:.84rem">${sign(idx.change)}${idx.change??'-'}（${sign(idx.change_pct)}${idx.change_pct??'-'}%）</div>
+          <div class="muted" style="font-size:.7rem;margin-top:4px">${(idx.updated||'').slice(11,16)} 更新</div>
+        </div></div>`;
     }).join('');
-  } catch {
-    qs('indices-container').innerHTML = '<div class="col muted">大盤資料載入失敗</div>';
-  }
+  } catch { qs('indices-container').innerHTML='<div class="col muted">大盤資料載入失敗</div>'; }
 }
 
 async function loadStocks() {
   try {
     const [stocks, aiRaw] = await Promise.all([
       fetchJSON('data/stocks/latest.json'),
-      fetchJSON('data/ai_signals.json').catch(() => []),  // AI 補充說明，無則略過
+      fetchJSON('data/ai_signals.json').catch(()=>[]),
     ]);
-
     const aiMap = {};
     aiRaw.forEach(a => { aiMap[a.symbol] = a; });
 
-    const cats = {}, order = [];
+    const cats={}, order=[];
     stocks.forEach(s => {
-      const cid = s.category_id || 'other', cn = s.category || '其他';
-      if (!cats[cid]) { cats[cid] = { name: cn, stocks: [] }; order.push(cid); }
+      const cid=s.category_id||'other', cn=s.category||'其他';
+      if(!cats[cid]){ cats[cid]={name:cn,stocks:[]}; order.push(cid); }
       cats[cid].stocks.push(s);
     });
 
     qs('stocks-by-category').innerHTML = order.map(cid => {
-      const cat = cats[cid], icon = CAT_ICON[cid] || '📊';
-      return `
-        <div class="cat-title">${icon} ${cat.name}
-          <span class="muted" style="font-weight:400;font-size:.78rem">（${cat.stocks.length} 檔）</span>
-        </div>
-        <div class="cat-body">
-          <div class="row g-2">${cat.stocks.map(s => stockCard(s, aiMap)).join('')}</div>
-        </div>`;
+      const cat=cats[cid], icon=CAT_ICON[cid]||'📊';
+      return `<div class="cat-title">${icon} ${cat.name}
+          <span class="muted" style="font-weight:400;font-size:.78rem">（${cat.stocks.length} 檔）</span></div>
+        <div class="cat-body"><div class="row g-2">${cat.stocks.map(s=>stockCard(s,aiMap)).join('')}</div></div>`;
     }).join('');
-  } catch {
-    qs('stocks-by-category').innerHTML = '<div class="muted p-3">個股資料載入失敗</div>';
-  }
+  } catch { qs('stocks-by-category').innerHTML='<div class="muted p-3">個股資料載入失敗</div>'; }
 }
 
 async function loadNews() {
   try {
     const data = await fetchJSON('data/news/latest.json');
     const c = qs('news-container');
-    if (!data.length) { c.innerHTML = '<div class="news-row muted">暫無新聞</div>'; return; }
-    c.innerHTML = data.slice(0, 12).map(n => `
+    if(!data.length){ c.innerHTML='<div class="news-row muted">暫無新聞</div>'; return; }
+    c.innerHTML = data.slice(0,12).map(n=>`
       <div class="news-row">
         <a href="${n.link}" target="_blank" class="news-a">${n.title}</a>
         <div class="muted" style="font-size:.71rem;margin-top:3px">${n.source} · ${n.time}</div>
       </div>`).join('');
-  } catch {
-    qs('news-container').innerHTML = '<div class="news-row muted">新聞載入失敗</div>';
-  }
+  } catch { qs('news-container').innerHTML='<div class="news-row muted">新聞載入失敗</div>'; }
 }
 
 async function loadAll() {
   qs('last-update').textContent = '更新中...';
   await Promise.all([loadIndices(), loadStocks(), loadNews()]);
-  qs('last-update').textContent = '更新：' + new Date().toLocaleTimeString('zh-TW', { hour12: false });
+  qs('last-update').textContent = '更新：' + new Date().toLocaleTimeString('zh-TW',{hour12:false});
 }
+
+/* ====== K 線圖 ====== */
+let _mainChart = null, _kdChart = null, _currentSym = null, _currentPeriod = 'daily';
+
+function openChart(symbol, name, price) {
+  _currentSym = symbol;
+  qs('chart-title').textContent = `${name}（${symbol}）`;
+  qs('chart-price').textContent = price ? `NT$ ${price.toLocaleString()}` : '';
+  qs('chart-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderChart(symbol, 'daily');
+}
+
+function closeChart() {
+  qs('chart-modal').classList.remove('open');
+  document.body.style.overflow = '';
+  if (_mainChart) { _mainChart.remove(); _mainChart = null; }
+  if (_kdChart)   { _kdChart.remove();   _kdChart   = null; }
+}
+
+function switchPeriod(period) {
+  _currentPeriod = period;
+  qs('btn-daily').className  = period==='daily'  ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-outline-secondary';
+  qs('btn-weekly').className = period==='weekly' ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-outline-secondary';
+  renderChart(_currentSym, period);
+}
+
+const CHART_OPTS = {
+  layout: { background:{color:'#0d1117'}, textColor:'#e6edf3' },
+  grid:   { vertLines:{color:'#21262d'}, horzLines:{color:'#21262d'} },
+  rightPriceScale: { borderColor:'#30363d' },
+  timeScale: { borderColor:'#30363d', timeVisible:true },
+  crosshair: { mode: 1 },
+};
+
+async function renderChart(symbol, period) {
+  const mainWrap = qs('main-chart-wrap');
+  const kdWrap   = qs('kd-chart-wrap');
+  mainWrap.innerHTML = '<div style="color:#7d8590;padding:40px;text-align:center">K線圖載入中...</div>';
+  kdWrap.innerHTML   = '';
+
+  if (_mainChart){ _mainChart.remove(); _mainChart=null; }
+  if (_kdChart)  { _kdChart.remove();   _kdChart=null;   }
+
+  try {
+    const data = await fetchJSON(`data/charts/${symbol}_${period}.json`);
+
+    /* 主圖 */
+    _mainChart = LightweightCharts.createChart(mainWrap, {
+      ...CHART_OPTS, width: mainWrap.clientWidth, height: mainWrap.clientHeight,
+    });
+
+    // K 線
+    const candle = _mainChart.addCandlestickSeries({
+      upColor:'#f85149', downColor:'#3fb950',
+      borderUpColor:'#f85149', borderDownColor:'#3fb950',
+      wickUpColor:'#f85149',   wickDownColor:'#3fb950',
+    });
+    candle.setData(data.candles);
+
+    // 均線
+    const maLines = [
+      { key:'ma5',  color:'#ff9d00', title:'MA5'  },
+      { key:'ma10', color:'#ffff00', title:'MA10' },
+      { key:'ma20', color:'#58a6ff', title:'MA20' },
+      { key:'ma60', color:'#bc8cff', title:'MA60' },
+    ];
+    maLines.forEach(({ key, color, title }) => {
+      if (data[key]?.length) {
+        _mainChart.addLineSeries({ color, lineWidth:1, title }).setData(data[key]);
+      }
+    });
+
+    // 布林通道
+    if (data.bb_upper?.length) {
+      _mainChart.addLineSeries({ color:'#3a4555', lineWidth:1, lineStyle:2, title:'BB上' }).setData(data.bb_upper);
+      _mainChart.addLineSeries({ color:'#3a4555', lineWidth:1, lineStyle:0, title:'BB中' }).setData(data.bb_mid);
+      _mainChart.addLineSeries({ color:'#3a4555', lineWidth:1, lineStyle:2, title:'BB下' }).setData(data.bb_lower);
+    }
+
+    // 黃金/死亡交叉標記
+    if (data.crosses?.length) {
+      candle.setMarkers(data.crosses.map(c => ({
+        time:     c.time,
+        position: c.type==='golden' ? 'belowBar' : 'aboveBar',
+        color:    c.type==='golden' ? '#f0b429'  : '#768390',
+        shape:    c.type==='golden' ? 'arrowUp'  : 'arrowDown',
+        text:     c.type==='golden' ? '黃金'     : '死亡',
+        size: 1,
+      })));
+    }
+
+    _mainChart.timeScale().fitContent();
+
+    /* KD 圖 */
+    _kdChart = LightweightCharts.createChart(kdWrap, {
+      ...CHART_OPTS, width: kdWrap.clientWidth, height: kdWrap.clientHeight,
+      rightPriceScale: { ...CHART_OPTS.rightPriceScale, scaleMargins:{ top:0.05, bottom:0.05 } },
+    });
+
+    if (data.kd_k?.length) _kdChart.addLineSeries({ color:'#58a6ff', lineWidth:1.5, title:'K' }).setData(data.kd_k);
+    if (data.kd_d?.length) _kdChart.addLineSeries({ color:'#f0b429', lineWidth:1.5, title:'D' }).setData(data.kd_d);
+
+    // 參考線 80/20
+    const refLines = [
+      { value:80, color:'rgba(248,81,73,.4)' },
+      { value:20, color:'rgba(63,185,80,.4)' },
+    ];
+    refLines.forEach(({ value, color }) => {
+      const s = _kdChart.addLineSeries({ color, lineWidth:1, lineStyle:2, priceLineVisible:false });
+      const pts = data.kd_k.map(p => ({ time:p.time, value }));
+      if (pts.length) s.setData(pts);
+    });
+
+    _kdChart.timeScale().fitContent();
+
+    // 同步時間軸
+    _mainChart.timeScale().subscribeVisibleLogicalRangeChange(range => {
+      if (range) _kdChart.timeScale().setVisibleLogicalRange(range);
+    });
+    _kdChart.timeScale().subscribeVisibleLogicalRangeChange(range => {
+      if (range) _mainChart.timeScale().setVisibleLogicalRange(range);
+    });
+
+  } catch(e) {
+    mainWrap.innerHTML = `<div style="color:#7d8590;padding:40px;text-align:center">
+      K線圖資料尚未生成<br>
+      <span style="font-size:.8rem">請到 GitHub Actions 手動執行「每日更新K線圖資料」</span>
+    </div>`;
+  }
+}
+
+// 視窗縮放時重繪
+window.addEventListener('resize', () => {
+  if (_mainChart) _mainChart.applyOptions({ width: qs('main-chart-wrap').clientWidth });
+  if (_kdChart)   _kdChart.applyOptions({ width: qs('kd-chart-wrap').clientWidth });
+});
 
 loadAll();
 setInterval(loadAll, 5 * 60 * 1000);
