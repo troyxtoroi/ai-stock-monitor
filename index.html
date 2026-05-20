@@ -52,35 +52,8 @@
   <h6 class="muted mb-3 text-uppercase" style="letter-spacing:1px">大盤指數</h6>
   <div class="row mb-4" id="indices-container"></div>
 
-  <!-- 個股行情 + 技術指標 -->
-  <div class="card mb-4">
-    <div class="card-header d-flex justify-content-between">
-      <span>個股行情與技術指標</span>
-      <span class="muted fw-normal" style="font-size:0.8rem">RSI&gt;70 超買 · RSI&lt;30 超賣</span>
-    </div>
-    <div class="card-body p-0">
-      <div class="table-responsive">
-        <table class="table table-hover mb-0">
-          <thead>
-            <tr class="muted" style="font-size:0.85rem">
-              <th>股票</th>
-              <th class="text-end">股價</th>
-              <th class="text-end">漲跌</th>
-              <th class="text-end">漲幅%</th>
-              <th class="text-end">MA5</th>
-              <th class="text-end">MA20</th>
-              <th class="text-end">RSI14</th>
-              <th class="text-center">MACD</th>
-              <th class="text-center">訊號</th>
-            </tr>
-          </thead>
-          <tbody id="stocks-tbody">
-            <tr><td colspan="9" class="text-center muted py-4">載入中...</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+  <!-- 個股行情 + 技術指標（依分類） -->
+  <div id="stocks-by-category"></div>
 
   <!-- AI 分析訊號 -->
   <div class="card mb-4">
@@ -140,28 +113,78 @@ async function loadIndices() {
   }
 }
 
+function stockTableHTML(stocks) {
+  const thead = `
+    <thead><tr class="muted" style="font-size:0.85rem">
+      <th>股票</th>
+      <th class="text-end">股價</th>
+      <th class="text-end">漲跌</th>
+      <th class="text-end">漲幅%</th>
+      <th class="text-end">MA5</th>
+      <th class="text-end">MA20</th>
+      <th class="text-end">RSI14</th>
+      <th class="text-center">MACD</th>
+      <th class="text-center">訊號</th>
+    </tr></thead>`;
+  const rows = stocks.map(s => {
+    const ind = s.indicators || {};
+    const macdDir = ind.MACD_hist > 0 ? '<span class="up">▲</span>' :
+                    ind.MACD_hist < 0 ? '<span class="down">▼</span>' : '-';
+    return `<tr>
+      <td><div class="fw-semibold">${s.name}</div><div class="muted" style="font-size:0.78rem">${s.symbol}</div></td>
+      <td class="text-end fw-bold">${s.price ?? '-'}</td>
+      <td class="text-end ${cls(s.change)}">${sign(s.change)}${s.change ?? '-'}</td>
+      <td class="text-end ${cls(s.change_pct)}">${sign(s.change_pct)}${s.change_pct ?? '-'}%</td>
+      <td class="text-end muted">${ind.MA5 ?? '-'}</td>
+      <td class="text-end muted">${ind.MA20 ?? '-'}</td>
+      <td class="text-end ${rsiCls(ind.RSI14)}">${ind.RSI14 ?? '-'}</td>
+      <td class="text-center">${macdDir}</td>
+      <td class="text-center">${signalBadges(s)}</td>
+    </tr>`;
+  }).join('');
+  return `<table class="table table-hover mb-0">${thead}<tbody>${rows}</tbody></table>`;
+}
+
+const CAT_ICON = {
+  focus:    '⭐',
+  memory:   '💾',
+  passive:  '🔩',
+  leo:      '🛰️',
+  photonics:'💡',
+  ai:       '🤖',
+};
+
 async function loadStocks() {
   try {
     const data = await fetchJSON('data/stocks/latest.json');
-    qs('stocks-tbody').innerHTML = data.map(s => {
-      const ind = s.indicators || {};
-      const macdDir = ind.MACD_hist > 0 ? '<span class="up">▲</span>' :
-                      ind.MACD_hist < 0 ? '<span class="down">▼</span>' : '-';
+
+    // group by category
+    const cats = {};
+    const catOrder = [];
+    data.forEach(s => {
+      const cid = s.category_id || 'other';
+      const cname = s.category || '其他';
+      if (!cats[cid]) { cats[cid] = { name: cname, stocks: [] }; catOrder.push(cid); }
+      cats[cid].stocks.push(s);
+    });
+
+    const container = qs('stocks-by-category');
+    container.innerHTML = catOrder.map(cid => {
+      const cat = cats[cid];
+      const icon = CAT_ICON[cid] || '📊';
       return `
-        <tr>
-          <td><div class="fw-semibold">${s.name}</div><div class="muted" style="font-size:0.78rem">${s.symbol}</div></td>
-          <td class="text-end fw-bold">${s.price ?? '-'}</td>
-          <td class="text-end ${cls(s.change)}">${sign(s.change)}${s.change ?? '-'}</td>
-          <td class="text-end ${cls(s.change_pct)}">${sign(s.change_pct)}${s.change_pct ?? '-'}%</td>
-          <td class="text-end muted">${ind.MA5 ?? '-'}</td>
-          <td class="text-end muted">${ind.MA20 ?? '-'}</td>
-          <td class="text-end ${rsiCls(ind.RSI14)}">${ind.RSI14 ?? '-'}</td>
-          <td class="text-center">${macdDir}</td>
-          <td class="text-center">${signalBadges(s)}</td>
-        </tr>`;
+        <div class="card mb-3">
+          <div class="card-header d-flex justify-content-between">
+            <span>${icon} ${cat.name}</span>
+            <span class="muted fw-normal" style="font-size:0.8rem">RSI&gt;70 超買 · RSI&lt;30 超賣</span>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">${stockTableHTML(cat.stocks)}</div>
+          </div>
+        </div>`;
     }).join('');
   } catch(e) {
-    qs('stocks-tbody').innerHTML = '<tr><td colspan="9" class="text-center muted py-4">資料載入失敗，請稍後再試</td></tr>';
+    qs('stocks-by-category').innerHTML = '<div class="muted p-3">資料載入失敗，請稍後再試</div>';
   }
 }
 

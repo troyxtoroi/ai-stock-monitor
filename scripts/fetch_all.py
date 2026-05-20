@@ -81,33 +81,37 @@ def fetch_indices(watchlist):
 
 def fetch_stocks(watchlist):
     results = []
-    for item in watchlist["stocks"]:
-        price, prev, chg, chg_pct = fetch_quote(item["symbol"])
-        try:
-            hist = yf.Ticker(item["symbol"]).history(period="3mo")
-            indicators = calc_indicators(hist)
-            volume = int(hist["Volume"].iloc[-1]) if not hist.empty else None
-        except Exception:
-            indicators, volume = {}, None
+    for cat in watchlist["categories"]:
+        for item in cat["stocks"]:
+            price, prev, chg, chg_pct = fetch_quote(item["symbol"])
+            try:
+                hist = yf.Ticker(item["symbol"]).history(period="3mo")
+                indicators = calc_indicators(hist)
+                volume = int(hist["Volume"].iloc[-1]) if not hist.empty else None
+            except Exception:
+                indicators, volume = {}, None
 
-        results.append({
-            "symbol":     item["symbol"],
-            "name":       item["name"],
-            "price":      price,
-            "prev_close": prev,
-            "change":     chg,
-            "change_pct": chg_pct,
-            "volume":     volume,
-            "indicators": indicators,
-            "updated":    now_tw().strftime("%Y-%m-%d %H:%M:%S"),
-        })
-        print(f"  {item['name']}: {price} ({chg_pct}%) RSI={indicators.get('RSI14','?')}")
+            results.append({
+                "symbol":      item["symbol"],
+                "name":        item["name"],
+                "category_id": cat["id"],
+                "category":    cat["name"],
+                "price":       price,
+                "prev_close":  prev,
+                "change":      chg,
+                "change_pct":  chg_pct,
+                "volume":      volume,
+                "indicators":  indicators,
+                "updated":     now_tw().strftime("%Y-%m-%d %H:%M:%S"),
+            })
+            print(f"  [{cat['name']}] {item['name']}: {price} ({chg_pct}%) RSI={indicators.get('RSI14','?')}")
     return results
 
 
 def fetch_news(watchlist):
     all_news = []
-    symbols = [s["symbol"] for s in watchlist["stocks"][:5]]
+    all_stocks = [s for cat in watchlist["categories"] for s in cat["stocks"]]
+    symbols = [s["symbol"] for s in all_stocks[:5]]
     seen = set()
     for symbol in symbols:
         try:

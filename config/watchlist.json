@@ -3,14 +3,61 @@
     {"symbol": "^TWII", "name": "台股加權指數"},
     {"symbol": "^TWOII", "name": "櫃買指數"}
   ],
-  "stocks": [
-    {"symbol": "2330.TW", "name": "台積電"},
-    {"symbol": "2317.TW", "name": "鴻海"},
-    {"symbol": "2454.TW", "name": "聯發科"},
-    {"symbol": "2412.TW", "name": "中華電"},
-    {"symbol": "2308.TW", "name": "台達電"},
-    {"symbol": "2303.TW", "name": "聯電"},
-    {"symbol": "2881.TW", "name": "富邦金"},
-    {"symbol": "2882.TW", "name": "國泰金"}
+  "categories": [
+    {
+      "id": "focus",
+      "name": "重點持股",
+      "stocks": [
+        {"symbol": "2330.TW", "name": "台積電"}
+      ]
+    },
+    {
+      "id": "memory",
+      "name": "記憶體",
+      "stocks": [
+        {"symbol": "2408.TW", "name": "南亞科"},
+        {"symbol": "2344.TW", "name": "華邦電"},
+        {"symbol": "2337.TW", "name": "旺宏"}
+      ]
+    },
+    {
+      "id": "passive",
+      "name": "被動元件",
+      "stocks": [
+        {"symbol": "2327.TW", "name": "國巨"},
+        {"symbol": "2492.TW", "name": "華新科"},
+        {"symbol": "3026.TW", "name": "禾伸堂"}
+      ]
+    },
+    {
+      "id": "leo",
+      "name": "低軌衛星",
+      "stocks": [
+        {"symbol": "6285.TW", "name": "啟碁"},
+        {"symbol": "2314.TW", "name": "台揚"},
+        {"symbol": "3491.TW", "name": "昇達科"},
+        {"symbol": "5388.TW", "name": "中磊"}
+      ]
+    },
+    {
+      "id": "photonics",
+      "name": "矽光子",
+      "stocks": [
+        {"symbol": "3081.TW", "name": "聯亞"},
+        {"symbol": "3548.TW", "name": "光環"},
+        {"symbol": "4908.TW", "name": "前鼎"}
+      ]
+    },
+    {
+      "id": "ai",
+      "name": "其他AI相關",
+      "stocks": [
+        {"symbol": "2382.TW", "name": "廣達"},
+        {"symbol": "6669.TW", "name": "緯穎"},
+        {"symbol": "2454.TW", "name": "聯發科"},
+        {"symbol": "2317.TW", "name": "鴻海"},
+        {"symbol": "3231.TW", "name": "緯創"}
+      ]
+    }
   ]
 }
