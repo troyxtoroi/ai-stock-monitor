@@ -111,17 +111,17 @@ def rule_signal(price, indicators):
     if above_bb: score -= 2
     if below_bb: score += 2
 
-    # ── 行動建議：三選一 ─────────────────────────────
-    if position in ("高點", "偏高") and score <= 0:
-        action = "賣出"
-    elif position in ("低點", "偏低") and score >= 2:
-        action = "抱緊"
-    elif score >= 3:
-        action = "抱緊"
-    elif score <= -3:
-        action = "賣出"
+    # ── 行動建議：五段式 ──────────────────────────────
+    if position == "高點" or score <= -4:
+        action = "賣出"       # 明確高點 or 強烈空訊號
+    elif score <= -2 or (position == "偏高" and score < 0):
+        action = "偏賣觀望"   # 偏空但未完全確認
+    elif position == "低點" or score >= 4:
+        action = "抱緊"       # 明確低點 or 強烈多訊號
+    elif score >= 2 or (position == "偏低" and score > 0):
+        action = "偏買觀望"   # 偏多但未完全確認
     else:
-        action = "觀望"
+        action = "中性觀望"   # 真正沒方向
 
     # ── 說明文字 ─────────────────────────────────────
     parts = [f"RSI {rsi}"]

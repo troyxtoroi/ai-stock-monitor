@@ -35,17 +35,21 @@
       border-radius:12px; padding:14px; height:100%;
       cursor:pointer; transition:transform .15s, border-color .15s; }
     .sk:hover { transform:translateY(-2px); border-color:var(--blue); }
-    .sk.sell  { border-left-color:#ff4d4d; }
-    .sk.hold  { border-left-color:#3fb950; }
-    .sk.watch { border-left-color:#e3b341; }
+    .sk.sell      { border-left-color:#ff4d4d; }
+    .sk.lean-sell { border-left-color:#ff7f50; }
+    .sk.neutral   { border-left-color:#555f6d; }
+    .sk.lean-buy  { border-left-color:#4fc3f7; }
+    .sk.hold      { border-left-color:#3fb950; }
 
-    /* 訊號標籤 - 三種行動 */
-    .sig { font-size:.85rem; font-weight:800; padding:5px 14px;
+    /* 訊號標籤 - 五種行動 */
+    .sig { font-size:.82rem; font-weight:800; padding:4px 12px;
       border-radius:8px; letter-spacing:.5px; white-space:nowrap;
-      display:flex; align-items:center; gap:5px; }
-    .sig-sell  { background:#4a0000; border:2px solid #ff4d4d; color:#ff9492; box-shadow:0 0 8px rgba(255,77,77,.3); }
-    .sig-hold  { background:#003320; border:2px solid #3fb950; color:#7dff9f; box-shadow:0 0 8px rgba(63,185,80,.3); }
-    .sig-watch { background:#2a2200; border:2px solid #e3b341; color:#f0d080; box-shadow:0 0 8px rgba(227,179,65,.3); }
+      display:flex; align-items:center; gap:5px; justify-content:center; }
+    .sig-sell      { background:#4a0000; border:2px solid #ff4d4d; color:#ff9492; box-shadow:0 0 8px rgba(255,77,77,.3); }
+    .sig-lean-sell { background:#2d1000; border:1px solid #ff7f50; color:#ffb08a; }
+    .sig-neutral   { background:#1c2128; border:1px solid #555f6d; color:#768390; }
+    .sig-lean-buy  { background:#001e2d; border:1px solid #4fc3f7; color:#87dcfc; }
+    .sig-hold      { background:#003320; border:2px solid #3fb950; color:#7dff9f; box-shadow:0 0 8px rgba(63,185,80,.3); }
 
     /* 位置標籤 */
     .pos-badge { font-size:.7rem; font-weight:600; padding:2px 8px; border-radius:12px; }
@@ -171,11 +175,13 @@ function rsiColor(r) {
 
 function sigConfig(signal) {
   const m = {
-    '賣出': { cls:'sell',  icon:'💰', label:'賣出',  border:'#ff4d4d', desc:'現在是高點，考慮獲利了結' },
-    '抱緊': { cls:'hold',  icon:'💪', label:'抱緊',  border:'#3fb950', desc:'趨勢良好，繼續持有' },
-    '觀望': { cls:'watch', icon:'👀', label:'觀望',  border:'#e3b341', desc:'訊號不明確，等待時機' },
+    '賣出':     { cls:'sell',      icon:'💰', label:'賣出',     desc:'明確高點，建議獲利了結或停損' },
+    '偏賣觀望': { cls:'lean-sell', icon:'⚠️', label:'偏賣觀望', desc:'有賣壓出現，可準備減碼出場' },
+    '中性觀望': { cls:'neutral',   icon:'👀', label:'觀望',     desc:'方向不明，耐心等待訊號確認' },
+    '偏買觀望': { cls:'lean-buy',  icon:'📌', label:'偏買觀望', desc:'偏多訊號，可考慮分批試單' },
+    '抱緊':     { cls:'hold',      icon:'💪', label:'抱緊/買進', desc:'明確低點或強勢，持有或進場' },
   };
-  return m[signal] || m['觀望'];
+  return m[signal] || m['中性觀望'];
 }
 
 function posLabel(pos) {
