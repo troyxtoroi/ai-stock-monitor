@@ -110,6 +110,15 @@
     .sec { font-size:.75rem; font-weight:600; color:var(--muted);
            text-transform:uppercase; letter-spacing:1.5px; margin:22px 0 10px; }
 
+    /* ── 持股標記 ──────────────────────────────────────────────────── */
+    .holding-bar { background:linear-gradient(90deg,#0d2a1a,#0a1f30);
+      border:1px solid #1e4a2e; border-radius:8px; padding:6px 10px;
+      margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; }
+    .holding-tag { font-size:.7rem; font-weight:800; color:#4dbb6e; letter-spacing:.5px; }
+    .holding-val { font-size:.78rem; font-weight:700; color:#e6edf3; }
+    .holding-shares { font-size:.68rem; color:#768390; }
+    .sk.is-holding { box-shadow:0 0 0 1px #1e4a2e, 0 0 12px rgba(77,187,110,.12); }
+
     /* ── 個股消息 ──────────────────────────────────────────────────── */
     .stock-news { margin-top:8px; border-top:1px solid #21262d; padding-top:8px; }
     .news-row-item { display:flex; gap:5px; align-items:flex-start; margin-bottom:5px; }
@@ -355,7 +364,7 @@ function newsBlock(items) {
   `</div>`;
 }
 
-function stockCard(s, aiMap, newsMap) {
+function stockCard(s, aiMap, newsMap, holdings) {
   // 無資料股票
   if (s.price === null || s.price === undefined) {
     return `
@@ -368,9 +377,11 @@ function stockCard(s, aiMap, newsMap) {
       </div>`;
   }
 
-  const ind     = s.indicators || {};
-  const ai      = aiMap[s.symbol]   || null;
-  const newsItems = (newsMap || {})[s.symbol] || [];
+  const ind       = s.indicators || {};
+  const ai        = aiMap[s.symbol] || null;
+  const newsItems = (newsMap  || {})[s.symbol] || [];
+  const shares    = (holdings || {})[s.symbol] || 0;
+  const mktVal    = shares && s.price ? Math.round(shares * s.price) : 0;
 
   // 優先用後端 signal，否則前端計算
   const computed = s.signal
@@ -392,7 +403,16 @@ function stockCard(s, aiMap, newsMap) {
 
   return `
     <div class="col-xl-3 col-lg-4 col-md-6 col-6 mb-3">
-      <div class="sk ${sc.cls}" onclick="openChart('${s.symbol}','${s.name}',${s.price??0})">
+      <div class="sk ${sc.cls}${shares ? ' is-holding' : ''}" onclick="openChart('${s.symbol}','${s.name}',${s.price??0})">
+
+        ${shares ? `
+        <div class="holding-bar">
+          <span class="holding-tag">🏦 持股中</span>
+          <div class="text-end">
+            <div class="holding-val">NT$ ${mktVal.toLocaleString()}</div>
+            <div class="holding-shares">${shares.toLocaleString()} 股</div>
+          </div>
+        </div>` : ''}
 
         <!-- 股票名稱 + 訊號 -->
         <div class="d-flex justify-content-between align-items-start mb-2">
@@ -459,11 +479,13 @@ async function loadIndices() {
 
 async function loadStocks() {
   try {
-    const [stocks, aiRaw, newsRaw] = await Promise.all([
+    const [stocks, aiRaw, newsRaw, watchlist] = await Promise.all([
       fetchJSON('data/stocks/latest.json'),
       fetchJSON('data/ai_signals.json').catch(() => []),
       fetchJSON('data/news/stocks_news.json').catch(() => ({})),
+      fetchJSON('config/watchlist.json').catch(() => ({})),
     ]);
+    const holdings = watchlist.holdings || {};
     const aiMap = {};
     aiRaw.forEach(a => { aiMap[a.symbol] = a; });
     const hasAI = aiRaw.length > 0;
@@ -483,7 +505,7 @@ async function loadStocks() {
           <span class="muted" style="font-weight:400;font-size:.78rem">（${cat.stocks.length} 檔）</span>
         </div>
         <div class="cat-body">
-          <div class="row g-2">${cat.stocks.map(s => stockCard(s, aiMap, newsRaw)).join('')}</div>
+          <div class="row g-2">${cat.stocks.map(s => stockCard(s, aiMap, newsRaw, holdings)).join('')}</div>
         </div>`;
     }).join('');
 
