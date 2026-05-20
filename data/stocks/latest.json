@@ -1,0 +1,154 @@
+[
+  {
+    "symbol": "2330.TW",
+    "name": "台積電",
+    "price": 2200.0,
+    "prev_close": 2210.0,
+    "change": -10.0,
+    "change_pct": -0.45,
+    "volume": 8765189,
+    "indicators": {
+      "MA5": 2236.0,
+      "MA10": 2249.0,
+      "MA20": 2218.75,
+      "RSI14": 53.91,
+      "MACD": 53.0082,
+      "MACD_signal": 68.181,
+      "MACD_hist": -15.1727
+    },
+    "updated": "2026-05-20 10:08:55"
+  },
+  {
+    "symbol": "2317.TW",
+    "name": "鴻海",
+    "price": 243.5,
+    "prev_close": 244.0,
+    "change": -0.5,
+    "change_pct": -0.2,
+    "volume": 17520237,
+    "indicators": {
+      "MA5": 246.0,
+      "MA10": 248.65,
+      "MA20": 238.55,
+      "RSI14": 59.69,
+      "MACD": 8.9496,
+      "MACD_signal": 9.5806,
+      "MACD_hist": -0.6311
+    },
+    "updated": "2026-05-20 10:08:56"
+  },
+  {
+    "symbol": "2454.TW",
+    "name": "聯發科",
+    "price": 3290.0,
+    "prev_close": 3140.0,
+    "change": 150.0,
+    "change_pct": 4.78,
+    "volume": 2251413,
+    "indicators": {
+      "MA5": 3302.0,
+      "MA10": 3463.5,
+      "MA20": 3063.5,
+      "RSI14": 61.64,
+      "MACD": 345.5627,
+      "MACD_signal": 388.2516,
+      "MACD_hist": -42.6889
+    },
+    "updated": "2026-05-20 10:08:57"
+  },
+  {
+    "symbol": "2412.TW",
+    "name": "中華電",
+    "price": 143.0,
+    "prev_close": 143.5,
+    "change": -0.5,
+    "change_pct": -0.35,
+    "volume": 5630051,
+    "indicators": {
+      "MA5": 139.6,
+      "MA10": 137.85,
+      "MA20": 137.03,
+      "RSI14": 74.06,
+      "MACD": 1.1989,
+      "MACD_signal": 0.554,
+      "MACD_hist": 0.6449
+    },
+    "updated": "2026-05-20 10:08:57"
+  },
+  {
+    "symbol": "2308.TW",
+    "name": "台達電",
+    "price": 1915.0,
+    "prev_close": 1915.0,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "volume": 3287398,
+    "indicators": {
+      "MA5": 2016.0,
+      "MA10": 2116.5,
+      "MA20": 2115.25,
+      "RSI14": 43.93,
+      "MACD": 53.4912,
+      "MACD_signal": 106.49,
+      "MACD_hist": -52.9988
+    },
+    "updated": "2026-05-20 10:08:58"
+  },
+  {
+    "symbol": "2303.TW",
+    "name": "聯電",
+    "price": 110.0,
+    "prev_close": 113.0,
+    "change": -3.0,
+    "change_pct": -2.65,
+    "volume": 86458075,
+    "indicators": {
+      "MA5": 110.4,
+      "MA10": 103.77,
+      "MA20": 90.98,
+      "RSI14": 72.4,
+      "MACD": 11.2146,
+      "MACD_signal": 9.4775,
+      "MACD_hist": 1.7371
+    },
+    "updated": "2026-05-20 10:08:58"
+  },
+  {
+    "symbol": "2881.TW",
+    "name": "富邦金",
+    "price": 95.8,
+    "prev_close": 96.9,
+    "change": -1.1,
+    "change_pct": -1.14,
+    "volume": 7463003,
+    "indicators": {
+      "MA5": 95.78,
+      "MA10": 95.4,
+      "MA20": 92.61,
+      "RSI14": 61.32,
+      "MACD": 1.941,
+      "MACD_signal": 1.6587,
+      "MACD_hist": 0.2823
+    },
+    "updated": "2026-05-20 10:08:59"
+  },
+  {
+    "symbol": "2882.TW",
+    "name": "國泰金",
+    "price": 77.4,
+    "prev_close": 77.6,
+    "change": -0.2,
+    "change_pct": -0.26,
+    "volume": 6220270,
+    "indicators": {
+      "MA5": 77.32,
+      "MA10": 77.77,
+      "MA20": 77.02,
+      "RSI14": 53.92,
+      "MACD": 0.8701,
+      "MACD_signal": 1.0363,
+      "MACD_hist": -0.1662
+    },
+    "updated": "2026-05-20 10:08:59"
+  }
+]
