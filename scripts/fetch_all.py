@@ -5,6 +5,7 @@ import pytz
 import yfinance as yf
 import pandas as pd
 import anthropic
+import urllib.request
 
 TW_TZ = pytz.timezone('Asia/Taipei')
 
@@ -337,6 +338,107 @@ def ai_analyze(stocks, indices):
         return []
 
 
+SIGNAL_EMOJI = {"買入": "✅", "賣出": "🔴", "觀望": "⏸️"}
+CONFIDENCE_LABEL = {"高": "高信心", "中": "中信心", "低": "低信心"}
+
+
+def _load_last_signals():
+    path = "data/last_signals.json"
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def _save_last_signals(data):
+    save_json(data, "data/last_signals.json")
+
+
+def _line_push(token, user_id, text):
+    """透過 LINE Messaging API 發送 Push Message。"""
+    payload = json.dumps({
+        "to": user_id,
+        "messages": [{"type": "text", "text": text}],
+    }).encode("utf-8")
+    req = urllib.request.Request(
+        "https://api.line.me/v2/bot/message/push",
+        data=payload,
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {token}",
+        },
+    )
+    with urllib.request.urlopen(req, timeout=10) as res:
+        return res.getcode()
+
+
+def notify_line(ai_signals, stocks_by_symbol):
+    token   = os.environ.get("LINE_CHANNEL_TOKEN")
+    user_id = os.environ.get("LINE_USER_ID")
+    if not token or not user_id:
+        print("  跳過 Line 通知（未設定 LINE_CHANNEL_TOKEN 或 LINE_USER_ID）")
+        return
+
+    last    = _load_last_signals()
+    new_last = dict(last)
+    to_notify = []
+
+    for sig in ai_signals:
+        symbol     = sig.get("symbol", "")
+        signal     = sig.get("signal", "")
+        confidence = sig.get("confidence", "")
+
+        if signal not in ("買入", "賣出"):
+            continue
+
+        key = f"{symbol}_{signal}"
+        if last.get(symbol) == key:
+            print(f"  跳過重複訊號：{symbol} {signal}")
+            continue
+
+        stock = stocks_by_symbol.get(symbol, {})
+        to_notify.append({
+            "symbol":     symbol,
+            "name":       sig.get("name", symbol),
+            "signal":     signal,
+            "confidence": confidence,
+            "reason":     sig.get("reason", ""),
+            "risk":       sig.get("risk", ""),
+            "price":      stock.get("price"),
+            "change_pct": stock.get("change_pct"),
+        })
+        new_last[symbol] = key
+
+    if not to_notify:
+        print(f"  無新訊號需通知（共 {len(ai_signals)} 支分析）")
+        return
+
+    for item in to_notify:
+        emoji   = SIGNAL_EMOJI.get(item["signal"], "")
+        conf    = CONFIDENCE_LABEL.get(item["confidence"], item["confidence"])
+        chg     = item["change_pct"]
+        chg_str = f"+{chg}%" if chg and chg > 0 else f"{chg}%"
+
+        msg = (
+            f"【AI看盤 訊號】{item['name']} ({item['symbol']})\n"
+            f"訊號：{item['signal']} {emoji}\n"
+            f"信心：{conf}\n"
+            f"原因：{item['reason']}\n"
+            f"風險：{item['risk']}\n"
+            f"現價：{item['price']}  漲跌：{chg_str}"
+        )
+
+        try:
+            status = _line_push(token, user_id, msg)
+            print(f"  LINE 通知已送出：{item['name']} {item['signal']} (HTTP {status})")
+        except Exception as e:
+            print(f"  LINE 通知失敗：{item['name']} — {e}")
+
+    _save_last_signals(new_last)
+    print(f"  共送出 {len(to_notify)} 則 LINE 通知")
+
+
 def main():
     with open("config/watchlist.json", "r", encoding="utf-8") as f:
         watchlist = json.load(f)
@@ -366,6 +468,10 @@ def main():
     ai_signals = ai_analyze(stocks, indices)
     if ai_signals:
         save_json(ai_signals, "data/ai_signals.json")
+
+    print("\n[Line 通知]")
+    stocks_by_symbol = {s["symbol"]: s for s in stocks}
+    notify_line(ai_signals, stocks_by_symbol)
 
     summary = {
         "updated":      now.strftime("%Y-%m-%d %H:%M:%S"),
