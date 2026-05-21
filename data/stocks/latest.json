@@ -4,145 +4,145 @@
     "name": "台積電",
     "category_id": "focus",
     "category": "重點持股",
-    "price": 2245.0,
+    "price": 2250.0,
     "prev_close": 2190.0,
-    "change": 55.0,
-    "change_pct": 2.51,
-    "volume": 17095948,
+    "change": 60.0,
+    "change_pct": 2.74,
+    "volume": 17218370,
     "indicators": {
-      "MA5": 2228.0,
-      "MA10": 2241.0,
-      "MA20": 2227.75,
-      "RSI14": 57.71,
-      "MACD": 49.7403,
-      "MACD_signal": 64.3033,
-      "MACD_hist": -14.563,
-      "BB_upper": 2337.08,
-      "BB_lower": 2118.42,
-      "BB_mid": 2227.75
+      "MA5": 2229.0,
+      "MA10": 2241.5,
+      "MA20": 2228.0,
+      "RSI14": 58.11,
+      "MACD": 50.1355,
+      "MACD_signal": 64.3823,
+      "MACD_hist": -14.2468,
+      "BB_upper": 2337.52,
+      "BB_lower": 2118.48,
+      "BB_mid": 2228.0
     },
-    "signal": "中性觀望",
+    "signal": "偏賣觀望",
     "position": "中間",
     "trend": "盤整",
-    "strength": -1,
-    "signal_reason": "RSI 57.71，MACD 死叉，站上 MA20(2227.75)",
-    "updated": "2026-05-21 13:15:48"
+    "strength": -2,
+    "signal_reason": "RSI 58.11，MACD 死叉，站上 MA20(2228.0)",
+    "updated": "2026-05-21 13:18:58"
   },
   {
     "symbol": "2408.TW",
     "name": "南亞科",
     "category_id": "memory",
     "category": "記憶體",
-    "price": 290.5,
+    "price": 293.5,
     "prev_close": 274.5,
-    "change": 16.0,
-    "change_pct": 5.83,
-    "volume": 124735621,
+    "change": 19.0,
+    "change_pct": 6.92,
+    "volume": 130661879,
     "indicators": {
-      "MA5": 291.3,
-      "MA10": 301.45,
-      "MA20": 270.27,
-      "RSI14": 55.96,
-      "MACD": 17.7761,
-      "MACD_signal": 18.6246,
-      "MACD_hist": -0.8485,
-      "BB_upper": 351.61,
-      "BB_lower": 188.94,
-      "BB_mid": 270.27
+      "MA5": 291.9,
+      "MA10": 301.75,
+      "MA20": 270.43,
+      "RSI14": 56.63,
+      "MACD": 18.0132,
+      "MACD_signal": 18.672,
+      "MACD_hist": -0.6588,
+      "BB_upper": 351.92,
+      "BB_lower": 188.93,
+      "BB_mid": 270.43
     },
     "signal": "中性觀望",
     "position": "中間",
     "trend": "上升",
     "strength": -1,
-    "signal_reason": "RSI 55.96，MACD 死叉，站上 MA20(270.27)",
-    "updated": "2026-05-21 13:15:48"
+    "signal_reason": "RSI 56.63，MACD 死叉，站上 MA20(270.43)",
+    "updated": "2026-05-21 13:18:59"
   },
   {
     "symbol": "2344.TW",
     "name": "華邦電",
     "category_id": "memory",
     "category": "記憶體",
-    "price": 115.0,
+    "price": 116.0,
     "prev_close": 115.5,
-    "change": -0.5,
-    "change_pct": -0.43,
-    "volume": 171060949,
+    "change": 0.5,
+    "change_pct": 0.43,
+    "volume": 172322705,
     "indicators": {
-      "MA5": 121.7,
-      "MA10": 121.05,
-      "MA20": 108.76,
-      "RSI14": 54.96,
-      "MACD": 6.6738,
-      "MACD_signal": 6.0727,
-      "MACD_hist": 0.6011,
-      "BB_upper": 138.86,
+      "MA5": 121.8,
+      "MA10": 121.1,
+      "MA20": 108.78,
+      "RSI14": 55.31,
+      "MACD": 6.7133,
+      "MACD_signal": 6.0806,
+      "MACD_hist": 0.6328,
+      "BB_upper": 138.91,
       "BB_lower": 78.65,
-      "BB_mid": 108.76
+      "BB_mid": 108.78
     },
     "signal": "偏買觀望",
     "position": "中間",
     "trend": "上升",
     "strength": 3,
-    "signal_reason": "RSI 54.96，MACD 金叉，站上 MA20(108.76)",
-    "updated": "2026-05-21 13:15:49"
+    "signal_reason": "RSI 55.31，MACD 金叉，站上 MA20(108.78)",
+    "updated": "2026-05-21 13:19:00"
   },
   {
     "symbol": "2337.TW",
     "name": "旺宏",
     "category_id": "memory",
     "category": "記憶體",
-    "price": 142.0,
+    "price": 143.0,
     "prev_close": 141.0,
-    "change": 1.0,
-    "change_pct": 0.71,
-    "volume": 79846142,
+    "change": 2.0,
+    "change_pct": 1.42,
+    "volume": 80516832,
     "indicators": {
-      "MA5": 149.9,
-      "MA10": 155.2,
-      "MA20": 154.35,
-      "RSI14": 46.07,
-      "MACD": 2.3317,
-      "MACD_signal": 5.2881,
-      "MACD_hist": -2.9565,
-      "BB_upper": 179.47,
-      "BB_lower": 129.23,
-      "BB_mid": 154.35
+      "MA5": 150.1,
+      "MA10": 155.3,
+      "MA20": 154.4,
+      "RSI14": 46.59,
+      "MACD": 2.4107,
+      "MACD_signal": 5.3039,
+      "MACD_hist": -2.8932,
+      "BB_upper": 179.42,
+      "BB_lower": 129.38,
+      "BB_mid": 154.4
     },
     "signal": "偏賣觀望",
     "position": "中間",
     "trend": "下降",
     "strength": -3,
-    "signal_reason": "RSI 46.07，MACD 死叉，跌破 MA20(154.35)",
-    "updated": "2026-05-21 13:15:49"
+    "signal_reason": "RSI 46.59，MACD 死叉，跌破 MA20(154.4)",
+    "updated": "2026-05-21 13:19:00"
   },
   {
     "symbol": "6770.TW",
     "name": "力積電",
     "category_id": "memory",
     "category": "記憶體",
-    "price": 59.4,
+    "price": 59.7,
     "prev_close": 57.8,
-    "change": 1.6,
-    "change_pct": 2.77,
-    "volume": 83663113,
+    "change": 1.9,
+    "change_pct": 3.29,
+    "volume": 84938483,
     "indicators": {
-      "MA5": 60.1,
-      "MA10": 60.92,
-      "MA20": 58.02,
-      "RSI14": 51.18,
-      "MACD": 0.7968,
-      "MACD_signal": 0.6872,
-      "MACD_hist": 0.1096,
-      "BB_upper": 66.1,
+      "MA5": 60.16,
+      "MA10": 60.95,
+      "MA20": 58.04,
+      "RSI14": 51.75,
+      "MACD": 0.8205,
+      "MACD_signal": 0.6919,
+      "MACD_hist": 0.1285,
+      "BB_upper": 66.13,
       "BB_lower": 49.94,
-      "BB_mid": 58.02
+      "BB_mid": 58.04
     },
     "signal": "偏買觀望",
     "position": "中間",
     "trend": "上升",
     "strength": 3,
-    "signal_reason": "RSI 51.18，MACD 金叉，站上 MA20(58.02)",
-    "updated": "2026-05-21 13:15:50"
+    "signal_reason": "RSI 51.75，MACD 金叉，站上 MA20(58.04)",
+    "updated": "2026-05-21 13:19:01"
   },
   {
     "symbol": "2327.TW",
@@ -153,7 +153,7 @@
     "prev_close": 520.0,
     "change": 52.0,
     "change_pct": 10.0,
-    "volume": 23060387,
+    "volume": 23071253,
     "indicators": {
       "MA5": 509.1,
       "MA10": 462.75,
@@ -171,7 +171,7 @@
     "trend": "上升",
     "strength": -2,
     "signal_reason": "RSI 88.01，突破布林上軌（超買），MACD 金叉，站上 MA20(394.52)",
-    "updated": "2026-05-21 13:15:50"
+    "updated": "2026-05-21 13:19:01"
   },
   {
     "symbol": "2492.TW",
@@ -200,7 +200,7 @@
     "trend": "上升",
     "strength": -2,
     "signal_reason": "RSI 82.68，突破布林上軌（超買），MACD 金叉，站上 MA20(173.95)",
-    "updated": "2026-05-21 13:15:50"
+    "updated": "2026-05-21 13:19:02"
   },
   {
     "symbol": "3026.TW",
@@ -229,36 +229,36 @@
     "trend": "上升",
     "strength": -2,
     "signal_reason": "RSI 80.66，突破布林上軌（超買），MACD 金叉，站上 MA20(296.95)",
-    "updated": "2026-05-21 13:15:51"
+    "updated": "2026-05-21 13:19:03"
   },
   {
     "symbol": "6285.TW",
     "name": "啟碁",
     "category_id": "leo",
     "category": "低軌衛星",
-    "price": 279.5,
+    "price": 280.0,
     "prev_close": 280.0,
-    "change": -0.5,
-    "change_pct": -0.18,
-    "volume": 20611514,
+    "change": 0.0,
+    "change_pct": 0.0,
+    "volume": 20709904,
     "indicators": {
-      "MA5": 279.3,
-      "MA10": 271.75,
-      "MA20": 247.5,
-      "RSI14": 62.07,
-      "MACD": 17.2535,
-      "MACD_signal": 15.0492,
-      "MACD_hist": 2.2043,
-      "BB_upper": 304.49,
-      "BB_lower": 190.51,
-      "BB_mid": 247.5
+      "MA5": 279.4,
+      "MA10": 271.8,
+      "MA20": 247.53,
+      "RSI14": 62.2,
+      "MACD": 17.2931,
+      "MACD_signal": 15.0571,
+      "MACD_hist": 2.2359,
+      "BB_upper": 304.58,
+      "BB_lower": 190.47,
+      "BB_mid": 247.53
     },
     "signal": "偏買觀望",
     "position": "偏高",
     "trend": "上升",
     "strength": 2,
-    "signal_reason": "RSI 62.07，MACD 金叉，站上 MA20(247.5)",
-    "updated": "2026-05-21 13:15:51"
+    "signal_reason": "RSI 62.2，MACD 金叉，站上 MA20(247.53)",
+    "updated": "2026-05-21 13:19:03"
   },
   {
     "symbol": "2314.TW",
@@ -287,36 +287,36 @@
     "trend": "盤整",
     "strength": 2,
     "signal_reason": "RSI 60.56，MACD 金叉，站上 MA20(13.84)",
-    "updated": "2026-05-21 13:15:52"
+    "updated": "2026-05-21 13:19:04"
   },
   {
     "symbol": "3491.TWO",
     "name": "昇達科",
     "category_id": "leo",
     "category": "低軌衛星",
-    "price": 1850.0,
+    "price": 1860.0,
     "prev_close": 1755.0,
-    "change": 95.0,
-    "change_pct": 5.41,
-    "volume": 1998583,
+    "change": 105.0,
+    "change_pct": 5.98,
+    "volume": 2010896,
     "indicators": {
-      "MA5": 1783.0,
-      "MA10": 1750.0,
-      "MA20": 1679.5,
-      "RSI14": 58.8,
-      "MACD": 46.2518,
-      "MACD_signal": 35.1347,
-      "MACD_hist": 11.1171,
-      "BB_upper": 1875.97,
-      "BB_lower": 1483.03,
-      "BB_mid": 1679.5
+      "MA5": 1785.0,
+      "MA10": 1751.0,
+      "MA20": 1680.0,
+      "RSI14": 59.21,
+      "MACD": 47.0422,
+      "MACD_signal": 35.2927,
+      "MACD_hist": 11.7494,
+      "BB_upper": 1878.34,
+      "BB_lower": 1481.66,
+      "BB_mid": 1680.0
     },
     "signal": "偏買觀望",
     "position": "中間",
     "trend": "上升",
     "strength": 2,
-    "signal_reason": "RSI 58.8，MACD 金叉，站上 MA20(1679.5)",
-    "updated": "2026-05-21 13:15:52"
+    "signal_reason": "RSI 59.21，MACD 金叉，站上 MA20(1680.0)",
+    "updated": "2026-05-21 13:19:04"
   },
   {
     "symbol": "5388.TW",
@@ -327,7 +327,7 @@
     "prev_close": 82.1,
     "change": 0.9,
     "change_pct": 1.1,
-    "volume": 3810013,
+    "volume": 3814025,
     "indicators": {
       "MA5": 79.9,
       "MA10": 81.72,
@@ -345,7 +345,7 @@
     "trend": "盤整",
     "strength": -1,
     "signal_reason": "RSI 55.65，MACD 死叉，站上 MA20(80.05)",
-    "updated": "2026-05-21 13:15:53"
+    "updated": "2026-05-21 13:19:05"
   },
   {
     "symbol": "6271.TW",
@@ -356,7 +356,7 @@
     "prev_close": 187.5,
     "change": 18.5,
     "change_pct": 9.87,
-    "volume": 21085160,
+    "volume": 21088761,
     "indicators": {
       "MA5": 187.3,
       "MA10": 185.2,
@@ -374,7 +374,7 @@
     "trend": "上升",
     "strength": -2,
     "signal_reason": "RSI 71.7，突破布林上軌（超買），MACD 金叉，站上 MA20(180.85)",
-    "updated": "2026-05-21 13:15:53"
+    "updated": "2026-05-21 13:19:06"
   },
   {
     "symbol": "6568.TWO",
@@ -385,7 +385,7 @@
     "prev_close": 209.5,
     "change": 5.5,
     "change_pct": 2.63,
-    "volume": 453602,
+    "volume": 458703,
     "indicators": {
       "MA5": 210.3,
       "MA10": 216.95,
@@ -403,36 +403,36 @@
     "trend": "下降",
     "strength": -3,
     "signal_reason": "RSI 45.01，MACD 死叉，跌破 MA20(234.15)",
-    "updated": "2026-05-21 13:15:53"
+    "updated": "2026-05-21 13:19:06"
   },
   {
     "symbol": "3081.TWO",
     "name": "聯亞",
     "category_id": "photonics",
     "category": "矽光子",
-    "price": 2570.0,
+    "price": 2575.0,
     "prev_close": 2590.0,
-    "change": -20.0,
-    "change_pct": -0.77,
-    "volume": 1882470,
+    "change": -15.0,
+    "change_pct": -0.58,
+    "volume": 1888163,
     "indicators": {
-      "MA5": 2601.0,
-      "MA10": 2724.0,
-      "MA20": 2704.25,
-      "RSI14": 50.34,
-      "MACD": 84.5131,
-      "MACD_signal": 143.3059,
-      "MACD_hist": -58.7928,
-      "BB_upper": 3048.27,
-      "BB_lower": 2360.23,
-      "BB_mid": 2704.25
+      "MA5": 2602.0,
+      "MA10": 2724.5,
+      "MA20": 2704.5,
+      "RSI14": 50.48,
+      "MACD": 84.9083,
+      "MACD_signal": 143.3849,
+      "MACD_hist": -58.4766,
+      "BB_upper": 3048.12,
+      "BB_lower": 2360.88,
+      "BB_mid": 2704.5
     },
     "signal": "偏賣觀望",
     "position": "中間",
     "trend": "下降",
     "strength": -3,
-    "signal_reason": "RSI 50.34，MACD 死叉，跌破 MA20(2704.25)",
-    "updated": "2026-05-21 13:15:54"
+    "signal_reason": "RSI 50.48，MACD 死叉，跌破 MA20(2704.5)",
+    "updated": "2026-05-21 13:19:07"
   },
   {
     "symbol": "3234.TWO",
@@ -443,7 +443,7 @@
     "prev_close": 97.1,
     "change": 2.0,
     "change_pct": 2.06,
-    "volume": 1187661,
+    "volume": 1199795,
     "indicators": {
       "MA5": 96.06,
       "MA10": 98.33,
@@ -461,36 +461,36 @@
     "trend": "下降",
     "strength": -3,
     "signal_reason": "RSI 48.05，MACD 死叉，跌破 MA20(102.57)",
-    "updated": "2026-05-21 13:15:54"
+    "updated": "2026-05-21 13:19:08"
   },
   {
     "symbol": "4908.TWO",
     "name": "前鼎",
     "category_id": "photonics",
     "category": "矽光子",
-    "price": 234.5,
+    "price": 235.0,
     "prev_close": 243.0,
-    "change": -8.5,
-    "change_pct": -3.5,
-    "volume": 4822476,
+    "change": -8.0,
+    "change_pct": -3.29,
+    "volume": 5050129,
     "indicators": {
-      "MA5": 238.1,
-      "MA10": 235.9,
-      "MA20": 221.7,
-      "RSI14": 61.73,
-      "MACD": 21.3187,
-      "MACD_signal": 24.0437,
-      "MACD_hist": -2.725,
-      "BB_upper": 276.47,
+      "MA5": 238.2,
+      "MA10": 235.95,
+      "MA20": 221.72,
+      "RSI14": 61.98,
+      "MACD": 21.3582,
+      "MACD_signal": 24.0516,
+      "MACD_hist": -2.6934,
+      "BB_upper": 276.52,
       "BB_lower": 166.93,
-      "BB_mid": 221.7
+      "BB_mid": 221.72
     },
     "signal": "偏賣觀望",
     "position": "偏高",
     "trend": "上升",
     "strength": -2,
-    "signal_reason": "RSI 61.73，MACD 死叉，站上 MA20(221.7)",
-    "updated": "2026-05-21 13:15:55"
+    "signal_reason": "RSI 61.98，MACD 死叉，站上 MA20(221.72)",
+    "updated": "2026-05-21 13:19:08"
   },
   {
     "symbol": "2409.TW",
@@ -501,7 +501,7 @@
     "prev_close": 18.9,
     "change": 1.35,
     "change_pct": 7.14,
-    "volume": 324185912,
+    "volume": 325518970,
     "indicators": {
       "MA5": 19.29,
       "MA10": 19.36,
@@ -519,7 +519,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 61.32，MACD 金叉，站上 MA20(18.44)",
-    "updated": "2026-05-21 13:15:55"
+    "updated": "2026-05-21 13:19:09"
   },
   {
     "symbol": "3481.TW",
@@ -530,7 +530,7 @@
     "prev_close": 36.9,
     "change": 3.7,
     "change_pct": 10.03,
-    "volume": 512594443,
+    "volume": 512970419,
     "indicators": {
       "MA5": 37.96,
       "MA10": 35.99,
@@ -548,7 +548,7 @@
     "trend": "上升",
     "strength": 0,
     "signal_reason": "RSI 74.62，MACD 金叉，站上 MA20(30.69)",
-    "updated": "2026-05-21 13:15:55"
+    "updated": "2026-05-21 13:19:09"
   },
   {
     "symbol": "1802.TW",
@@ -559,7 +559,7 @@
     "prev_close": 63.9,
     "change": 1.8,
     "change_pct": 2.82,
-    "volume": 40471869,
+    "volume": 40593944,
     "indicators": {
       "MA5": 64.94,
       "MA10": 66.95,
@@ -577,7 +577,7 @@
     "trend": "下降",
     "strength": -3,
     "signal_reason": "RSI 49.24，MACD 死叉，跌破 MA20(67.48)",
-    "updated": "2026-05-21 13:15:56"
+    "updated": "2026-05-21 13:19:10"
   },
   {
     "symbol": "6443.TW",
@@ -588,7 +588,7 @@
     "prev_close": 41.3,
     "change": -1.1,
     "change_pct": -2.66,
-    "volume": 15323145,
+    "volume": 15647098,
     "indicators": {
       "MA5": 39.73,
       "MA10": 40.35,
@@ -606,27 +606,27 @@
     "trend": "上升",
     "strength": 3,
     "signal_reason": "RSI 51.79，MACD 金叉，站上 MA20(38.63)",
-    "updated": "2026-05-21 13:15:56"
+    "updated": "2026-05-21 13:19:10"
   },
   {
     "symbol": "8112.TW",
     "name": "至上",
     "category_id": "panel",
     "category": "面板／太陽能",
-    "price": 85.6,
+    "price": 85.7,
     "prev_close": 83.9,
-    "change": 1.7,
-    "change_pct": 2.03,
-    "volume": 14849081,
+    "change": 1.8,
+    "change_pct": 2.15,
+    "volume": 15142768,
     "indicators": {
-      "MA5": 83.78,
-      "MA10": 84.35,
+      "MA5": 83.8,
+      "MA10": 84.36,
       "MA20": 84.62,
-      "RSI14": 53.1,
-      "MACD": 0.2155,
-      "MACD_signal": 0.3922,
-      "MACD_hist": -0.1767,
-      "BB_upper": 89.27,
+      "RSI14": 53.26,
+      "MACD": 0.2234,
+      "MACD_signal": 0.3938,
+      "MACD_hist": -0.1704,
+      "BB_upper": 89.28,
       "BB_lower": 79.96,
       "BB_mid": 84.62
     },
@@ -634,8 +634,8 @@
     "position": "中間",
     "trend": "盤整",
     "strength": -1,
-    "signal_reason": "RSI 53.1，MACD 死叉，站上 MA20(84.62)",
-    "updated": "2026-05-21 13:15:56"
+    "signal_reason": "RSI 53.26，MACD 死叉，站上 MA20(84.62)",
+    "updated": "2026-05-21 13:19:11"
   },
   {
     "symbol": "2382.TW",
@@ -646,7 +646,7 @@
     "prev_close": 292.5,
     "change": 17.5,
     "change_pct": 5.98,
-    "volume": 32482347,
+    "volume": 32833331,
     "indicators": {
       "MA5": 299.2,
       "MA10": 319.5,
@@ -664,36 +664,36 @@
     "trend": "下降",
     "strength": -3,
     "signal_reason": "RSI 46.81，MACD 死叉，跌破 MA20(322.52)",
-    "updated": "2026-05-21 13:15:57"
+    "updated": "2026-05-21 13:19:12"
   },
   {
     "symbol": "6669.TW",
     "name": "緯穎",
     "category_id": "ai",
     "category": "其他AI相關",
-    "price": 5320.0,
+    "price": 5310.0,
     "prev_close": 4915.0,
-    "change": 405.0,
-    "change_pct": 8.24,
-    "volume": 2168035,
+    "change": 395.0,
+    "change_pct": 8.04,
+    "volume": 2173852,
     "indicators": {
-      "MA5": 5065.0,
-      "MA10": 5267.0,
-      "MA20": 5011.5,
-      "RSI14": 61.54,
-      "MACD": 271.2487,
-      "MACD_signal": 315.2463,
-      "MACD_hist": -43.9976,
-      "BB_upper": 5725.13,
-      "BB_lower": 4297.87,
-      "BB_mid": 5011.5
+      "MA5": 5063.0,
+      "MA10": 5266.0,
+      "MA20": 5011.0,
+      "RSI14": 61.38,
+      "MACD": 270.4583,
+      "MACD_signal": 315.0883,
+      "MACD_hist": -44.6299,
+      "BB_upper": 5723.73,
+      "BB_lower": 4298.27,
+      "BB_mid": 5011.0
     },
     "signal": "偏賣觀望",
     "position": "偏高",
     "trend": "盤整",
     "strength": -2,
-    "signal_reason": "RSI 61.54，MACD 死叉，站上 MA20(5011.5)",
-    "updated": "2026-05-21 13:15:57"
+    "signal_reason": "RSI 61.38，MACD 死叉，站上 MA20(5011.0)",
+    "updated": "2026-05-21 13:19:12"
   },
   {
     "symbol": "2454.TW",
@@ -704,7 +704,7 @@
     "prev_close": 3210.0,
     "change": 340.0,
     "change_pct": 10.59,
-    "volume": 5805624,
+    "volume": 5808316,
     "indicators": {
       "MA5": 3319.0,
       "MA10": 3470.5,
@@ -722,7 +722,7 @@
     "trend": "上升",
     "strength": -2,
     "signal_reason": "RSI 66.56，MACD 死叉，站上 MA20(3123.25)",
-    "updated": "2026-05-21 13:15:58"
+    "updated": "2026-05-21 13:19:13"
   },
   {
     "symbol": "2317.TW",
@@ -733,7 +733,7 @@
     "prev_close": 240.0,
     "change": 7.5,
     "change_pct": 3.12,
-    "volume": 42932952,
+    "volume": 43263628,
     "indicators": {
       "MA5": 245.9,
       "MA10": 247.7,
@@ -751,7 +751,7 @@
     "trend": "上升",
     "strength": -2,
     "signal_reason": "RSI 61.51，MACD 死叉，站上 MA20(239.7)",
-    "updated": "2026-05-21 13:15:58"
+    "updated": "2026-05-21 13:19:13"
   },
   {
     "symbol": "3231.TW",
@@ -762,7 +762,7 @@
     "prev_close": 132.0,
     "change": 9.0,
     "change_pct": 6.82,
-    "volume": 48698123,
+    "volume": 48898129,
     "indicators": {
       "MA5": 135.4,
       "MA10": 138.25,
@@ -780,6 +780,6 @@
     "trend": "下降",
     "strength": -1,
     "signal_reason": "RSI 54.72，MACD 死叉，站上 MA20(139.95)",
-    "updated": "2026-05-21 13:15:58"
+    "updated": "2026-05-21 13:19:14"
   }
 ]
