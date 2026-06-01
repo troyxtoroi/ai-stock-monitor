@@ -26,7 +26,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 64.68，MACD 金叉，站上 MA20(2267.25)",
-    "updated": "2026-06-02 03:33:41"
+    "updated": "2026-06-02 05:04:40"
   },
   {
     "symbol": "2408.TW",
@@ -55,7 +55,7 @@
     "trend": "上升",
     "strength": -2,
     "signal_reason": "RSI 71.93，突破布林上軌（超買），MACD 金叉，站上 MA20(305.85)",
-    "updated": "2026-06-02 03:33:41"
+    "updated": "2026-06-02 05:04:40"
   },
   {
     "symbol": "2344.TW",
@@ -84,7 +84,7 @@
     "trend": "上升",
     "strength": -2,
     "signal_reason": "RSI 73.03，突破布林上軌（超買），MACD 金叉，站上 MA20(127.49)",
-    "updated": "2026-06-02 03:33:42"
+    "updated": "2026-06-02 05:04:40"
   },
   {
     "symbol": "2337.TW",
@@ -113,7 +113,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 58.48，MACD 金叉，站上 MA20(158.0)",
-    "updated": "2026-06-02 03:33:43"
+    "updated": "2026-06-02 05:04:40"
   },
   {
     "symbol": "6770.TW",
@@ -142,7 +142,7 @@
     "trend": "上升",
     "strength": -2,
     "signal_reason": "RSI 77.52，突破布林上軌（超買），MACD 金叉，站上 MA20(65.98)",
-    "updated": "2026-06-02 03:33:43"
+    "updated": "2026-06-02 05:04:41"
   },
   {
     "symbol": "2327.TW",
@@ -171,7 +171,7 @@
     "trend": "上升",
     "strength": 0,
     "signal_reason": "RSI 88.27，MACD 金叉，站上 MA20(531.88)",
-    "updated": "2026-06-02 03:33:44"
+    "updated": "2026-06-02 05:04:41"
   },
   {
     "symbol": "2492.TW",
@@ -200,7 +200,7 @@
     "trend": "上升",
     "strength": 0,
     "signal_reason": "RSI 92.76，MACD 金叉，站上 MA20(252.32)",
-    "updated": "2026-06-02 03:33:44"
+    "updated": "2026-06-02 05:04:41"
   },
   {
     "symbol": "3026.TW",
@@ -229,7 +229,7 @@
     "trend": "上升",
     "strength": 0,
     "signal_reason": "RSI 90.81，MACD 金叉，站上 MA20(423.43)",
-    "updated": "2026-06-02 03:33:45"
+    "updated": "2026-06-02 05:04:42"
   },
   {
     "symbol": "6285.TW",
@@ -258,7 +258,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 67.15，MACD 金叉，站上 MA20(279.38)",
-    "updated": "2026-06-02 03:33:45"
+    "updated": "2026-06-02 05:04:42"
   },
   {
     "symbol": "2314.TW",
@@ -287,7 +287,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 58.88，MACD 金叉，站上 MA20(14.25)",
-    "updated": "2026-06-02 03:33:46"
+    "updated": "2026-06-02 05:04:42"
   },
   {
     "symbol": "3491.TWO",
@@ -316,7 +316,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 66.09，MACD 金叉，站上 MA20(1848.75)",
-    "updated": "2026-06-02 03:33:47"
+    "updated": "2026-06-02 05:04:43"
   },
   {
     "symbol": "5388.TW",
@@ -345,7 +345,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 65.42，MACD 金叉，站上 MA20(82.8)",
-    "updated": "2026-06-02 03:33:48"
+    "updated": "2026-06-02 05:04:43"
   },
   {
     "symbol": "6271.TW",
@@ -374,7 +374,7 @@
     "trend": "上升",
     "strength": 0,
     "signal_reason": "RSI 73.72，MACD 金叉，站上 MA20(205.65)",
-    "updated": "2026-06-02 03:33:48"
+    "updated": "2026-06-02 05:04:43"
   },
   {
     "symbol": "6568.TWO",
@@ -403,7 +403,7 @@
     "trend": "上升",
     "strength": 3,
     "signal_reason": "RSI 55.87，MACD 金叉，站上 MA20(225.53)",
-    "updated": "2026-06-02 03:33:49"
+    "updated": "2026-06-02 05:04:44"
   },
   {
     "symbol": "3081.TWO",
@@ -432,7 +432,7 @@
     "trend": "上升",
     "strength": -3,
     "signal_reason": "RSI 50.84，MACD 死叉，跌破 MA20(2749.25)",
-    "updated": "2026-06-02 03:33:50"
+    "updated": "2026-06-02 05:04:44"
   },
   {
     "symbol": "3234.TWO",
@@ -461,7 +461,7 @@
     "trend": "上升",
     "strength": 0,
     "signal_reason": "RSI 61.16，突破布林上軌（超買），MACD 金叉，站上 MA20(102.24)",
-    "updated": "2026-06-02 03:33:50"
+    "updated": "2026-06-02 05:04:44"
   },
   {
     "symbol": "4908.TWO",
@@ -490,7 +490,7 @@
     "trend": "盤整",
     "strength": -3,
     "signal_reason": "RSI 50.1，MACD 死叉，跌破 MA20(245.43)",
-    "updated": "2026-06-02 03:33:51"
+    "updated": "2026-06-02 05:04:45"
   },
   {
     "symbol": "2409.TW",
@@ -519,7 +519,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 65.42，MACD 金叉，站上 MA20(20.31)",
-    "updated": "2026-06-02 03:33:51"
+    "updated": "2026-06-02 05:04:45"
   },
   {
     "symbol": "3481.TW",
@@ -548,7 +548,7 @@
     "trend": "上升",
     "strength": -2,
     "signal_reason": "RSI 75.69，突破布林上軌（超買），MACD 金叉，站上 MA20(39.41)",
-    "updated": "2026-06-02 03:33:52"
+    "updated": "2026-06-02 05:04:45"
   },
   {
     "symbol": "1802.TW",
@@ -577,7 +577,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 60.86，MACD 金叉，站上 MA20(69.51)",
-    "updated": "2026-06-02 03:33:52"
+    "updated": "2026-06-02 05:04:46"
   },
   {
     "symbol": "6443.TW",
@@ -606,7 +606,7 @@
     "trend": "上升",
     "strength": 3,
     "signal_reason": "RSI 55.82，MACD 金叉，站上 MA20(40.44)",
-    "updated": "2026-06-02 03:33:53"
+    "updated": "2026-06-02 05:04:46"
   },
   {
     "symbol": "8112.TW",
@@ -635,7 +635,7 @@
     "trend": "上升",
     "strength": 0,
     "signal_reason": "RSI 62.83，突破布林上軌（超買），MACD 金叉，站上 MA20(85.34)",
-    "updated": "2026-06-02 03:33:53"
+    "updated": "2026-06-02 05:04:46"
   },
   {
     "symbol": "2382.TW",
@@ -664,7 +664,7 @@
     "trend": "上升",
     "strength": -2,
     "signal_reason": "RSI 70.06，突破布林上軌（超買），MACD 金叉，站上 MA20(324.27)",
-    "updated": "2026-06-02 03:33:54"
+    "updated": "2026-06-02 05:04:46"
   },
   {
     "symbol": "6669.TW",
@@ -693,7 +693,7 @@
     "trend": "盤整",
     "strength": -2,
     "signal_reason": "RSI 59.94，MACD 死叉，站上 MA20(5235.0)",
-    "updated": "2026-06-02 03:33:54"
+    "updated": "2026-06-02 05:04:47"
   },
   {
     "symbol": "2454.TW",
@@ -722,7 +722,7 @@
     "trend": "上升",
     "strength": 0,
     "signal_reason": "RSI 72.41，MACD 金叉，站上 MA20(3749.75)",
-    "updated": "2026-06-02 03:33:55"
+    "updated": "2026-06-02 05:04:47"
   },
   {
     "symbol": "2317.TW",
@@ -751,7 +751,7 @@
     "trend": "上升",
     "strength": -2,
     "signal_reason": "RSI 79.94，突破布林上軌（超買），MACD 金叉，站上 MA20(255.07)",
-    "updated": "2026-06-02 03:33:56"
+    "updated": "2026-06-02 05:04:47"
   },
   {
     "symbol": "3231.TW",
@@ -780,6 +780,6 @@
     "trend": "上升",
     "strength": -2,
     "signal_reason": "RSI 77.48，突破布林上軌（超買），MACD 金叉，站上 MA20(143.88)",
-    "updated": "2026-06-02 03:33:56"
+    "updated": "2026-06-02 05:04:48"
   }
 ]
