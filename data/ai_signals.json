@@ -5,9 +5,9 @@
     "trend": "上升",
     "signal": "觀望",
     "confidence": "中",
-    "reason": "股價站上MA20，MACD金叉為正，RSI58中性偏溫和",
-    "risk": "股價微幅下跌，需觀察後續支撐力道",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價站上MA20，RSI適中，MACD金叉但跌幅-1.21%，技術面穩健但需觀察後續",
+    "risk": "大盤跌幅擴大風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "2408.TW",
@@ -15,9 +15,9 @@
     "trend": "下降",
     "signal": "觀望",
     "confidence": "中",
-    "reason": "股價跌破MA5，MACD死叉為負，RSI52中性",
-    "risk": "下跌趨勢明確，跌破支撐恐續跌",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價跌破MA20，MACD死叉明顯，漲幅微弱，RSI中性偏弱",
+    "risk": "技術面轉弱風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "2344.TW",
@@ -25,9 +25,9 @@
     "trend": "下降",
     "signal": "觀望",
     "confidence": "中",
-    "reason": "股價跌破MA5，MACD死叉為負，RSI51中性偏弱",
-    "risk": "跌破短期均線支撐，下行壓力增加",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價跌破MA20，MACD死叉，漲幅微弱，RSI中性",
+    "risk": "下跌趨勢風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "2337.TW",
@@ -35,19 +35,19 @@
     "trend": "下降",
     "signal": "觀望",
     "confidence": "中",
-    "reason": "股價遠低於MA20，MACD死叉為負，RSI42偏弱",
-    "risk": "跌幅擴大，連續下跌壓力",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價大幅跌破MA20，MACD死叉，跌幅-2.06%，RSI偏弱",
+    "risk": "技術面弱勢風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "6770.TW",
     "name": "力積電",
-    "trend": "盤整",
+    "trend": "下降",
     "signal": "觀望",
     "confidence": "低",
-    "reason": "股價貼近MA20，MACD略弱，RSI50中性",
-    "risk": "缺乏明確方向，波動風險",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價跌破MA20，MACD死叉，跌幅-1.74%，RSI中性",
+    "risk": "持續下跌風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "2327.TW",
@@ -55,9 +55,9 @@
     "trend": "上升",
     "signal": "觀望",
     "confidence": "中",
-    "reason": "股價站上MA20，RSI63接近超買，MACD死叉",
-    "risk": "RSI高位回檔風險，MACD未確認上升",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價站上MA20，RSI適中，但MACD死叉且跌幅-1.42%，需確認止跌",
+    "risk": "MACD死叉確認風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "2492.TW",
@@ -65,9 +65,9 @@
     "trend": "上升",
     "signal": "觀望",
     "confidence": "中",
-    "reason": "股價站上MA20，RSI60偏溫和，MACD死叉為負",
-    "risk": "漲幅回檔，MACD未配合，短期調整風險",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價站上MA20，RSI偏高61，但MACD死叉，漲跌平盤",
+    "risk": "MACD死叉風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "3026.TW",
@@ -75,19 +75,19 @@
     "trend": "上升",
     "signal": "賣出",
     "confidence": "高",
-    "reason": "RSI74超買極度偏賣，漲幅過大11%，MACD略正",
-    "risk": "超買嚴重，強勢反轉回檔風險極高",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "RSI超買74.54，股價大幅上漲11%，MACD金叉但超買風險高",
+    "risk": "超買回檔風險極高",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "6285.TW",
     "name": "啟碁",
-    "trend": "上升",
-    "signal": "買入",
-    "confidence": "中",
-    "reason": "股價站上MA5向上，MACD略弱但回升，RSI50中性",
-    "risk": "MACD未明確金叉，上升動能需確認",
-    "updated": "2026-07-03 12:39:32"
+    "trend": "下降",
+    "signal": "觀望",
+    "confidence": "低",
+    "reason": "股價跌破MA20，MACD死叉，RSI中性偏弱",
+    "risk": "技術面轉弱風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "2314.TW",
@@ -95,9 +95,9 @@
     "trend": "下降",
     "signal": "觀望",
     "confidence": "低",
-    "reason": "股價跌破MA5與MA20，RSI45偏弱，缺乏買點信號",
-    "risk": "無明確底部，持續下跌風險",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價跌破MA20，MACD死叉，跌幅-1.05%，RSI偏弱",
+    "risk": "持續下跌風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "3491.TWO",
@@ -105,19 +105,19 @@
     "trend": "下降",
     "signal": "觀望",
     "confidence": "低",
-    "reason": "股價遠低於MA20，MACD死叉極度為負，RSI36超賣",
-    "risk": "超賣狀態但跌勢未止，反彈乏力",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "漲6.35%但股價跌破MA20，MACD死叉-16.6，RSI偏弱，高位易回調",
+    "risk": "高位回調風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "5388.TW",
     "name": "中磊",
     "trend": "上升",
-    "signal": "買入",
+    "signal": "觀望",
     "confidence": "低",
-    "reason": "股價站上MA5，MACD略弱，RSI48中性",
-    "risk": "上升信號不夠強，需觀察後續動能",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價站上MA20，漲幅1.37%，但MACD死叉，RSI中性",
+    "risk": "MACD死叉風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "6271.TW",
@@ -125,9 +125,9 @@
     "trend": "上升",
     "signal": "買入",
     "confidence": "中",
-    "reason": "股價站上MA5與MA20，MACD金叉為正，RSI57溫和",
-    "risk": "漲幅雖有但需確認持續性",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價站上MA20，MACD金叉1.89，漲幅5.68%，RSI適中59",
+    "risk": "短期漲幅過大回調風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "6568.TWO",
@@ -135,39 +135,39 @@
     "trend": "下降",
     "signal": "買入",
     "confidence": "中",
-    "reason": "股價接近MA20，RSI35超賣偏買，MACD略正反轉",
-    "risk": "超賣後反彈，但需確認支撐力度",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價跌破MA20但MACD金叉，RSI34偏低超賣，漲1.25%反彈訊號",
+    "risk": "繼續下跌風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "3081.TWO",
     "name": "聯亞",
     "trend": "下降",
-    "signal": "買入",
-    "confidence": "中",
-    "reason": "股價低於MA20漲7%，RSI41偏弱，MACD死叉極度負",
-    "risk": "雖有漲幅但趨勢未反轉，反彈乏力",
-    "updated": "2026-07-03 12:39:32"
+    "signal": "觀望",
+    "confidence": "低",
+    "reason": "漲8.25%但股價跌破MA20，MACD死叉-13.94，高位易回調",
+    "risk": "高位回調風險極高",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "3234.TWO",
     "name": "光環",
-    "trend": "盤整",
+    "trend": "上升",
     "signal": "觀望",
     "confidence": "低",
-    "reason": "股價貼近MA20，MACD略弱，RSI53中性",
-    "risk": "缺乏明確方向，觀望為宜",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價站上MA20，漲幅0.39%，但MACD死叉，RSI中性",
+    "risk": "MACD死叉風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "4908.TWO",
     "name": "前鼎",
     "trend": "下降",
-    "signal": "買入",
+    "signal": "觀望",
     "confidence": "低",
-    "reason": "股價低於MA20漲5%，RSI42偏弱，MACD死叉",
-    "risk": "漲幅快速，缺乏技術面配合，回檔風險",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "漲4.93%但股價跌破MA20，MACD死叉，RSI偏弱",
+    "risk": "高位回調風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "2409.TW",
@@ -175,29 +175,29 @@
     "trend": "上升",
     "signal": "買入",
     "confidence": "中",
-    "reason": "股價站上MA20，MACD金叉為正，RSI59溫和",
-    "risk": "股價微幅下跌，需確認上升趨勢",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價站上MA20，MACD金叉，RSI適中58，技術面向好",
+    "risk": "大盤下跌連動風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "3481.TW",
     "name": "群創",
     "trend": "上升",
-    "signal": "觀望",
+    "signal": "賣出",
     "confidence": "中",
-    "reason": "股價高於MA20，RSI65接近超買，MACD略弱",
-    "risk": "RSI超買風險，回檔調整可能性高",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "RSI偏高63，股價站上MA20但跌幅-2.51%，MACD死叉",
+    "risk": "超買回檔風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "1802.TW",
     "name": "台玻",
-    "trend": "盤整",
+    "trend": "上升",
     "signal": "觀望",
     "confidence": "低",
-    "reason": "股價貼近MA20，RSI50中性，MACD略正",
-    "risk": "缺乏明確趨勢，方向不確定",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價站上MA20，MACD金叉但跌幅-1.99%，RSI中性",
+    "risk": "技術面反轉風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "6443.TW",
@@ -205,29 +205,29 @@
     "trend": "下降",
     "signal": "買入",
     "confidence": "低",
-    "reason": "股價低於MA20，RSI37超賣偏買，MACD略弱",
-    "risk": "超賣狀態，但反彈力度待觀察",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價跌破MA20，但RSI37偏低超賣，漲0.88%反彈訊號",
+    "risk": "繼續下跌風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "8112.TW",
     "name": "至上",
     "trend": "上升",
-    "signal": "買入",
-    "confidence": "中",
-    "reason": "股價站上MA5與MA20，MACD略弱，RSI53中性",
-    "risk": "漲幅5%後可能調整，技術面需確認",
-    "updated": "2026-07-03 12:39:32"
+    "signal": "觀望",
+    "confidence": "低",
+    "reason": "股價站上MA20，漲幅3.68%，但MACD死叉，RSI中性",
+    "risk": "MACD死叉風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "2382.TW",
     "name": "廣達",
     "trend": "上升",
-    "signal": "買入",
+    "signal": "觀望",
     "confidence": "中",
-    "reason": "股價站上MA20，RSI57溫和，MACD略弱",
-    "risk": "MACD未金叉，上升動能待確認",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價站上MA20，漲幅1.48%，RSI適中57，但MACD死叉",
+    "risk": "MACD死叉確認風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "6669.TW",
@@ -235,9 +235,9 @@
     "trend": "上升",
     "signal": "買入",
     "confidence": "高",
-    "reason": "股價站上MA20，MACD金叉極度為正46.76，RSI58溫和",
-    "risk": "高位站上，需注意獲利了結賣壓",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價站上MA20，MACD金叉強勁50.25，漲幅2.13%，RSI適中59",
+    "risk": "短期漲幅過大風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "2454.TW",
@@ -245,28 +245,28 @@
     "trend": "下降",
     "signal": "觀望",
     "confidence": "中",
-    "reason": "股價跌破MA20，MACD死叉極度為負，跌幅4.34%",
-    "risk": "下跌動能強勁，空頭力道明確",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價跌破MA20，MACD死叉-49.56強烈，跌幅-4.22%，RSI中性",
+    "risk": "技術面弱勢風險高",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "2317.TW",
     "name": "鴻海",
     "trend": "下降",
     "signal": "觀望",
-    "confidence": "中",
-    "reason": "股價低於MA20，MACD死叉為負，RSI41偏弱",
-    "risk": "跌破均線支撐，下行壓力增加",
-    "updated": "2026-07-03 12:39:32"
+    "confidence": "低",
+    "reason": "股價跌破MA20，MACD死叉，RSI偏弱42，漲幅微弱",
+    "risk": "持續下跌風險",
+    "updated": "2026-07-03 15:50:31"
   },
   {
     "symbol": "3231.TW",
     "name": "緯創",
-    "trend": "盤整",
+    "trend": "上升",
     "signal": "觀望",
     "confidence": "低",
-    "reason": "股價貼近MA20，RSI52中性，MACD略弱",
-    "risk": "缺乏明確買賣信號，觀望為宜",
-    "updated": "2026-07-03 12:39:32"
+    "reason": "股價站上MA20，MACD死叉，跌幅-0.31%，RSI中性",
+    "risk": "MACD死叉風險",
+    "updated": "2026-07-03 15:50:31"
   }
 ]
