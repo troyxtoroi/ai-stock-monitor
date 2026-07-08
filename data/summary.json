@@ -1,15 +1,15 @@
 {
-  "updated": "2026-07-08 12:11:31",
+  "updated": "2026-07-08 14:38:27",
   "timezone": "Asia/Taipei",
   "indices": [
     {
       "symbol": "^TWII",
       "name": "台股加權指數",
-      "price": 45447.49,
+      "price": 45734.41,
       "prev_close": 45585.09,
-      "change": -137.6,
-      "change_pct": -0.3,
-      "updated": "2026-07-08 12:11:31"
+      "change": 149.32,
+      "change_pct": 0.33,
+      "updated": "2026-07-08 14:38:27"
     },
     {
       "symbol": "^TWOII",
@@ -18,7 +18,7 @@
       "prev_close": null,
       "change": null,
       "change_pct": null,
-      "updated": "2026-07-08 12:11:31"
+      "updated": "2026-07-08 14:38:28"
     }
   ],
   "stocks_count": 27,
