@@ -8,7 +8,7 @@
     "prev_close": 2405.0,
     "change": -30.0,
     "change_pct": -1.25,
-    "volume": 9588165,
+    "volume": 11648165,
     "indicators": {
       "MA5": 2378.0,
       "MA10": 2393.0,
@@ -26,7 +26,7 @@
     "trend": "盤整",
     "strength": 3,
     "signal_reason": "RSI 49.6，MACD 金叉，站上 MA20(2362.5)",
-    "updated": "2026-08-24 13:50:10"
+    "updated": "2026-08-24 14:27:54"
   },
   {
     "symbol": "2408.TW",
@@ -55,7 +55,7 @@
     "trend": "上升",
     "strength": 3,
     "signal_reason": "RSI 56.1，MACD 金叉，站上 MA20(459.68)",
-    "updated": "2026-08-24 13:50:10"
+    "updated": "2026-08-24 14:27:54"
   },
   {
     "symbol": "2344.TW",
@@ -84,7 +84,7 @@
     "trend": "上升",
     "strength": 3,
     "signal_reason": "RSI 53.83，MACD 金叉，站上 MA20(164.07)",
-    "updated": "2026-08-24 13:50:11"
+    "updated": "2026-08-24 14:27:54"
   },
   {
     "symbol": "2337.TW",
@@ -113,7 +113,7 @@
     "trend": "盤整",
     "strength": 3,
     "signal_reason": "RSI 47.65，MACD 金叉，站上 MA20(121.04)",
-    "updated": "2026-08-24 13:50:11"
+    "updated": "2026-08-24 14:27:54"
   },
   {
     "symbol": "6770.TW",
@@ -142,7 +142,7 @@
     "trend": "上升",
     "strength": 3,
     "signal_reason": "RSI 53.82，MACD 金叉，站上 MA20(65.11)",
-    "updated": "2026-08-24 13:50:12"
+    "updated": "2026-08-24 14:27:55"
   },
   {
     "symbol": "2327.TW",
@@ -171,7 +171,7 @@
     "trend": "盤整",
     "strength": 2,
     "signal_reason": "RSI 39.57，MACD 金叉，跌破 MA20(566.88)",
-    "updated": "2026-08-24 13:50:12"
+    "updated": "2026-08-24 14:27:55"
   },
   {
     "symbol": "2492.TW",
@@ -200,7 +200,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 41.82，MACD 金叉，跌破 MA20(265.2)",
-    "updated": "2026-08-24 13:50:13"
+    "updated": "2026-08-24 14:27:55"
   },
   {
     "symbol": "3026.TW",
@@ -229,36 +229,36 @@
     "trend": "上升",
     "strength": 3,
     "signal_reason": "RSI 49.17，MACD 金叉，站上 MA20(590.38)",
-    "updated": "2026-08-24 13:50:13"
+    "updated": "2026-08-24 14:27:55"
   },
   {
     "symbol": "6285.TW",
     "name": "啟碁",
     "category_id": "leo",
     "category": "低軌衛星",
-    "price": 231.5,
+    "price": 230.5,
     "prev_close": 237.0,
-    "change": -5.5,
-    "change_pct": -2.32,
-    "volume": 2020901,
+    "change": -6.5,
+    "change_pct": -2.74,
+    "volume": 2213901,
     "indicators": {
-      "MA5": 235.1,
-      "MA10": 241.55,
-      "MA20": 238.75,
-      "RSI14": 43.5,
-      "MACD": -3.2401,
-      "MACD_signal": -2.4305,
-      "MACD_hist": -0.8096,
-      "BB_upper": 266.73,
-      "BB_lower": 210.77,
-      "BB_mid": 238.75
+      "MA5": 234.9,
+      "MA10": 241.45,
+      "MA20": 238.7,
+      "RSI14": 43.06,
+      "MACD": -3.3194,
+      "MACD_signal": -2.4463,
+      "MACD_hist": -0.873,
+      "BB_upper": 266.74,
+      "BB_lower": 210.66,
+      "BB_mid": 238.7
     },
     "signal": "偏賣觀望",
     "position": "中間",
     "trend": "下降",
     "strength": -2,
-    "signal_reason": "RSI 43.5，MACD 死叉，跌破 MA20(238.75)",
-    "updated": "2026-08-24 13:50:14"
+    "signal_reason": "RSI 43.06，MACD 死叉，跌破 MA20(238.7)",
+    "updated": "2026-08-24 14:27:56"
   },
   {
     "symbol": "2314.TW",
@@ -287,123 +287,123 @@
     "trend": "下降",
     "strength": 3,
     "signal_reason": "RSI 49.09，MACD 金叉，站上 MA20(11.56)",
-    "updated": "2026-08-24 13:50:14"
+    "updated": "2026-08-24 14:27:56"
   },
   {
     "symbol": "3491.TWO",
     "name": "昇達科",
     "category_id": "leo",
     "category": "低軌衛星",
-    "price": 1295.0,
+    "price": 1290.0,
     "prev_close": 1265.0,
-    "change": 30.0,
-    "change_pct": 2.37,
-    "volume": 1311696,
+    "change": 25.0,
+    "change_pct": 1.98,
+    "volume": 1392696,
     "indicators": {
-      "MA5": 1267.0,
-      "MA10": 1298.0,
-      "MA20": 1216.35,
-      "RSI14": 51.86,
-      "MACD": 9.3834,
-      "MACD_signal": -0.9684,
-      "MACD_hist": 10.3518,
-      "BB_upper": 1481.17,
-      "BB_lower": 951.53,
-      "BB_mid": 1216.35
+      "MA5": 1266.0,
+      "MA10": 1297.5,
+      "MA20": 1216.1,
+      "RSI14": 51.52,
+      "MACD": 8.987,
+      "MACD_signal": -1.0477,
+      "MACD_hist": 10.0347,
+      "BB_upper": 1480.62,
+      "BB_lower": 951.58,
+      "BB_mid": 1216.1
     },
     "signal": "偏買觀望",
     "position": "中間",
     "trend": "上升",
     "strength": 3,
-    "signal_reason": "RSI 51.86，MACD 金叉，站上 MA20(1216.35)",
-    "updated": "2026-08-24 13:50:15"
+    "signal_reason": "RSI 51.52，MACD 金叉，站上 MA20(1216.1)",
+    "updated": "2026-08-24 14:27:56"
   },
   {
     "symbol": "5388.TW",
     "name": "中磊",
     "category_id": "leo",
     "category": "低軌衛星",
-    "price": 77.8,
+    "price": 77.6,
     "prev_close": 77.7,
-    "change": 0.1,
-    "change_pct": 0.13,
-    "volume": 1818635,
+    "change": -0.1,
+    "change_pct": -0.13,
+    "volume": 2123635,
     "indicators": {
-      "MA5": 77.9,
-      "MA10": 80.32,
-      "MA20": 83.9,
-      "RSI14": 37.86,
-      "MACD": -2.1164,
-      "MACD_signal": -1.0017,
-      "MACD_hist": -1.1147,
-      "BB_upper": 95.4,
-      "BB_lower": 72.39,
-      "BB_mid": 83.9
+      "MA5": 77.86,
+      "MA10": 80.3,
+      "MA20": 83.89,
+      "RSI14": 37.33,
+      "MACD": -2.1322,
+      "MACD_signal": -1.0048,
+      "MACD_hist": -1.1274,
+      "BB_upper": 95.41,
+      "BB_lower": 72.36,
+      "BB_mid": 83.89
     },
     "signal": "偏賣觀望",
     "position": "偏低",
     "trend": "下降",
     "strength": -2,
-    "signal_reason": "RSI 37.86，MACD 死叉，跌破 MA20(83.9)",
-    "updated": "2026-08-24 13:50:15"
+    "signal_reason": "RSI 37.33，MACD 死叉，跌破 MA20(83.89)",
+    "updated": "2026-08-24 14:27:56"
   },
   {
     "symbol": "6271.TW",
     "name": "通興電",
     "category_id": "leo",
     "category": "低軌衛星",
-    "price": 193.5,
+    "price": 193.0,
     "prev_close": 192.5,
-    "change": 1.0,
-    "change_pct": 0.52,
-    "volume": 1822131,
+    "change": 0.5,
+    "change_pct": 0.26,
+    "volume": 1921131,
     "indicators": {
-      "MA5": 194.2,
-      "MA10": 195.55,
-      "MA20": 184.95,
-      "RSI14": 46.92,
-      "MACD": -3.5598,
-      "MACD_signal": -6.0952,
-      "MACD_hist": 2.5354,
-      "BB_upper": 218.55,
+      "MA5": 194.1,
+      "MA10": 195.5,
+      "MA20": 184.93,
+      "RSI14": 46.56,
+      "MACD": -3.5994,
+      "MACD_signal": -6.1031,
+      "MACD_hist": 2.5037,
+      "BB_upper": 218.5,
       "BB_lower": 151.35,
-      "BB_mid": 184.95
+      "BB_mid": 184.93
     },
     "signal": "偏買觀望",
     "position": "中間",
     "trend": "上升",
     "strength": 3,
-    "signal_reason": "RSI 46.92，MACD 金叉，站上 MA20(184.95)",
-    "updated": "2026-08-24 13:50:16"
+    "signal_reason": "RSI 46.56，MACD 金叉，站上 MA20(184.93)",
+    "updated": "2026-08-24 14:27:56"
   },
   {
     "symbol": "6568.TWO",
     "name": "瑞鼎",
     "category_id": "leo",
     "category": "低軌衛星",
-    "price": 125.5,
+    "price": 125.0,
     "prev_close": 127.0,
-    "change": -1.5,
-    "change_pct": -1.18,
-    "volume": 53410,
+    "change": -2.0,
+    "change_pct": -1.57,
+    "volume": 63410,
     "indicators": {
-      "MA5": 126.3,
-      "MA10": 131.35,
-      "MA20": 132.12,
-      "RSI14": 32.91,
-      "MACD": -5.799,
-      "MACD_signal": -5.7483,
-      "MACD_hist": -0.0508,
-      "BB_upper": 144.19,
-      "BB_lower": 120.06,
-      "BB_mid": 132.12
+      "MA5": 126.2,
+      "MA10": 131.3,
+      "MA20": 132.1,
+      "RSI14": 32.48,
+      "MACD": -5.8387,
+      "MACD_signal": -5.7562,
+      "MACD_hist": -0.0825,
+      "BB_upper": 144.22,
+      "BB_lower": 119.98,
+      "BB_mid": 132.1
     },
     "signal": "偏賣觀望",
     "position": "偏低",
     "trend": "下降",
     "strength": -2,
-    "signal_reason": "RSI 32.91，MACD 死叉，跌破 MA20(132.12)",
-    "updated": "2026-08-24 13:50:16"
+    "signal_reason": "RSI 32.48，MACD 死叉，跌破 MA20(132.1)",
+    "updated": "2026-08-24 14:27:57"
   },
   {
     "symbol": "3081.TWO",
@@ -414,7 +414,7 @@
     "prev_close": 2915.0,
     "change": -150.0,
     "change_pct": -5.15,
-    "volume": 3167756,
+    "volume": 3305756,
     "indicators": {
       "MA5": 2814.0,
       "MA10": 2727.0,
@@ -432,7 +432,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 61.44，MACD 金叉，站上 MA20(2338.25)",
-    "updated": "2026-08-24 13:50:17"
+    "updated": "2026-08-24 14:27:57"
   },
   {
     "symbol": "3234.TWO",
@@ -461,36 +461,36 @@
     "trend": "上升",
     "strength": 0,
     "signal_reason": "RSI 73.65，MACD 金叉，站上 MA20(124.2)",
-    "updated": "2026-08-24 13:50:17"
+    "updated": "2026-08-24 14:27:57"
   },
   {
     "symbol": "4908.TWO",
     "name": "前鼎",
     "category_id": "photonics",
     "category": "矽光子",
-    "price": 148.0,
+    "price": 147.5,
     "prev_close": 152.5,
-    "change": -4.5,
-    "change_pct": -2.95,
-    "volume": 799508,
+    "change": -5.0,
+    "change_pct": -3.28,
+    "volume": 847508,
     "indicators": {
-      "MA5": 151.1,
-      "MA10": 154.23,
-      "MA20": 147.82,
-      "RSI14": 46.45,
-      "MACD": -0.9456,
-      "MACD_signal": -2.0111,
-      "MACD_hist": 1.0655,
-      "BB_upper": 172.87,
-      "BB_lower": 122.78,
-      "BB_mid": 147.82
+      "MA5": 151.0,
+      "MA10": 154.18,
+      "MA20": 147.8,
+      "RSI14": 46.2,
+      "MACD": -0.9852,
+      "MACD_signal": -2.019,
+      "MACD_hist": 1.0338,
+      "BB_upper": 172.84,
+      "BB_lower": 122.76,
+      "BB_mid": 147.8
     },
-    "signal": "偏買觀望",
+    "signal": "中性觀望",
     "position": "中間",
     "trend": "上升",
-    "strength": 3,
-    "signal_reason": "RSI 46.45，MACD 金叉，站上 MA20(147.82)",
-    "updated": "2026-08-24 13:50:18"
+    "strength": 1,
+    "signal_reason": "RSI 46.2，MACD 金叉，跌破 MA20(147.8)",
+    "updated": "2026-08-24 14:27:57"
   },
   {
     "symbol": "2409.TW",
@@ -519,7 +519,7 @@
     "trend": "上升",
     "strength": 3,
     "signal_reason": "RSI 46.97，MACD 金叉，站上 MA20(25.12)",
-    "updated": "2026-08-24 13:50:18"
+    "updated": "2026-08-24 14:27:58"
   },
   {
     "symbol": "3481.TW",
@@ -548,7 +548,7 @@
     "trend": "下降",
     "strength": 2,
     "signal_reason": "RSI 39.55，MACD 金叉，跌破 MA20(47.49)",
-    "updated": "2026-08-24 13:50:19"
+    "updated": "2026-08-24 14:27:58"
   },
   {
     "symbol": "1802.TW",
@@ -577,7 +577,7 @@
     "trend": "上升",
     "strength": 3,
     "signal_reason": "RSI 50.8，MACD 金叉，站上 MA20(53.48)",
-    "updated": "2026-08-24 13:50:19"
+    "updated": "2026-08-24 14:27:58"
   },
   {
     "symbol": "6443.TW",
@@ -606,7 +606,7 @@
     "trend": "盤整",
     "strength": 2,
     "signal_reason": "RSI 40.93，MACD 金叉，跌破 MA20(26.01)",
-    "updated": "2026-08-24 13:50:20"
+    "updated": "2026-08-24 14:27:58"
   },
   {
     "symbol": "8112.TW",
@@ -635,7 +635,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 58.86，MACD 金叉，站上 MA20(89.2)",
-    "updated": "2026-08-24 13:50:20"
+    "updated": "2026-08-24 14:27:58"
   },
   {
     "symbol": "2382.TW",
@@ -664,7 +664,7 @@
     "trend": "上升",
     "strength": 3,
     "signal_reason": "RSI 50.84，MACD 金叉，站上 MA20(313.32)",
-    "updated": "2026-08-24 13:50:21"
+    "updated": "2026-08-24 14:27:59"
   },
   {
     "symbol": "6669.TW",
@@ -675,7 +675,7 @@
     "prev_close": 6270.0,
     "change": 30.0,
     "change_pct": 0.48,
-    "volume": 864494,
+    "volume": 919494,
     "indicators": {
       "MA5": 6331.0,
       "MA10": 6273.5,
@@ -693,7 +693,7 @@
     "trend": "上升",
     "strength": -2,
     "signal_reason": "RSI 59.95，MACD 死叉，站上 MA20(6007.75)",
-    "updated": "2026-08-24 13:50:22"
+    "updated": "2026-08-24 14:27:59"
   },
   {
     "symbol": "2454.TW",
@@ -722,7 +722,7 @@
     "trend": "盤整",
     "strength": -3,
     "signal_reason": "RSI 46.34，MACD 死叉，跌破 MA20(3815.75)",
-    "updated": "2026-08-24 13:50:22"
+    "updated": "2026-08-24 14:27:59"
   },
   {
     "symbol": "2317.TW",
@@ -751,7 +751,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 43.46，MACD 死叉，跌破 MA20(252.22)",
-    "updated": "2026-08-24 13:50:23"
+    "updated": "2026-08-24 14:27:59"
   },
   {
     "symbol": "3231.TW",
@@ -780,6 +780,6 @@
     "trend": "下降",
     "strength": -3,
     "signal_reason": "RSI 48.39，MACD 死叉，跌破 MA20(183.57)",
-    "updated": "2026-08-24 13:50:23"
+    "updated": "2026-08-24 14:28:00"
   }
 ]
