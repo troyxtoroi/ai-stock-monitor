@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-25 14:20:49",
+  "updated": "2026-08-25 14:43:10",
   "timezone": "Asia/Taipei",
   "indices": [
     {
@@ -9,7 +9,7 @@
       "prev_close": 44770.07,
       "change": 399.39,
       "change_pct": 0.89,
-      "updated": "2026-08-25 14:20:49"
+      "updated": "2026-08-25 14:43:10"
     },
     {
       "symbol": "^TWOII",
@@ -18,7 +18,7 @@
       "prev_close": null,
       "change": null,
       "change_pct": null,
-      "updated": "2026-08-25 14:20:50"
+      "updated": "2026-08-25 14:43:11"
     }
   ],
   "stocks_count": 27,
