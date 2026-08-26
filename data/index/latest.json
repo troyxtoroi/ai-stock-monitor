@@ -2,11 +2,11 @@
   {
     "symbol": "^TWII",
     "name": "台股加權指數",
-    "price": 45792.89,
+    "price": 45820.83,
     "prev_close": 45002.91,
-    "change": 789.98,
-    "change_pct": 1.76,
-    "updated": "2026-08-26 12:11:35"
+    "change": 817.92,
+    "change_pct": 1.82,
+    "updated": "2026-08-26 12:55:42"
   },
   {
     "symbol": "^TWOII",
@@ -15,6 +15,6 @@
     "prev_close": null,
     "change": null,
     "change_pct": null,
-    "updated": "2026-08-26 12:11:35"
+    "updated": "2026-08-26 12:55:43"
   }
 ]
