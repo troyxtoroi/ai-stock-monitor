@@ -26,7 +26,7 @@
     "trend": "盤整",
     "strength": 1,
     "signal_reason": "RSI 49.69，MACD 金叉，跌破 MA20(2397.25)",
-    "updated": "2026-09-03 18:00:16"
+    "updated": "2026-09-03 18:42:53"
   },
   {
     "symbol": "2408.TW",
@@ -55,7 +55,7 @@
     "trend": "上升",
     "strength": -3,
     "signal_reason": "RSI 47.39，MACD 死叉，跌破 MA20(509.35)",
-    "updated": "2026-09-03 18:00:16"
+    "updated": "2026-09-03 18:42:54"
   },
   {
     "symbol": "2344.TW",
@@ -84,7 +84,7 @@
     "trend": "盤整",
     "strength": -3,
     "signal_reason": "RSI 46.59，MACD 死叉，跌破 MA20(177.68)",
-    "updated": "2026-09-03 18:00:16"
+    "updated": "2026-09-03 18:42:54"
   },
   {
     "symbol": "2337.TW",
@@ -113,7 +113,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 41.66，MACD 死叉，跌破 MA20(126.33)",
-    "updated": "2026-09-03 18:00:17"
+    "updated": "2026-09-03 18:42:55"
   },
   {
     "symbol": "6770.TW",
@@ -142,7 +142,7 @@
     "trend": "盤整",
     "strength": -3,
     "signal_reason": "RSI 48.09，MACD 死叉，跌破 MA20(70.1)",
-    "updated": "2026-09-03 18:00:17"
+    "updated": "2026-09-03 18:42:55"
   },
   {
     "symbol": "2327.TW",
@@ -171,7 +171,7 @@
     "trend": "下降",
     "strength": 2,
     "signal_reason": "RSI 38.55，MACD 金叉，跌破 MA20(572.0)",
-    "updated": "2026-09-03 18:00:17"
+    "updated": "2026-09-03 18:42:56"
   },
   {
     "symbol": "2492.TW",
@@ -200,7 +200,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 44.02，MACD 金叉，跌破 MA20(285.25)",
-    "updated": "2026-09-03 18:00:17"
+    "updated": "2026-09-03 18:42:56"
   },
   {
     "symbol": "3026.TW",
@@ -229,7 +229,7 @@
     "trend": "上升",
     "strength": 1,
     "signal_reason": "RSI 46.96，MACD 金叉，跌破 MA20(664.35)",
-    "updated": "2026-09-03 18:00:18"
+    "updated": "2026-09-03 18:42:57"
   },
   {
     "symbol": "6285.TW",
@@ -258,7 +258,7 @@
     "trend": "盤整",
     "strength": 2,
     "signal_reason": "RSI 44.17，MACD 金叉，跌破 MA20(242.15)",
-    "updated": "2026-09-03 18:00:18"
+    "updated": "2026-09-03 18:42:57"
   },
   {
     "symbol": "2314.TW",
@@ -287,7 +287,7 @@
     "trend": "盤整",
     "strength": 4,
     "signal_reason": "RSI 43.36，MACD 金叉，站上 MA20(11.48)",
-    "updated": "2026-09-03 18:00:18"
+    "updated": "2026-09-03 18:42:58"
   },
   {
     "symbol": "3491.TWO",
@@ -316,7 +316,7 @@
     "trend": "上升",
     "strength": 3,
     "signal_reason": "RSI 54.63，MACD 金叉，站上 MA20(1335.25)",
-    "updated": "2026-09-03 18:00:18"
+    "updated": "2026-09-03 18:42:59"
   },
   {
     "symbol": "5388.TW",
@@ -345,7 +345,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 31.97，MACD 死叉，跌破 MA20(80.18)",
-    "updated": "2026-09-03 18:00:19"
+    "updated": "2026-09-03 18:42:59"
   },
   {
     "symbol": "6271.TW",
@@ -374,7 +374,7 @@
     "trend": "上升",
     "strength": 3,
     "signal_reason": "RSI 56.01，MACD 金叉，站上 MA20(202.97)",
-    "updated": "2026-09-03 18:00:19"
+    "updated": "2026-09-03 18:43:00"
   },
   {
     "symbol": "6568.TWO",
@@ -403,7 +403,7 @@
     "trend": "盤整",
     "strength": 3,
     "signal_reason": "RSI 47.91，MACD 金叉，站上 MA20(132.47)",
-    "updated": "2026-09-03 18:00:19"
+    "updated": "2026-09-03 18:43:00"
   },
   {
     "symbol": "3081.TWO",
@@ -432,7 +432,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 58.88，MACD 金叉，站上 MA20(2923.5)",
-    "updated": "2026-09-03 18:00:19"
+    "updated": "2026-09-03 18:43:01"
   },
   {
     "symbol": "3234.TWO",
@@ -461,7 +461,7 @@
     "trend": "上升",
     "strength": 0,
     "signal_reason": "RSI 71.03，MACD 金叉，站上 MA20(157.09)",
-    "updated": "2026-09-03 18:00:20"
+    "updated": "2026-09-03 18:43:01"
   },
   {
     "symbol": "4908.TWO",
@@ -490,7 +490,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 61.11，MACD 金叉，站上 MA20(171.24)",
-    "updated": "2026-09-03 18:00:20"
+    "updated": "2026-09-03 18:43:02"
   },
   {
     "symbol": "2409.TW",
@@ -519,7 +519,7 @@
     "trend": "盤整",
     "strength": 3,
     "signal_reason": "RSI 54.55，MACD 金叉，站上 MA20(26.0)",
-    "updated": "2026-09-03 18:00:20"
+    "updated": "2026-09-03 18:43:02"
   },
   {
     "symbol": "3481.TW",
@@ -548,7 +548,7 @@
     "trend": "盤整",
     "strength": 1,
     "signal_reason": "RSI 46.85，MACD 金叉，跌破 MA20(48.46)",
-    "updated": "2026-09-03 18:00:20"
+    "updated": "2026-09-03 18:43:03"
   },
   {
     "symbol": "1802.TW",
@@ -577,7 +577,7 @@
     "trend": "上升",
     "strength": 3,
     "signal_reason": "RSI 51.54，MACD 金叉，站上 MA20(57.99)",
-    "updated": "2026-09-03 18:00:21"
+    "updated": "2026-09-03 18:43:03"
   },
   {
     "symbol": "6443.TW",
@@ -606,7 +606,7 @@
     "trend": "下降",
     "strength": 2,
     "signal_reason": "RSI 35.48，跌破布林下軌（超賣），跌破 MA20(26.37)",
-    "updated": "2026-09-03 18:00:21"
+    "updated": "2026-09-03 18:43:04"
   },
   {
     "symbol": "8112.TW",
@@ -635,7 +635,7 @@
     "trend": "下降",
     "strength": -3,
     "signal_reason": "RSI 46.31，MACD 死叉，跌破 MA20(93.22)",
-    "updated": "2026-09-03 18:00:21"
+    "updated": "2026-09-03 18:43:04"
   },
   {
     "symbol": "2382.TW",
@@ -664,7 +664,7 @@
     "trend": "上升",
     "strength": 3,
     "signal_reason": "RSI 54.43，MACD 金叉，站上 MA20(327.48)",
-    "updated": "2026-09-03 18:00:21"
+    "updated": "2026-09-03 18:43:05"
   },
   {
     "symbol": "6669.TW",
@@ -693,7 +693,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 66.5，MACD 金叉，站上 MA20(2215.16)",
-    "updated": "2026-09-03 18:00:22"
+    "updated": "2026-09-03 18:43:05"
   },
   {
     "symbol": "2454.TW",
@@ -722,7 +722,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 62.27，MACD 金叉，站上 MA20(3987.5)",
-    "updated": "2026-09-03 18:00:22"
+    "updated": "2026-09-03 18:43:06"
   },
   {
     "symbol": "2317.TW",
@@ -751,7 +751,7 @@
     "trend": "盤整",
     "strength": -3,
     "signal_reason": "RSI 46.73，MACD 死叉，跌破 MA20(253.12)",
-    "updated": "2026-09-03 18:00:22"
+    "updated": "2026-09-03 18:43:06"
   },
   {
     "symbol": "3231.TW",
@@ -780,6 +780,6 @@
     "trend": "盤整",
     "strength": -2,
     "signal_reason": "RSI 59.48，MACD 死叉，站上 MA20(184.22)",
-    "updated": "2026-09-03 18:00:23"
+    "updated": "2026-09-03 18:43:06"
   }
 ]
