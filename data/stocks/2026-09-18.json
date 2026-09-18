@@ -26,7 +26,7 @@
     "trend": "盤整",
     "strength": 2,
     "signal_reason": "RSI 58.15，MACD 金叉，站上 MA20(2410.72)",
-    "updated": "2026-09-18 18:00:27"
+    "updated": "2026-09-18 18:36:58"
   },
   {
     "symbol": "2408.TW",
@@ -55,7 +55,7 @@
     "trend": "下降",
     "strength": -1,
     "signal_reason": "RSI 56.11，MACD 死叉，站上 MA20(509.23)",
-    "updated": "2026-09-18 18:00:28"
+    "updated": "2026-09-18 18:36:59"
   },
   {
     "symbol": "2344.TW",
@@ -84,7 +84,7 @@
     "trend": "下降",
     "strength": -1,
     "signal_reason": "RSI 53.56，MACD 死叉，站上 MA20(176.28)",
-    "updated": "2026-09-18 18:00:28"
+    "updated": "2026-09-18 18:36:59"
   },
   {
     "symbol": "2337.TW",
@@ -113,7 +113,7 @@
     "trend": "下降",
     "strength": -3,
     "signal_reason": "RSI 48.22，MACD 死叉，跌破 MA20(122.05)",
-    "updated": "2026-09-18 18:00:28"
+    "updated": "2026-09-18 18:36:59"
   },
   {
     "symbol": "6770.TW",
@@ -142,7 +142,7 @@
     "trend": "盤整",
     "strength": -1,
     "signal_reason": "RSI 57.23，MACD 死叉，站上 MA20(70.7)",
-    "updated": "2026-09-18 18:00:28"
+    "updated": "2026-09-18 18:36:59"
   },
   {
     "symbol": "2327.TW",
@@ -171,7 +171,7 @@
     "trend": "下降",
     "strength": 1,
     "signal_reason": "RSI 45.91，MACD 金叉，跌破 MA20(552.2)",
-    "updated": "2026-09-18 18:00:29"
+    "updated": "2026-09-18 18:37:00"
   },
   {
     "symbol": "2492.TW",
@@ -200,7 +200,7 @@
     "trend": "上升",
     "strength": 3,
     "signal_reason": "RSI 51.51，MACD 金叉，站上 MA20(299.38)",
-    "updated": "2026-09-18 18:00:29"
+    "updated": "2026-09-18 18:37:00"
   },
   {
     "symbol": "3026.TW",
@@ -229,7 +229,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 58.74，MACD 金叉，站上 MA20(720.45)",
-    "updated": "2026-09-18 18:00:29"
+    "updated": "2026-09-18 18:37:00"
   },
   {
     "symbol": "6285.TW",
@@ -258,7 +258,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 44.48，MACD 死叉，跌破 MA20(234.45)",
-    "updated": "2026-09-18 18:00:29"
+    "updated": "2026-09-18 18:37:01"
   },
   {
     "symbol": "2314.TW",
@@ -287,7 +287,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 40.6，MACD 死叉，跌破 MA20(11.23)",
-    "updated": "2026-09-18 18:00:30"
+    "updated": "2026-09-18 18:37:01"
   },
   {
     "symbol": "3491.TWO",
@@ -316,7 +316,7 @@
     "trend": "盤整",
     "strength": 2,
     "signal_reason": "RSI 61.38，MACD 金叉，站上 MA20(1425.75)",
-    "updated": "2026-09-18 18:00:30"
+    "updated": "2026-09-18 18:37:01"
   },
   {
     "symbol": "5388.TW",
@@ -345,7 +345,7 @@
     "trend": "下降",
     "strength": 2,
     "signal_reason": "RSI 40.05，MACD 金叉，跌破 MA20(74.79)",
-    "updated": "2026-09-18 18:00:30"
+    "updated": "2026-09-18 18:37:01"
   },
   {
     "symbol": "6271.TW",
@@ -374,7 +374,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 58.69，MACD 金叉，站上 MA20(219.82)",
-    "updated": "2026-09-18 18:00:30"
+    "updated": "2026-09-18 18:37:02"
   },
   {
     "symbol": "6568.TWO",
@@ -403,7 +403,7 @@
     "trend": "上升",
     "strength": 0,
     "signal_reason": "RSI 58.86，突破布林上軌（超買），MACD 金叉，站上 MA20(133.85)",
-    "updated": "2026-09-18 18:00:31"
+    "updated": "2026-09-18 18:37:02"
   },
   {
     "symbol": "3081.TWO",
@@ -432,7 +432,7 @@
     "trend": "下降",
     "strength": -3,
     "signal_reason": "RSI 52.39，MACD 死叉，跌破 MA20(3027.25)",
-    "updated": "2026-09-18 18:00:31"
+    "updated": "2026-09-18 18:37:02"
   },
   {
     "symbol": "3234.TWO",
@@ -461,7 +461,7 @@
     "trend": "下降",
     "strength": -3,
     "signal_reason": "RSI 54.49，MACD 死叉，跌破 MA20(186.23)",
-    "updated": "2026-09-18 18:00:31"
+    "updated": "2026-09-18 18:37:02"
   },
   {
     "symbol": "4908.TWO",
@@ -490,7 +490,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 64.73，MACD 金叉，站上 MA20(215.45)",
-    "updated": "2026-09-18 18:00:31"
+    "updated": "2026-09-18 18:37:03"
   },
   {
     "symbol": "2409.TW",
@@ -519,7 +519,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 62.68，MACD 金叉，站上 MA20(27.84)",
-    "updated": "2026-09-18 18:00:32"
+    "updated": "2026-09-18 18:37:03"
   },
   {
     "symbol": "3481.TW",
@@ -548,7 +548,7 @@
     "trend": "盤整",
     "strength": 3,
     "signal_reason": "RSI 47.78，MACD 金叉，站上 MA20(48.2)",
-    "updated": "2026-09-18 18:00:32"
+    "updated": "2026-09-18 18:37:03"
   },
   {
     "symbol": "1802.TW",
@@ -577,7 +577,7 @@
     "trend": "下降",
     "strength": -3,
     "signal_reason": "RSI 51.27，MACD 死叉，跌破 MA20(59.17)",
-    "updated": "2026-09-18 18:00:32"
+    "updated": "2026-09-18 18:37:04"
   },
   {
     "symbol": "6443.TW",
@@ -606,7 +606,7 @@
     "trend": "下降",
     "strength": 3,
     "signal_reason": "RSI 51.99，MACD 金叉，站上 MA20(24.84)",
-    "updated": "2026-09-18 18:00:32"
+    "updated": "2026-09-18 18:37:04"
   },
   {
     "symbol": "8112.TW",
@@ -635,7 +635,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 35.03，MACD 死叉，跌破 MA20(88.51)",
-    "updated": "2026-09-18 18:00:33"
+    "updated": "2026-09-18 18:37:04"
   },
   {
     "symbol": "2382.TW",
@@ -664,7 +664,7 @@
     "trend": "盤整",
     "strength": 3,
     "signal_reason": "RSI 56.22，MACD 金叉，站上 MA20(336.62)",
-    "updated": "2026-09-18 18:00:33"
+    "updated": "2026-09-18 18:37:04"
   },
   {
     "symbol": "6669.TW",
@@ -693,7 +693,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 44.03，MACD 死叉，跌破 MA20(2336.16)",
-    "updated": "2026-09-18 18:00:33"
+    "updated": "2026-09-18 18:37:05"
   },
   {
     "symbol": "2454.TW",
@@ -722,7 +722,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 63.27，MACD 金叉，站上 MA20(4334.75)",
-    "updated": "2026-09-18 18:00:33"
+    "updated": "2026-09-18 18:37:05"
   },
   {
     "symbol": "2317.TW",
@@ -751,7 +751,7 @@
     "trend": "盤整",
     "strength": -1,
     "signal_reason": "RSI 50.06，MACD 死叉，站上 MA20(250.05)",
-    "updated": "2026-09-18 18:00:34"
+    "updated": "2026-09-18 18:37:05"
   },
   {
     "symbol": "3231.TW",
@@ -780,6 +780,6 @@
     "trend": "盤整",
     "strength": -1,
     "signal_reason": "RSI 53.68，MACD 死叉，站上 MA20(184.4)",
-    "updated": "2026-09-18 18:00:34"
+    "updated": "2026-09-18 18:37:05"
   }
 ]
