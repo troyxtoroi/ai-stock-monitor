@@ -8,7 +8,7 @@
     "prev_close": 2135.0,
     "change": 100.0,
     "change_pct": 4.68,
-    "volume": 44538669,
+    "volume": 44725218,
     "indicators": {
       "MA5": 2233.0,
       "MA10": 2310.5,
@@ -26,7 +26,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 35.22，MACD 死叉，跌破 MA20(2375.0)",
-    "updated": "2026-11-09 15:34:45"
+    "updated": "2026-11-09 23:14:39"
   },
   {
     "symbol": "2408.TW",
@@ -37,7 +37,7 @@
     "prev_close": 342.0,
     "change": 28.0,
     "change_pct": 8.19,
-    "volume": 41073816,
+    "volume": 41361210,
     "indicators": {
       "MA5": 376.8,
       "MA10": 419.0,
@@ -55,7 +55,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 35.13，MACD 死叉，跌破 MA20(434.75)",
-    "updated": "2026-11-09 15:34:45"
+    "updated": "2026-11-09 23:14:39"
   },
   {
     "symbol": "2344.TW",
@@ -66,7 +66,7 @@
     "prev_close": 120.5,
     "change": 12.0,
     "change_pct": 9.96,
-    "volume": 37735100,
+    "volume": 37781754,
     "indicators": {
       "MA5": 133.6,
       "MA10": 150.0,
@@ -84,7 +84,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 36.0，MACD 死叉，跌破 MA20(154.68)",
-    "updated": "2026-11-09 15:34:45"
+    "updated": "2026-11-09 23:14:40"
   },
   {
     "symbol": "2337.TW",
@@ -95,7 +95,7 @@
     "prev_close": 75.9,
     "change": 7.4,
     "change_pct": 9.75,
-    "volume": 18550333,
+    "volume": 18569796,
     "indicators": {
       "MA5": 82.86,
       "MA10": 91.24,
@@ -113,7 +113,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 31.75，MACD 死叉，跌破 MA20(98.0)",
-    "updated": "2026-11-09 15:34:46"
+    "updated": "2026-11-09 23:14:40"
   },
   {
     "symbol": "6770.TW",
@@ -124,7 +124,7 @@
     "prev_close": 53.1,
     "change": 5.0,
     "change_pct": 9.42,
-    "volume": 49807406,
+    "volume": 49855395,
     "indicators": {
       "MA5": 57.08,
       "MA10": 62.75,
@@ -142,7 +142,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 38.03，MACD 死叉，跌破 MA20(64.97)",
-    "updated": "2026-11-09 15:34:46"
+    "updated": "2026-11-09 23:14:40"
   },
   {
     "symbol": "2327.TW",
@@ -153,7 +153,7 @@
     "prev_close": 373.5,
     "change": 37.5,
     "change_pct": 10.04,
-    "volume": 17065408,
+    "volume": 17088202,
     "indicators": {
       "MA5": 418.3,
       "MA10": 470.3,
@@ -171,7 +171,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 33.08，MACD 死叉，跌破 MA20(515.9)",
-    "updated": "2026-11-09 15:34:46"
+    "updated": "2026-11-09 23:14:41"
   },
   {
     "symbol": "2492.TW",
@@ -182,7 +182,7 @@
     "prev_close": 259.0,
     "change": 25.0,
     "change_pct": 9.65,
-    "volume": 12055030,
+    "volume": 12060644,
     "indicators": {
       "MA5": 291.3,
       "MA10": 338.7,
@@ -200,7 +200,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 39.06，MACD 死叉，跌破 MA20(364.9)",
-    "updated": "2026-11-09 15:34:46"
+    "updated": "2026-11-09 23:14:41"
   },
   {
     "symbol": "3026.TW",
@@ -211,7 +211,7 @@
     "prev_close": 475.5,
     "change": 23.5,
     "change_pct": 4.94,
-    "volume": 12660457,
+    "volume": 12679694,
     "indicators": {
       "MA5": 532.5,
       "MA10": 623.05,
@@ -229,7 +229,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 31.06，MACD 死叉，跌破 MA20(710.17)",
-    "updated": "2026-11-09 15:34:46"
+    "updated": "2026-11-09 23:14:41"
   },
   {
     "symbol": "6285.TW",
@@ -240,7 +240,7 @@
     "prev_close": 164.5,
     "change": 16.0,
     "change_pct": 9.73,
-    "volume": 5305947,
+    "volume": 5314015,
     "indicators": {
       "MA5": 186.4,
       "MA10": 205.65,
@@ -258,7 +258,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 32.92，MACD 死叉，跌破 MA20(225.8)",
-    "updated": "2026-11-09 15:34:47"
+    "updated": "2026-11-09 23:14:42"
   },
   {
     "symbol": "2314.TW",
@@ -269,7 +269,7 @@
     "prev_close": 7.76,
     "change": -0.36,
     "change_pct": -4.64,
-    "volume": 262000,
+    "volume": 263369,
     "indicators": {
       "MA5": 7.91,
       "MA10": 8.45,
@@ -287,7 +287,7 @@
     "trend": "下降",
     "strength": 0,
     "signal_reason": "RSI 13.44，MACD 死叉，跌破 MA20(9.19)",
-    "updated": "2026-11-09 15:34:47"
+    "updated": "2026-11-09 23:14:42"
   },
   {
     "symbol": "3491.TWO",
@@ -298,7 +298,7 @@
     "prev_close": 1090.0,
     "change": 100.0,
     "change_pct": 9.17,
-    "volume": 941637,
+    "volume": 942588,
     "indicators": {
       "MA5": 1188.0,
       "MA10": 1240.0,
@@ -316,7 +316,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 41.06，MACD 死叉，跌破 MA20(1317.5)",
-    "updated": "2026-11-09 15:34:47"
+    "updated": "2026-11-09 23:14:42"
   },
   {
     "symbol": "5388.TW",
@@ -327,7 +327,7 @@
     "prev_close": 64.6,
     "change": 3.1,
     "change_pct": 4.8,
-    "volume": 1224586,
+    "volume": 1226871,
     "indicators": {
       "MA5": 66.5,
       "MA10": 69.59,
@@ -345,7 +345,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 37.18，MACD 死叉，跌破 MA20(72.0)",
-    "updated": "2026-11-09 15:34:47"
+    "updated": "2026-11-09 23:14:43"
   },
   {
     "symbol": "6271.TW",
@@ -356,7 +356,7 @@
     "prev_close": 169.0,
     "change": 16.0,
     "change_pct": 9.47,
-    "volume": 1896191,
+    "volume": 1896465,
     "indicators": {
       "MA5": 187.1,
       "MA10": 197.7,
@@ -374,7 +374,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 39.23，MACD 死叉，跌破 MA20(213.55)",
-    "updated": "2026-11-09 15:34:47"
+    "updated": "2026-11-09 23:14:43"
   },
   {
     "symbol": "6568.TWO",
@@ -385,7 +385,7 @@
     "prev_close": 101.0,
     "change": 8.0,
     "change_pct": 7.92,
-    "volume": 127094,
+    "volume": 127195,
     "indicators": {
       "MA5": 110.1,
       "MA10": 118.85,
@@ -403,7 +403,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 33.28，MACD 死叉，跌破 MA20(126.15)",
-    "updated": "2026-11-09 15:34:48"
+    "updated": "2026-11-09 23:14:43"
   },
   {
     "symbol": "3081.TWO",
@@ -414,7 +414,7 @@
     "prev_close": 1745.0,
     "change": 180.0,
     "change_pct": 10.32,
-    "volume": 1027611,
+    "volume": 1028033,
     "indicators": {
       "MA5": 1968.0,
       "MA10": 2228.0,
@@ -432,7 +432,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 34.64，MACD 死叉，跌破 MA20(2426.5)",
-    "updated": "2026-11-09 15:34:48"
+    "updated": "2026-11-09 23:14:44"
   },
   {
     "symbol": "3234.TWO",
@@ -443,7 +443,7 @@
     "prev_close": 115.5,
     "change": 10.5,
     "change_pct": 9.09,
-    "volume": 1228031,
+    "volume": 1231031,
     "indicators": {
       "MA5": 127.2,
       "MA10": 144.8,
@@ -461,7 +461,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 33.67，MACD 死叉，跌破 MA20(161.9)",
-    "updated": "2026-11-09 15:34:48"
+    "updated": "2026-11-09 23:14:44"
   },
   {
     "symbol": "4908.TWO",
@@ -472,7 +472,7 @@
     "prev_close": 145.0,
     "change": 13.0,
     "change_pct": 8.97,
-    "volume": 722678,
+    "volume": 723699,
     "indicators": {
       "MA5": 158.9,
       "MA10": 175.65,
@@ -490,7 +490,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 36.2，MACD 死叉，跌破 MA20(194.47)",
-    "updated": "2026-11-09 15:34:48"
+    "updated": "2026-11-09 23:14:44"
   },
   {
     "symbol": "2409.TW",
@@ -501,7 +501,7 @@
     "prev_close": 26.6,
     "change": 1.6,
     "change_pct": 6.02,
-    "volume": 214895508,
+    "volume": 215670521,
     "indicators": {
       "MA5": 27.98,
       "MA10": 30.43,
@@ -519,7 +519,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 38.61，MACD 死叉，跌破 MA20(33.08)",
-    "updated": "2026-11-09 15:34:48"
+    "updated": "2026-11-09 23:14:45"
   },
   {
     "symbol": "3481.TW",
@@ -530,7 +530,7 @@
     "prev_close": 36.2,
     "change": 3.45,
     "change_pct": 9.53,
-    "volume": 99844824,
+    "volume": 100071249,
     "indicators": {
       "MA5": 39.16,
       "MA10": 42.36,
@@ -548,7 +548,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 37.5，MACD 死叉，跌破 MA20(45.41)",
-    "updated": "2026-11-09 15:34:49"
+    "updated": "2026-11-09 23:14:45"
   },
   {
     "symbol": "1802.TW",
@@ -559,7 +559,7 @@
     "prev_close": 57.7,
     "change": 5.8,
     "change_pct": 10.05,
-    "volume": 63528915,
+    "volume": 63624622,
     "indicators": {
       "MA5": 63.16,
       "MA10": 63.46,
@@ -577,7 +577,7 @@
     "trend": "下降",
     "strength": -3,
     "signal_reason": "RSI 50.74，MACD 死叉，跌破 MA20(64.56)",
-    "updated": "2026-11-09 15:34:49"
+    "updated": "2026-11-09 23:14:46"
   },
   {
     "symbol": "6443.TW",
@@ -588,7 +588,7 @@
     "prev_close": 25.95,
     "change": 1.05,
     "change_pct": 4.05,
-    "volume": 44093177,
+    "volume": 44146603,
     "indicators": {
       "MA5": 24.48,
       "MA10": 24.44,
@@ -606,7 +606,7 @@
     "trend": "下降",
     "strength": 2,
     "signal_reason": "RSI 58.18，MACD 金叉，站上 MA20(25.18)",
-    "updated": "2026-11-09 15:34:49"
+    "updated": "2026-11-09 23:14:46"
   },
   {
     "symbol": "8112.TW",
@@ -617,7 +617,7 @@
     "prev_close": 73.1,
     "change": 2.7,
     "change_pct": 3.69,
-    "volume": 4989669,
+    "volume": 4993111,
     "indicators": {
       "MA5": 76.0,
       "MA10": 79.59,
@@ -635,7 +635,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 31.95，MACD 死叉，跌破 MA20(81.85)",
-    "updated": "2026-11-09 15:34:49"
+    "updated": "2026-11-09 23:14:46"
   },
   {
     "symbol": "2382.TW",
@@ -646,7 +646,7 @@
     "prev_close": 292.5,
     "change": 4.0,
     "change_pct": 1.37,
-    "volume": 19190560,
+    "volume": 19200689,
     "indicators": {
       "MA5": 300.2,
       "MA10": 311.25,
@@ -664,7 +664,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 33.03，MACD 死叉，跌破 MA20(316.32)",
-    "updated": "2026-11-09 15:34:50"
+    "updated": "2026-11-09 23:14:47"
   },
   {
     "symbol": "6669.TW",
@@ -675,7 +675,7 @@
     "prev_close": 1550.0,
     "change": 95.0,
     "change_pct": 6.13,
-    "volume": 4309073,
+    "volume": 4316781,
     "indicators": {
       "MA5": 1681.0,
       "MA10": 1782.0,
@@ -693,7 +693,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 33.27，MACD 死叉，跌破 MA20(1876.25)",
-    "updated": "2026-11-09 15:34:50"
+    "updated": "2026-11-09 23:14:47"
   },
   {
     "symbol": "2454.TW",
@@ -704,7 +704,7 @@
     "prev_close": 3415.0,
     "change": 310.0,
     "change_pct": 9.08,
-    "volume": 9860087,
+    "volume": 9883306,
     "indicators": {
       "MA5": 3593.0,
       "MA10": 3809.0,
@@ -722,7 +722,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 39.89，MACD 死叉，跌破 MA20(4032.25)",
-    "updated": "2026-11-09 15:34:50"
+    "updated": "2026-11-09 23:14:47"
   },
   {
     "symbol": "2317.TW",
@@ -733,7 +733,7 @@
     "prev_close": 224.5,
     "change": 14.5,
     "change_pct": 6.46,
-    "volume": 48815566,
+    "volume": 48975596,
     "indicators": {
       "MA5": 236.8,
       "MA10": 242.75,
@@ -751,7 +751,7 @@
     "trend": "下降",
     "strength": -3,
     "signal_reason": "RSI 45.83，MACD 死叉，跌破 MA20(242.97)",
-    "updated": "2026-11-09 15:34:50"
+    "updated": "2026-11-09 23:14:48"
   },
   {
     "symbol": "3231.TW",
@@ -762,7 +762,7 @@
     "prev_close": 160.0,
     "change": 8.5,
     "change_pct": 5.31,
-    "volume": 39781647,
+    "volume": 39866102,
     "indicators": {
       "MA5": 169.9,
       "MA10": 178.8,
@@ -780,6 +780,6 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 38.72，MACD 死叉，跌破 MA20(182.7)",
-    "updated": "2026-11-09 15:34:51"
+    "updated": "2026-11-09 23:14:48"
   }
 ]
