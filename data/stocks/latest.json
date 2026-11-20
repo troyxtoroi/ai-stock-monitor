@@ -26,7 +26,7 @@
     "trend": "下降",
     "strength": 2,
     "signal_reason": "RSI 27.62，跌破布林下軌（超賣），MACD 死叉，跌破 MA20(2276.0)",
-    "updated": "2026-11-20 15:34:06"
+    "updated": "2026-11-20 16:00:04"
   },
   {
     "symbol": "2408.TW",
@@ -55,7 +55,7 @@
     "trend": "下降",
     "strength": 2,
     "signal_reason": "RSI 23.52，跌破布林下軌（超賣），MACD 死叉，跌破 MA20(384.48)",
-    "updated": "2026-11-20 15:34:06"
+    "updated": "2026-11-20 16:00:04"
   },
   {
     "symbol": "2344.TW",
@@ -84,7 +84,7 @@
     "trend": "下降",
     "strength": 0,
     "signal_reason": "RSI 22.09，MACD 死叉，跌破 MA20(132.69)",
-    "updated": "2026-11-20 15:34:06"
+    "updated": "2026-11-20 16:00:04"
   },
   {
     "symbol": "2337.TW",
@@ -113,7 +113,7 @@
     "trend": "下降",
     "strength": 0,
     "signal_reason": "RSI 19.24，MACD 死叉，跌破 MA20(83.6)",
-    "updated": "2026-11-20 15:34:07"
+    "updated": "2026-11-20 16:00:05"
   },
   {
     "symbol": "6770.TW",
@@ -142,7 +142,7 @@
     "trend": "下降",
     "strength": 0,
     "signal_reason": "RSI 24.62，MACD 死叉，跌破 MA20(58.74)",
-    "updated": "2026-11-20 15:34:07"
+    "updated": "2026-11-20 16:00:05"
   },
   {
     "symbol": "2327.TW",
@@ -171,7 +171,7 @@
     "trend": "下降",
     "strength": 0,
     "signal_reason": "RSI 22.56，MACD 死叉，跌破 MA20(428.73)",
-    "updated": "2026-11-20 15:34:07"
+    "updated": "2026-11-20 16:00:06"
   },
   {
     "symbol": "2492.TW",
@@ -200,7 +200,7 @@
     "trend": "下降",
     "strength": 0,
     "signal_reason": "RSI 27.54，MACD 死叉，跌破 MA20(300.27)",
-    "updated": "2026-11-20 15:34:07"
+    "updated": "2026-11-20 16:00:06"
   },
   {
     "symbol": "3026.TW",
@@ -229,7 +229,7 @@
     "trend": "下降",
     "strength": 0,
     "signal_reason": "RSI 24.55，MACD 死叉，跌破 MA20(551.7)",
-    "updated": "2026-11-20 15:34:08"
+    "updated": "2026-11-20 16:00:06"
   },
   {
     "symbol": "6285.TW",
@@ -258,7 +258,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 37.56，MACD 死叉，跌破 MA20(199.07)",
-    "updated": "2026-11-20 15:34:08"
+    "updated": "2026-11-20 16:00:07"
   },
   {
     "symbol": "2314.TW",
@@ -287,7 +287,7 @@
     "trend": "下降",
     "strength": 0,
     "signal_reason": "RSI 4.26，MACD 死叉，跌破 MA20(6.96)",
-    "updated": "2026-11-20 15:34:08"
+    "updated": "2026-11-20 16:00:07"
   },
   {
     "symbol": "3491.TWO",
@@ -316,7 +316,7 @@
     "trend": "上升",
     "strength": 2,
     "signal_reason": "RSI 42.57，MACD 金叉，跌破 MA20(1314.5)",
-    "updated": "2026-11-20 15:34:08"
+    "updated": "2026-11-20 16:00:08"
   },
   {
     "symbol": "5388.TW",
@@ -345,7 +345,7 @@
     "trend": "盤整",
     "strength": 2,
     "signal_reason": "RSI 41.62，MACD 金叉，跌破 MA20(70.02)",
-    "updated": "2026-11-20 15:34:09"
+    "updated": "2026-11-20 16:00:08"
   },
   {
     "symbol": "6271.TW",
@@ -374,7 +374,7 @@
     "trend": "下降",
     "strength": 0,
     "signal_reason": "RSI 34.59，跌破布林下軌（超賣），MACD 死叉，跌破 MA20(198.72)",
-    "updated": "2026-11-20 15:34:09"
+    "updated": "2026-11-20 16:00:08"
   },
   {
     "symbol": "6568.TWO",
@@ -403,7 +403,7 @@
     "trend": "下降",
     "strength": 2,
     "signal_reason": "RSI 28.87，跌破布林下軌（超賣），MACD 死叉，跌破 MA20(113.7)",
-    "updated": "2026-11-20 15:34:09"
+    "updated": "2026-11-20 16:00:09"
   },
   {
     "symbol": "3081.TWO",
@@ -432,7 +432,7 @@
     "trend": "下降",
     "strength": 2,
     "signal_reason": "RSI 27.0，跌破布林下軌（超賣），MACD 死叉，跌破 MA20(2068.25)",
-    "updated": "2026-11-20 15:34:10"
+    "updated": "2026-11-20 16:00:09"
   },
   {
     "symbol": "3234.TWO",
@@ -461,7 +461,7 @@
     "trend": "下降",
     "strength": 0,
     "signal_reason": "RSI 29.94，MACD 死叉，跌破 MA20(138.5)",
-    "updated": "2026-11-20 15:34:10"
+    "updated": "2026-11-20 16:00:09"
   },
   {
     "symbol": "4908.TWO",
@@ -490,7 +490,7 @@
     "trend": "下降",
     "strength": 0,
     "signal_reason": "RSI 31.47，跌破布林下軌（超賣），MACD 死叉，跌破 MA20(168.3)",
-    "updated": "2026-11-20 15:34:10"
+    "updated": "2026-11-20 16:00:10"
   },
   {
     "symbol": "2409.TW",
@@ -519,7 +519,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 30.66，MACD 死叉，跌破 MA20(29.35)",
-    "updated": "2026-11-20 15:34:10"
+    "updated": "2026-11-20 16:00:10"
   },
   {
     "symbol": "3481.TW",
@@ -548,7 +548,7 @@
     "trend": "下降",
     "strength": 2,
     "signal_reason": "RSI 27.87，跌破布林下軌（超賣），MACD 死叉，跌破 MA20(40.0)",
-    "updated": "2026-11-20 15:34:11"
+    "updated": "2026-11-20 16:00:11"
   },
   {
     "symbol": "1802.TW",
@@ -577,7 +577,7 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 37.54，MACD 死叉，跌破 MA20(66.87)",
-    "updated": "2026-11-20 15:34:11"
+    "updated": "2026-11-20 16:00:11"
   },
   {
     "symbol": "6443.TW",
@@ -606,7 +606,7 @@
     "trend": "盤整",
     "strength": -2,
     "signal_reason": "RSI 39.26，MACD 死叉，跌破 MA20(25.27)",
-    "updated": "2026-11-20 15:34:11"
+    "updated": "2026-11-20 16:00:11"
   },
   {
     "symbol": "8112.TW",
@@ -635,7 +635,7 @@
     "trend": "下降",
     "strength": 0,
     "signal_reason": "RSI 30.88，跌破布林下軌（超賣），MACD 死叉，跌破 MA20(78.89)",
-    "updated": "2026-11-20 15:34:12"
+    "updated": "2026-11-20 16:00:12"
   },
   {
     "symbol": "2382.TW",
@@ -664,7 +664,7 @@
     "trend": "下降",
     "strength": 0,
     "signal_reason": "RSI 19.3，MACD 死叉，跌破 MA20(294.62)",
-    "updated": "2026-11-20 15:34:12"
+    "updated": "2026-11-20 16:00:12"
   },
   {
     "symbol": "6669.TW",
@@ -693,7 +693,7 @@
     "trend": "下降",
     "strength": 0,
     "signal_reason": "RSI 26.08，MACD 死叉，跌破 MA20(1670.0)",
-    "updated": "2026-11-20 15:34:12"
+    "updated": "2026-11-20 16:00:13"
   },
   {
     "symbol": "2454.TW",
@@ -722,7 +722,7 @@
     "trend": "下降",
     "strength": 4,
     "signal_reason": "RSI 36.39，跌破布林下軌（超賣），MACD 金叉，跌破 MA20(3826.75)",
-    "updated": "2026-11-20 15:34:12"
+    "updated": "2026-11-20 16:00:13"
   },
   {
     "symbol": "2317.TW",
@@ -751,7 +751,7 @@
     "trend": "下降",
     "strength": 0,
     "signal_reason": "RSI 30.19，跌破布林下軌（超賣），MACD 死叉，跌破 MA20(236.3)",
-    "updated": "2026-11-20 15:34:13"
+    "updated": "2026-11-20 16:00:14"
   },
   {
     "symbol": "3231.TW",
@@ -780,6 +780,6 @@
     "trend": "下降",
     "strength": -2,
     "signal_reason": "RSI 30.46，MACD 死叉，跌破 MA20(172.28)",
-    "updated": "2026-11-20 15:34:13"
+    "updated": "2026-11-20 16:00:14"
   }
 ]
